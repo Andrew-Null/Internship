@@ -1,0 +1,1 @@
+static mut TKS: bool = false; //thread kill switch
