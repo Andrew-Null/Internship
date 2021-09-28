@@ -1,0 +1,20 @@
+App:
+	scrolling list
+	recording
+
+Controller:
+	contact info:
+		number
+			tuple?
+			struct?
+			enum?
+		message and or recording
+		name?
+	thread kill switch union
+
+Both:
+	data sync
+		2 way sync?
+			app > device
+			device > app?
+	non volatile storage
