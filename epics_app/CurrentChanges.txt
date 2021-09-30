@@ -1,0 +1,2 @@
+created Notes, GitLog folder
+created AppDev, temp.txt, CurrentChanges.txt file
