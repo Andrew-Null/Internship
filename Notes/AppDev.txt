@@ -1,0 +1,9 @@
+9-28-21_RPiCleaning
+	attempted removal of RPiController folder from AppDev branch
+
+9-28-21_RPiCleaning_t2
+	successful removal of RPiController folder from AppDev branch
+
+9-30-21_NoteTaking
+	failed to start AppDev.txt in GitLog folder in Notes folder
+	

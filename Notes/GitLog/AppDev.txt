@@ -1,0 +1,9 @@
+9-28-21_RPiCleaning
+	attempted removal of RPiController
+
+9-28-21_RPiCleaning_t2
+	successful removal of RPiController
+
+9-30-21_NoteTaking
+	created folders Notes, GitLog
+	created Files AppDev temp.txt CurrentChanges.txt

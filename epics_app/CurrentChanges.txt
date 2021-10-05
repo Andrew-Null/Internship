@@ -1,2 +1,16 @@
-created Notes, GitLog folder
-created AppDev, temp.txt, CurrentChanges.txt file
+removed temp.txt
+restored notes.txt from RPiDev branch
+renamed AppDev to AppDev.txt
+created folders Bluetooth, FileIO, List
+created CList.dart or contact list
+
+edited main.dart
+	changed MyHomePage title
+	and title
+
+created icons constants:
+	CEDIT, CDELETE, CADD
+created contacts class with members:
+	PName, MI, LName, FName,
+	PN1, PN2, PN3,
+	BothM, Tmessage, CMessage

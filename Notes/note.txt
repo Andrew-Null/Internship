@@ -1,0 +1,14 @@
+App:
+	scrolling list
+	recording
+
+
+Both:
+	data sync
+		2 way sync?
+			app > device
+			device > app?
+	non volatile storage
+
+Resolved:
+	
