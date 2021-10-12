@@ -6,4 +6,24 @@
 
 9-30-21_NoteTaking
 	failed to start AppDev.txt in GitLog folder in Notes folder
-	
+
+10-5-21_Contact Class
+	removed temp.txt
+	restored notes.txt
+	renamed AppDev to AppDev.txt
+	created:
+		folders:
+			lib/List
+			lib/FileIO
+			lib/Bluetooth
+		File:
+			lib/List/CList.dart
+
+		lib/FileIO and lib/Bluetooth have disappeared after switching branches
+	in /lib/List/CList.dart:
+		created constants CEDIT, CDELETE, CADD
+		class Contact with members
+			PName, MI, LName, FName
+			PN1, PN2, PN3
+			BothM, Tmessage, CMessage
+						
