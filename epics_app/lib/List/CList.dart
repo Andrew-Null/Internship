@@ -45,6 +45,21 @@ class Contact
 
   }
 
+  Row CreateEntry()
+  {
+    return Row
+    (
+      children:
+      [
+        Text(FName),
+        FloatingActionButton
+        (
+          onPressed: (){},
+        )
+      ]
+    );
+  }
+
 }
 
 ListView CreateList(List<Contact> Contacts, BuildContext context)
@@ -55,7 +70,7 @@ ListView CreateList(List<Contact> Contacts, BuildContext context)
 
     itemBuilder: (BuildContext context, int index)
     {
-      return Text(Contacts[index].FName);
+      return Contacts[index].CreateEntry();
     },
   );
 }

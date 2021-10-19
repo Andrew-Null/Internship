@@ -1,13 +1,6 @@
-in lib/List/CList:
-	created List ContactL
-	functions CreateList(), GTL()
-	in Class Contact 
-		created methods UFull() and constructor Contact()
-	renamed MI to MInitial
+removed Note/note.txt
+copied liscense over from another repository
 
-in lib/main.dart
-	removed most of _MyHomePageStat build()
+now generating a list of rows containing text and buttons
 
-successfully generated a list
-
-	
+added the CreateEntry() method to Contact class
