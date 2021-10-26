@@ -1,6 +1,10 @@
-removed Note/note.txt
-copied liscense over from another repository
+added SEnrty num variable to keep track of the selected entry
+and modified CreateList() and CreateEntry() to make use of it
 
-now generating a list of rows containing text and buttons
+created Screens/ and Screens.dart and all of thier current contents
 
-added the CreateEntry() method to Contact class
+added imports as necessary
+added ShowAll() method to contact class
+
+created late static app
+added getter refresh to _MyHomePageState

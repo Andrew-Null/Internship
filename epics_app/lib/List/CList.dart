@@ -1,9 +1,15 @@
 // ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
 
+import 'dart:js';
+
+import 'package:epics_app/Screens/Screens.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 List<Contact> ContactL = //contact list
 [];
+int SEntry = 0; //selected entry
 
 class Contact
 {
@@ -45,7 +51,7 @@ class Contact
 
   }
 
-  Row CreateEntry()
+  Row CreateEntry(int EIndex, BuildContext context) //entry index
   {
     return Row
     (
@@ -54,10 +60,19 @@ class Contact
         Text(FName),
         FloatingActionButton
         (
-          onPressed: (){},
+          onPressed: ()
+          {
+            screen = SOptions.ShowContactS;
+            app.Refresh();
+          },
         )
       ]
     );
+  }
+
+  Scaffold ShowAll(BuildContext context)
+  {
+    return GHomeS(context, 15);
   }
 
 }
@@ -70,7 +85,7 @@ ListView CreateList(List<Contact> Contacts, BuildContext context)
 
     itemBuilder: (BuildContext context, int index)
     {
-      return Contacts[index].CreateEntry();
+      return Contacts[index].CreateEntry(index, context);
     },
   );
 }
