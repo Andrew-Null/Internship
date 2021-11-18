@@ -1,0 +1,5 @@
+at 12:00pm (noon) found I was missing a return statement in the switch statement in screens.dart
+removed ShowContact() and edited ChooseScreen() to compensate
+added SOptions.Testing for testing new screens
+
+editing ShowAll() and adding ShowMember() to Contact{} 
