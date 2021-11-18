@@ -1,10 +1,5 @@
-added SEnrty num variable to keep track of the selected entry
-and modified CreateList() and CreateEntry() to make use of it
+at 12:00pm (noon) found I was missing a return statement in the switch statement in screens.dart
+removed ShowContact() and edited ChooseScreen() to compensate
+added SOptions.Testing for testing new screens
 
-created Screens/ and Screens.dart and all of thier current contents
-
-added imports as necessary
-added ShowAll() method to contact class
-
-created late static app
-added getter refresh to _MyHomePageState
+editing ShowAll() and adding ShowMember() to Contact{} 

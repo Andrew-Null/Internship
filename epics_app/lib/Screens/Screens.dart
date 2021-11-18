@@ -7,7 +7,8 @@ import '../main.dart';
 enum SOptions //screen options
 {
   HomeS,
-  ShowContactS
+  ShowContactS,
+	Testing
 }
 
 Scaffold ChooseScreen(BuildContext context)
@@ -16,18 +17,17 @@ Scaffold ChooseScreen(BuildContext context)
   {
 		case SOptions.ShowContactS:
 		{
-			ShowContact(context, ContactL[SEntry]);
-		} break;
+			return ContactL[SEntry].ShowAll(context);
+		} 
 		case SOptions.HomeS:
 		{
 			return GHomeS(context,5);
-		} break;
-    default:
-    {
-			return GHomeS(context,5); 
-    } 
+		}
+		case SOptions.Testing:
+		{
+			return GHomeS(context, 5);
+		}
   }
-	return GHomeS(context,10);
 }
 
 Scaffold GHomeS(BuildContext context, int size) //generate home screen
@@ -47,7 +47,3 @@ Scaffold GHomeS(BuildContext context, int size) //generate home screen
       );
 }
 
-Scaffold ShowContact(BuildContext context, Contact who)
-{
-	return who.ShowAll(context);
-}
