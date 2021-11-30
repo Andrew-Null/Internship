@@ -1,10 +1,10 @@
 // ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types, unused_import
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'List/CList.dart';
 import 'Screens/Screens.dart';
+import 'Numpad.dart';
 
-SOptions screen = SOptions.HomeS;
+SOptions screen = SOptions.IntegerCS;
 
 
 late _MyHomePageState app;

@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import '../main.dart';
+import 'Integer.dart';
+import '../Numpad.dart';
 
 enum SOptions //screen options
 {
-  //HomeS,
+  //HomeMS, //going to need this later
+  //GeometryMS, //also going to need this later
   IntegerCS
 }
 
@@ -15,7 +18,8 @@ Scaffold ChooseScreen(BuildContext context)
   {
 		case SOptions.IntegerCS:
 		{
-			return ContactL[SEntry].ShowAll(context);
+      Numpad temp = Numpad(null);
+			return Scaffold(body: temp.Build);
 		} 
   }
 }
