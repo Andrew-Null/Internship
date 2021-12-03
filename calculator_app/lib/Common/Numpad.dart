@@ -11,6 +11,7 @@ import '../Screens/Screens.dart';
 
 num cn_total = 0;
 SOptions cn_LUP = screen; //last used pad
+bool cn_neg = false;
 
 void CTotal() {cn_total = 0;}
 
@@ -19,7 +20,6 @@ class Numpad
   late num total;
   bool float = false;
   int decimal = 0;
-  bool neg = false;
   Widget? LB; //last button
   late Function update;
 
@@ -86,7 +86,7 @@ class Numpad
     (
       children: 
       [
-        TextButton(onPressed: () {neg = !neg; app.Refresh;},
+        TextButton(onPressed: () {cn_neg = !cn_neg; update(); app.Refresh;},
         child: const Text("-/+")),
         GButton(0),
         finish
@@ -101,13 +101,16 @@ class Numpad
   
   num get GTotal
   {
-    return total * (neg ? -1 : 1);
+    print(cn_neg ? "negative" :"positive");
+    return total * (cn_neg ? -1 : 1);
   }
 
   get Reset
   {
-    neg = false;
+    print("reseting");
+    cn_neg = false;
     decimal = 0;
+    cn_total = 0;
     total = 0;
     float = false;
   }
@@ -123,7 +126,7 @@ class Numpad
     return 
     {
       "total": GTotal,
-      "negative": neg,
+      "negative": cn_neg,
       "decimal": decimal,
       "floating": float
     };
