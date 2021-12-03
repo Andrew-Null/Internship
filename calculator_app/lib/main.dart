@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'Screens/Screens.dart';
-import 'Numpad.dart';
+import 'Common/Numpad.dart';
 
 SOptions screen = SOptions.IntegerCS;
 

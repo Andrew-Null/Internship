@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'Integer.dart';
-import '../Numpad.dart';
+//import '../Numpad.dart';
 
 enum SOptions //screen options
 {
@@ -18,8 +18,8 @@ Scaffold ChooseScreen(BuildContext context)
   {
 		case SOptions.IntegerCS:
 		{
-      Numpad temp = Numpad(null);
-			return Scaffold(body: temp.Build);
+      //Numpad temp = Numpad(widg: null);
+			return IntCalc();
 		} 
   }
 }
