@@ -113,13 +113,13 @@ class Numpad
   
   num get GTotal
   {
-    print(cn_neg ? "negative" :"positive");
+    //print(cn_neg ? "negative" :"positive");
     return total * (cn_neg ? -1 : 1);
   }
 
   get Reset
   {
-    print("reseting");
+    //print("reseting");
     cn_neg = false;
     decimal = 0;
     cn_total = 0;

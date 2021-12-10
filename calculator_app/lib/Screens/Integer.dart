@@ -40,15 +40,14 @@ Scaffold IntCalc(BuildContext context)
   
   void Clear()
   {
-    print("clearing");
+    //print("clearing");
     NPad.Reset;
     if (si_op != null)
-    {si_nms[1] = 0; print("if");}
+    {si_nms[1] = 0;}
     else if (si_op != null && si_nms[1] != 0)
-    {si_op = null; print("else if");}
+    {si_op = null;}
     else
     {
-      print("else");
       si_nms = [0,0];
       si_op = null;
     }
@@ -122,10 +121,10 @@ Scaffold IntCalc(BuildContext context)
   NPad.Update(()
   {
     si_nms[(si_op != null) ? 1 : 0] = ETotal() as int;
-    print(((si_op != null) ? 1 : 0).toString());
+    //print(((si_op != null) ? 1 : 0).toString());
     app.Refresh;
-    print(si_nms[0]);
-    print(si_nms[1]);
+    //print(si_nms[0]);
+    //print(si_nms[1]);
   });
 
   return Scaffold(body: Center(child: 
