@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'Screens/Screens.dart';
 import 'Common/Numpad.dart';
 
-SOptions screen = SOptions.IntegerCS;
+SOptions screen = SOptions.MM;
 
 
 late _MyHomePageState app;
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'EPICS App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
