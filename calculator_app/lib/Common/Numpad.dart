@@ -14,6 +14,7 @@ SOptions cn_LUP = screen; //last used pad
 bool cn_neg = false;
 
 void CTotal() {cn_total = 0;}
+void STotal(num ttl) {cn_total = ttl;}
 
 class Numpad
 {
@@ -23,6 +24,10 @@ class Numpad
   Widget? LB; //last button
   late Function update;
 
+  late double BWidth;
+  late double BHeight;
+  late double FSize;
+
   TextButton GButton( int BNT) //button number text
   {
     return TextButton(onPressed: () 
@@ -30,22 +35,24 @@ class Numpad
       //print("button pressing");
       if (float == true)
       {
-        total = total + (BNT * pow(10, -1 * (1+ decimal)));
-        decimal++;
-      }
-      else
-      {
-        //print("else");
-        //print(total.toString());
-        total = (total * 10) + BNT;
-        //print(total.toString());
-      }
-      cn_total = total;
-      update();
+          total = total + (BNT * pow(10, -1 * (1+ decimal)));
+          decimal++;
+        }
+        else
+        {
+          //print("else");
+          //print(total.toString());
+          total = (total * 10) + BNT;
+          //print(total.toString());
+        }
+        cn_total = total;
+        update();
 
-      decimal += float ? 1 : 0;
-      //print("button pressed");
-    }, child: Text(BNT.toString()),);
+        decimal += float ? 1 : 0;
+        //print("button pressed");
+      }, child: Text(BNT.toString()),
+    //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BWidth)),
+    );
   }
 
   Row UnoATres()
@@ -70,7 +77,10 @@ class Numpad
       float = true;
       update();
     },
-      child: const Text("."));
+    child: Text("."),
+    //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
+
+    );
   }
 
   Row FTouches()
@@ -87,7 +97,9 @@ class Numpad
       children: 
       [
         TextButton(onPressed: () {cn_neg = !cn_neg; update(); app.Refresh;},
-        child: const Text("-/+")),
+        child: Text("-/+"),
+        //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
+        ),
         GButton(0),
         finish
       ]
@@ -132,8 +144,13 @@ class Numpad
     };
   }
 
-  Numpad({Widget? widg, Function? updt})
+  Numpad({Widget? widg, Function? updt, double Height = 4, Width = 4, Font = 12})
   {
+
+    BHeight = Height;
+    BWidth = Width;
+    FSize = Font;
+
     if (widg != null)
     {
       LB = widg;
