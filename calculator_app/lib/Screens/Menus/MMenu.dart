@@ -36,9 +36,9 @@ Scaffold MainMenu(BuildContext context)
 {
   return Scaffold
   (
-    body: Column(children:
+    body: Center(child: Column(children:
     [
       Row(children: [SimICalc()])
     ]),
-  );
+  ));
 }
