@@ -1,5 +1,6 @@
-// ignore_for_file: file_names, camel_case_types
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
 
+import 'dart:ffi';
 import 'dart:math';
 
 typedef float = double;
@@ -15,11 +16,16 @@ class Point
     Y = y;
   }
 
+  bool Equal(Point other)
+  {
+    return other.GX == X && other.GY == Y;
+  }
+
   num get GX {return X;}
   num get GY {return Y;}
 }
 
-num Distance(Point A, B)
+num Distance(Point A, Point B)
 {
   num AX = A.GX;
   num AY = A.GY;

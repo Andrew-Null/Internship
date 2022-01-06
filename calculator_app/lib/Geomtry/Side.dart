@@ -1,3 +1,4 @@
+import 'Point.dart';
 class Side
 {
   late num length;
@@ -10,8 +11,11 @@ class Side
 
 class DePoints extends Side
 {
-  DePoints(Point a, b) 
+  late Point A;
+  late Point B;
+  DePoints(Point a, b) : super(Distance(a,b)) 
   {
-    super();
+    A = a;
+    B = b;
   }
 }
