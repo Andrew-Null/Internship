@@ -1,10 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types
 
 import 'dart:math';
-
 import 'package:epics_app/Geomtry/Side.dart';
 
-typedef float = double; //to reduce errors and frustration 
+typedef float = double; //to reduce pointless errors and frustration 
 
 abstract class Angle
 {
@@ -21,25 +20,44 @@ class Radian extends Angle
     value = v * (HasPi ? 1 : pi);
   }
 
-  Degree get Convert
+  Degree Convert()
   {
     return Degree(value * Angle.AD);
   }
+
+  num get Sine
+  {
+    return sin(value);
+  }
+  num get cosine
+  {
+    return cos(value);
+  }
+
 }
 
 class Degree extends Angle
 {
   late double value;
-  //8:45 - 8:51
 
   Degree(double v)
   {
     value = v;
   }
 
-  Radian get Convert
+  Radian Convert()
   {
     return Radian(value * Angle.AR, true);
+  }
+
+  num Sine()
+  {
+    return sin(value * Angle.AR);
+  }
+
+  num Cosine()
+  {
+    return cos(value * Angle.AR);
   }
 
 }
@@ -62,7 +80,7 @@ class AngleDeSideDePoint extends Angle
       ian = BA ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
       ian = BB ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
       rad = Radian(ian as double, true);
-      deg = rad.Convert;
+      deg = rad.Convert();
     }
     else// (A.length == 0 || B.length == 0 )
     {
