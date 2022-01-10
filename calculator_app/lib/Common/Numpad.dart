@@ -8,13 +8,6 @@ import 'dart:math';
 import '../main.dart';
 //import '../Screens/Screens.dart';
 
-
-//num cn_total = 0;
-//SOptions cn_LUP = screen; //last used pad
-
-//void CTotal() {cn_total = 0;}
-//void STotal(num ttl) {cn_total = ttl;}
-
 class Numpad
 {
   num total = 0;
@@ -24,8 +17,6 @@ class Numpad
   Widget? RB;
   bool neg = false;
 
-  //late Function Left;
-  //late Function Right;
   late Function update;
 
   late double BWidth;
@@ -38,7 +29,6 @@ class Numpad
   {
     return TextButton(onPressed: () 
     {
-      //print("button pressing");
       if (float == true)
       {
           total = total + (BNT * pow(10, -1 * (1+ decimal)));
@@ -46,18 +36,12 @@ class Numpad
         }
         else
         {
-          //print("else");
-          //print(total.toString());
           total = (total * 10) + BNT;
-          //print(total.toString());
         }
-        //cn_total = total;
         update();
 
         decimal += float ? 1 : 0;
-        //print("button pressed");
       }, child: Text(BNT.toString()),
-    //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BWidth)),
     );
   }
 
@@ -84,8 +68,6 @@ class Numpad
       update();
     },
     child: const Text("."),
-    //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
-
     );
   }
 
@@ -106,7 +88,6 @@ class Numpad
     {
       FinishL = TextButton(onPressed: () {neg = !neg; update(); app.Refresh;},
         child: const Text("-/+"),
-        //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
         );
     }
 
@@ -136,16 +117,13 @@ class Numpad
   
   num GTotal()
   {
-    //print(neg ? "negative" :"positive");
     return total * (neg ? -1 : 1);
   }
 
   void Reset()
   {
-    //print("reseting");
     neg = false;
     decimal = 0;
-    //cn_total = 0;
     total = 0;
     float = false;
   }
@@ -180,12 +158,6 @@ class Numpad
     {
       update = updt;
     }
-
-    /*if (screen != cn_LUP)
-    {
-      cn_total = 0;
-    }
-    total = cn_total;*/
 
   }
 

@@ -13,12 +13,7 @@ import 'Menus/MMenu.dart';
 List<int> _nms = [0, 0];
 ASDMOPs? _op;
 
-Numpad _NPad = Numpad();/*widg: TextButton(child: const Text("Clear"), onPressed: () 
-    {
-      Clear();
-    }
-  ));
-  */
+Numpad _NPad = Numpad();
 
 
 
@@ -29,10 +24,6 @@ int WI() //which index
 
 Scaffold IntCalc(BuildContext context) 
 {
-  //const double FontS = 24, Height = 72, Width = 72;
-
-
-  //`late Numpad _NPad;
 
   void IntEvaluate()
   {
@@ -49,7 +40,6 @@ Scaffold IntCalc(BuildContext context)
   
   void Clear()
   {
-    //print("clearing");
     _NPad.Reset();
     if (_op != null)
     {_nms[1] = 0;}
@@ -127,8 +117,6 @@ Scaffold IntCalc(BuildContext context)
     _nms[(_op != null) ? 1 : 0] = ETotal() as int;
     print(WI().toString());
     app.Refresh;
-    //print(_nms[0]);
-    //print(_nms[1]);
   });
 
   _NPad.Buttons(DecimalB: TextButton(child: const Text("Clear"), onPressed: () 
@@ -138,7 +126,6 @@ Scaffold IntCalc(BuildContext context)
 
   return Scaffold(body: Center(child: 
   Column(
-      //alignment: Alignment.center,
       children: 
       [
         Center(child: Column(
