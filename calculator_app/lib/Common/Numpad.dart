@@ -6,27 +6,33 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import '../main.dart';
-import '../Screens/Screens.dart';
+//import '../Screens/Screens.dart';
 
 
-num cn_total = 0;
-SOptions cn_LUP = screen; //last used pad
-bool cn_neg = false;
+//num cn_total = 0;
+//SOptions cn_LUP = screen; //last used pad
 
-void CTotal() {cn_total = 0;}
-void STotal(num ttl) {cn_total = ttl;}
+//void CTotal() {cn_total = 0;}
+//void STotal(num ttl) {cn_total = ttl;}
 
 class Numpad
 {
-  late num total;
+  num total = 0;
   bool float = false;
   int decimal = 0;
-  Widget? LB; //last button
+  Widget? LB; //left button
+  Widget? RB;
+  bool neg = false;
+
+  //late Function Left;
+  //late Function Right;
   late Function update;
 
   late double BWidth;
   late double BHeight;
   late double FSize;
+
+  void STotal(num ttl) {total = ttl;}
 
   TextButton GButton( int BNT) //button number text
   {
@@ -45,7 +51,7 @@ class Numpad
           total = (total * 10) + BNT;
           //print(total.toString());
         }
-        cn_total = total;
+        //cn_total = total;
         update();
 
         decimal += float ? 1 : 0;
@@ -77,7 +83,7 @@ class Numpad
       float = true;
       update();
     },
-    child: Text("."),
+    child: const Text("."),
     //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
 
     );
@@ -85,76 +91,88 @@ class Numpad
 
   Row FTouches()
   {
-    late Widget finish;
-    if (LB != null) 
-    {finish = LB as Widget;}
+    late Widget FinishR;
+    if (RB != null) 
+    {FinishR = RB as Widget;}
     else
     {
-      finish = DPoint();
+      FinishR = DPoint();
     }
+
+    late Widget FinishL;
+    if (LB != null)
+    {FinishL = LB as Widget;}
+    else
+    {
+      FinishL = TextButton(onPressed: () {neg = !neg; update(); app.Refresh;},
+        child: const Text("-/+"),
+        //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
+        );
+    }
+
+
     return Row
     (
       children: 
       [
-        TextButton(onPressed: () {cn_neg = !cn_neg; update(); app.Refresh;},
-        child: Text("-/+"),
-        //style: TextButton.styleFrom(fixedSize: Size.fromWidth(BHeight)),
-        ),
+        FinishL,
         GButton(0),
-        finish
+        FinishR
       ]
     );
   }
 
-  set Extra(Widget widg)
+  void Buttons({Widget? SignB, Widget? DecimalB})
   {
-    LB = widg;
+    if (SignB != null )
+    {
+      LB = SignB;
+    }
+    if (DecimalB != null)
+    {
+      RB = DecimalB;
+    }
   }
   
-  num get GTotal
+  num GTotal()
   {
-    //print(cn_neg ? "negative" :"positive");
-    return total * (cn_neg ? -1 : 1);
+    //print(neg ? "negative" :"positive");
+    return total * (neg ? -1 : 1);
   }
 
-  get Reset
+  void Reset()
   {
     //print("reseting");
-    cn_neg = false;
+    neg = false;
     decimal = 0;
-    cn_total = 0;
+    //cn_total = 0;
     total = 0;
     float = false;
   }
   
 
-  Column get Build
+  Column Build()
   {
     return Column(children: [UnoATres(), CuatroASeis(), SieteANueve(), FTouches()]);
   }
 
-  Map<String, dynamic> get All
+  Map<String, dynamic> All()
   {
     return 
     {
       "total": GTotal,
-      "negative": cn_neg,
+      "negative": neg,
       "decimal": decimal,
       "floating": float
     };
   }
 
-  Numpad({Widget? widg, Function? updt, double Height = 4, Width = 4, Font = 12})
+  Numpad({Function? updt, double Height = 4, Width = 4, Font = 12})
   {
 
     BHeight = Height;
     BWidth = Width;
     FSize = Font;
-
-    if (widg != null)
-    {
-      LB = widg;
-    }
 
     update = () {app.Refresh;};
 
@@ -163,11 +181,11 @@ class Numpad
       update = updt;
     }
 
-    if (screen != cn_LUP)
+    /*if (screen != cn_LUP)
     {
       cn_total = 0;
     }
-    total = cn_total;
+    total = cn_total;*/
 
   }
 
@@ -175,12 +193,5 @@ class Numpad
   {
     update = param0;
   }
-
-  /*void Updater(Null Function() param0) 
-  {
-    update = param0;
-  }*/
-
-  // Updater(Null Function() param0) {}
 
 }

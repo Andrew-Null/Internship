@@ -10,12 +10,21 @@ import '../Common/Math.dart';
 //import '../Common/Coverter.dart';
 import 'Menus/MMenu.dart';
 
-List<int> si_nms = [0, 0];
-ASDMOPs? si_op;
+List<int> _nms = [0, 0];
+ASDMOPs? _op;
+
+Numpad _NPad = Numpad();/*widg: TextButton(child: const Text("Clear"), onPressed: () 
+    {
+      Clear();
+    }
+  ));
+  */
+
+
 
 int WI() //which index
 {
-  return si_op != null ? 1 : 0;
+  return _op != null ? 1 : 0;
 }
 
 Scaffold IntCalc(BuildContext context) 
@@ -23,17 +32,17 @@ Scaffold IntCalc(BuildContext context)
   //const double FontS = 24, Height = 72, Width = 72;
 
 
-  late Numpad NPad;
+  //`late Numpad _NPad;
 
   void IntEvaluate()
   {
-    assert(si_op != null, "si_op is still null");
-    int u = si_nms[0];// u - uno
-    int d = si_nms[1];// d - dos
-    var o = si_op;    // o - op
-    si_nms[0] = EvalASDM(u, d, si_op as ASDMOPs)as int;
-    si_nms[1] = 0;
-    si_op = null;
+    assert(_op != null, "_op is still null");
+    int u = _nms[0];// u - uno
+    int d = _nms[1];// d - dos
+    var o = _op;    // o - op
+    _nms[0] = EvalASDM(u, d, _op as ASDMOPs)as int;
+    _nms[1] = 0;
+    _op = null;
 
     app.Refresh; 
   }
@@ -41,15 +50,15 @@ Scaffold IntCalc(BuildContext context)
   void Clear()
   {
     //print("clearing");
-    NPad.Reset;
-    if (si_op != null)
-    {si_nms[1] = 0;}
-    else if (si_op != null && si_nms[1] != 0)
-    {si_op = null;}
+    _NPad.Reset();
+    if (_op != null)
+    {_nms[1] = 0;}
+    else if (_op != null && _nms[1] != 0)
+    {_op = null;}
     else
     {
-      si_nms = [0,0];
-      si_op = null;
+      _nms = [0,0];
+      _op = null;
     }
     app.Refresh;
   }
@@ -93,39 +102,39 @@ Scaffold IntCalc(BuildContext context)
     return TextButton(child: Text(symbol), onPressed: () 
     {
 
-      if (si_op != null)
+      if (_op != null)
       {
-        si_nms[0] = EvalASDM(si_nms[0], si_nms[1], si_op as ASDMOPs) as int;
-        si_nms[1] = 0;
+        _nms[0] = EvalASDM(_nms[0], _nms[1], _op as ASDMOPs) as int;
+        _nms[1] = 0;
       }
 
-      si_op = eop;
-      assert(si_op != null, "op unassigned"); 
-      NPad.Reset;
-      si_nms[1] = 0;
+      _op = eop;
+      assert(_op != null, "op unassigned"); 
+      _NPad.Reset();
+      _nms[1] = 0;
       app.Refresh;
     });
   }
 
-  NPad = Numpad(widg: TextButton(child: const Text("Clear"), onPressed: () 
-    {
-      Clear();
-    }
-  ));
 
   num ETotal()
   {
-    return NPad.GTotal;
+    return _NPad.GTotal();
   }
 
-  NPad.Update(()
+  _NPad.Update(()
   {
-    si_nms[(si_op != null) ? 1 : 0] = ETotal() as int;
-    //print(((si_op != null) ? 1 : 0).toString());
+    _nms[(_op != null) ? 1 : 0] = ETotal() as int;
+    print(WI().toString());
     app.Refresh;
-    //print(si_nms[0]);
-    //print(si_nms[1]);
+    //print(_nms[0]);
+    //print(_nms[1]);
   });
+
+  _NPad.Buttons(DecimalB: TextButton(child: const Text("Clear"), onPressed: () 
+    {
+      Clear();
+    }));
 
   return Scaffold(body: Center(child: 
   Column(
@@ -136,12 +145,12 @@ Scaffold IntCalc(BuildContext context)
         children: [
           Align
           (
-            child: Text(si_nms[(si_op  != null) ?1: 0].toString()), 
+            child: Text(_nms[(_op  != null) ?1: 0].toString()), 
             alignment:  Alignment.topCenter
           ),
           Row(
             children: [ 
-            NPad.Build, 
+            _NPad.Build(), 
             Column(children:
               [
                 GOpButton(ASDMOPs.Add),
@@ -156,15 +165,15 @@ Scaffold IntCalc(BuildContext context)
               TextButton(child: const Text("<<"),         
                 onPressed: () 
                 {
-                  si_nms[WI()] = si_nms[WI()] << 1; 
-                  si_nms[WI()]; app.Refresh;
+                  _nms[WI()] = _nms[WI()] << 1; 
+                  _nms[WI()]; app.Refresh;
                 },
               ),
               TextButton(child: const Text(">>"),     
                 onPressed: ()
               {
-                si_nms[WI()] = si_nms[WI()] >> 1; 
-                STotal(si_nms[WI()]); 
+                _nms[WI()] = _nms[WI()] >> 1; 
+                _NPad.STotal(_nms[WI()]); 
                 app.Refresh;
               }
               ),
