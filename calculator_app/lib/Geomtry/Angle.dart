@@ -3,10 +3,11 @@
 import 'dart:math';
 import 'package:epics_app/Geomtry/Side.dart';
 import '../Common/Misc.dart';
+import 'Geometry.dart';
 
 typedef float = double; //to reduce pointless errors and frustration 
 
-abstract class Angle
+abstract class Angle extends Primitive
 {
   static const AR = pi / 360; //to radian
   static const AD = 360/ pi; // to degrees

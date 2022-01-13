@@ -1,5 +1,7 @@
 import 'Point.dart';
-class Side
+import 'Geometry.dart';
+
+class Side extends Primitive
 {
   late num length;
 

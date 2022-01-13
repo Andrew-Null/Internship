@@ -1,5 +1,6 @@
 import '../Angle.dart';
 import '../Side.dart';
+import '../Geometry.dart';
 
 typedef Match = bool;
 typedef One = bool;

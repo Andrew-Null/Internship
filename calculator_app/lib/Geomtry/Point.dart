@@ -4,7 +4,7 @@ import 'dart:math';
 
 typedef float = double;
 
-class Point
+class Point extends Primitive
 {
   late num X;
   late num Y;
