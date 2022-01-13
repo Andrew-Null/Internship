@@ -1,13 +1,9 @@
 // ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types, unused_import
-//import 'dart:html';
-
-//import 'dart:js';
 
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../Common/Numpad.dart';
 import '../Common/Math.dart';
-//import '../Common/Coverter.dart';
 import 'Menus/MMenu.dart';
 
 List<int> _nms = [0, 0];
@@ -15,23 +11,47 @@ ASDMOPs? _op;
 
 Numpad _NPad = Numpad();
 
+class Expression
+{
+  late num Left;
+  late num Right;
+  late ASDMOPs op;
 
+  Expression(int l, int r, ASDMOPs o)
+  {
+    Left = l;
+    Right = r;
+    op = o;
+  }
+}
+
+Map<Expression, int> Memo = {}; //for memoization, not sure if is necessary, but, it is unlikely to hurt
+//Map<int, Expression> History {}
+//Memo[History[index]] //maybe how history can work
+//List<Expression> Exprs //to hod all the expressions rather than having both maps hold dupplicate data
 
 int WI() //which index
 {
   return _op != null ? 1 : 0;
 }
 
-Scaffold IntCalc(BuildContext context) 
+Scaffold IntCalc(BuildContext context)
 {
 
   void IntEvaluate()
   {
+    int AddYRet(Expression ex)
+    {
+      int a = EvalASDM(ex.Left, ex.Right, ex.op) as int;
+      Memo[ex] = a;
+      return a;
+    }
+
     assert(_op != null, "_op is still null");
-    int u = _nms[0];// u - uno
-    int d = _nms[1];// d - dos
-    var o = _op;    // o - op
-    _nms[0] = EvalASDM(u, d, _op as ASDMOPs)as int;
+    var e = Expression(_nms[0], _nms[1],_op as ASDMOPs);
+
+    _nms[0] = Memo[e] ?? AddYRet(e); 
+
     _nms[1] = 0;
     _op = null;
 
@@ -115,7 +135,6 @@ Scaffold IntCalc(BuildContext context)
   _NPad.Update(()
   {
     _nms[(_op != null) ? 1 : 0] = ETotal() as int;
-    print(WI().toString());
     app.Refresh;
   });
 
@@ -152,8 +171,9 @@ Scaffold IntCalc(BuildContext context)
               TextButton(child: const Text("<<"),         
                 onPressed: () 
                 {
-                  _nms[WI()] = _nms[WI()] << 1; 
-                  _nms[WI()]; app.Refresh;
+                  int wi = WI();
+                  _nms[wi] = _nms[wi] << 1;
+                  app.Refresh;
                 },
               ),
               TextButton(child: const Text(">>"),     

@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import 'Integer.dart';
 import 'Menus/MMenu.dart';
-//import '../Numpad.dart';
 
 enum SOptions //screen options
 {
-  //HomeMS, //going to need this later
   //GeometryMS, //also going to need this later
   IntegerCS,
   MM //main menu
@@ -20,7 +18,6 @@ Scaffold ChooseScreen(BuildContext context)
   {
 		case SOptions.IntegerCS:
 		{
-      //Numpad temp = Numpad(widg: null);
 			return IntCalc(context);
 		} 
     case SOptions.MM:

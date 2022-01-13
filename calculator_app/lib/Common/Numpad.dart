@@ -161,9 +161,9 @@ class Numpad
 
   }
 
-  void Update(Function param0) 
+  void Update(Function fn) 
   {
-    update = param0;
+    update = fn;
   }
 
 }

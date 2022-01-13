@@ -1,7 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types, file_names
 
 import 'dart:math';
 import 'package:epics_app/Geomtry/Side.dart';
+import '../Common/Misc.dart';
 
 typedef float = double; //to reduce pointless errors and frustration 
 
@@ -25,11 +26,11 @@ class Radian extends Angle
     return Degree(value * Angle.AD);
   }
 
-  num get Sine
+  num Sine()
   {
     return sin(value);
   }
-  num get cosine
+  num Cosine()
   {
     return cos(value);
   }
@@ -52,12 +53,12 @@ class Degree extends Angle
 
   num Sine()
   {
-    return sin(value * Angle.AR);
+    return sin(value * Angle.AR) * Angle.AD;
   }
 
   num Cosine()
   {
-    return cos(value * Angle.AR);
+    return cos(value * Angle.AR) * Angle.AD;
   }
 
 }
@@ -73,16 +74,17 @@ class AngleDeSideDePoint extends Angle
     bool AB = A.A.Equal(B.B); 
     bool BA = A.B.Equal(B.A); 
     bool BB = A.B.Equal(B.B); 
-    if ( AA || AB || BA || BB)
+
+    if ( XOR(XOR(AA, AB), XOR(BA, BB)))
     {
-      double? ian = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : null;
+      double ian = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : 0.0;
       ian = AB ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.A.Y - A.A.Y, B.A.X - A.A.X) ) : ian;
       ian = BA ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
       ian = BB ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
-      rad = Radian(ian as double, true);
+      rad = Radian(ian, true);
       deg = rad.Convert();
     }
-    else// (A.length == 0 || B.length == 0 )
+    else
     {
       rad = Radian(0, true);
       deg = Degree(0);
