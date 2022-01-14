@@ -11,6 +11,9 @@ abstract class Angle extends Primitive
 {
   static const AR = pi / 360; //to radian
   static const AD = 360/ pi; // to degrees
+
+  //num Sine();
+  //num Cosine();
 }
 
 class Radian extends Angle
