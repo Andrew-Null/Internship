@@ -7,24 +7,24 @@ import 'Menus/MMenu.dart';
 
 enum SOptions //screen options
 {
-  //GeometryMS, //also going to need this later
-  IntegerCS,
-  MM //main menu
+	//GeometryMS, //also going to need this later
+	IntegerCS,
+	MM //main menu
 }
 
 Scaffold ChooseScreen(BuildContext context)
 {
-  switch(screen)
-  {
+	switch(screen)
+	{
 		case SOptions.IntegerCS:
 		{
 			return IntCalc(context);
 		} 
-    case SOptions.MM:
-    {
-      return MainMenu(context);
-    }
-  }
+		case SOptions.MM:
+		{
+			return MainMenu(context);
+		}
+	}
 }
 
 

@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
-import 'dart:convert';
+//import 'dart:convert';
+
+import 'dart:math';
 
 import '../Angle.dart';
 import '../Side.dart';
@@ -73,7 +75,7 @@ class Triangle extends Polygon
     throw 'LawOSine has recieved what should be an impossible (abstract) input';
   }
 
-  Triangle //constructor in progress
+  Triangle Solve //constructor in progress
   (
     Side? pa, Side? pb, Side? pc, 
     Angle? PA, Angle? PB, Angle? PC
@@ -189,14 +191,47 @@ class Triangle extends Polygon
 
       if (zGiven == Known.Angle)
       {
-        pa = Side(good.side * (PA is Radian ? PA.value : 
-        PA is Degree ? PA.Convert().value : throw "PA is an impossible abstract Angle class"));
+        pa = Side(asin(
+          good.angle * (PA is Radian ? PA.value : 
+        PA is Degree ? PA.Convert().value : throw "PA is an impossible abstract Angle class")));
       }
-      else if (zGiven == Known.Side)
+      else if (zGiven == Known.Side && pa is Side)
       {
+        PA = Radian
+        (
+          asin(good.side * pa.length), true
+        );
+      }
 
+      if (yGiven == Known.Angle)
+      {
+        pb = Side(asin(
+          good.angle * (PB is Radian ? PB.value : 
+        PB is Degree ? PB.Convert().value : throw "PB is an impossible abstract Angle class")));
+      }
+      else if (yGiven == Known.Side && pb is Side)
+      {
+        PB = Radian
+        (
+          asin(good.side * pb.length), true
+        );
+      }
+
+      if (xGiven == Known.Angle)
+      {
+        pc = Side(asin(
+          good.angle * (PC is Radian ? PC.value : 
+        PC is Degree ? PC.Convert().value : throw "PC is an impossible abstract Angle class")));
+      }
+      else if (xGiven == Known.Side && pc is Side)
+      {
+        PC = Radian
+        (
+          asin(good.side * pc.length), true
+        );
       }
 
     }
+    return Triangle();
   }
 }

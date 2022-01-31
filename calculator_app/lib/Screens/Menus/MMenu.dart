@@ -6,39 +6,40 @@ import '../Screens.dart';
 
 TextButton MMB() //main menu button 
 {//likely to be used on most screens as a home button
-  void RetMain() //return to main menu
-  {
-    screen = SOptions.MM;
-    app.Refresh;
-  }
+	void RetMain() //return to main menu
+	{
+		screen = SOptions.MM;
+		app.Refresh;
+	}
 
-  return TextButton
-  (
-    child: const Text("Main Menu"),
-    onPressed: () {RetMain();}
-  );
+	return TextButton
+	(
+		child: Text("Main Menu"),
+		onPressed: () {RetMain();}
+	);
 }
 
 TextButton SimICalc() //simple int calculator
 {
-  return TextButton
-  (
-    child: const Text("Integer Calculator"), 
-    onPressed: () 
-    {
-      screen = SOptions.IntegerCS;
-      app.Refresh;
-    }
-  );
+	return TextButton
+	(
+		child: const Text("Integer Calculator"), 
+		onPressed: () 
+		{
+			screen = SOptions.IntegerCS;
+			app.Refresh;
+		}
+	);
 }
 
 Scaffold MainMenu(BuildContext context)
 {
-  return Scaffold
-  (
-    body: Center(child: Column(children:
-    [
-      Row(children: [SimICalc()])
-    ]),
-  ));
+	return Scaffold
+	(
+		body: Center(child: Column(children:
+		[
+			const Text("Main Menu"),
+			Row(children: [SimICalc()])
+		]),
+	));
 }

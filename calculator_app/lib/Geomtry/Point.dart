@@ -7,28 +7,28 @@ typedef float = double;
 
 class Point extends Primitive
 {
-  late num X;
-  late num Y;
+	late num X;
+	late num Y;
 
-  Point(num x, y)
-  {
-    X = x;
-    Y = y;
-  }
+	Point(num x, y)
+	{
+		X = x;
+		Y = y;
+	}
 
-  bool Equal(Point other)
-  {
-    return other.X == X && other.Y == Y;
-  }
+	bool Equal(Point other)
+	{
+		return other.X == X && other.Y == Y;
+	}
 }
 
 num Distance(Point A, Point B)
 {
-  num AX = A.X;
-  num AY = A.Y;
-  
-  num BX = B.X;
-  num BY = B.Y;
+	num AX = A.X;
+	num AY = A.Y;
+	
+	num BX = B.X;
+	num BY = B.Y;
 
-  return sqrt(pow((AX - BX),2) + pow((AY- BY), 2));
+	return sqrt(pow((AX - BX),2) + pow((AY- BY), 2));
 }
