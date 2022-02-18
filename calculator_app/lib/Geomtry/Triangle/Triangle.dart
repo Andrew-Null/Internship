@@ -10,13 +10,8 @@ import '../Geometry.dart';
 import '../../Common/Misc.dart';
 
 //typedef Match(Side? s, Angle? a);
-<<<<<<< HEAD
-typedef One = bool;
-//typedef SineLaw = (LDS known, Primitive unknown);
-=======
 //typedef One = bool;
 //typedef SineLaw(LDS known, Primitive unknown);
->>>>>>> bc32f9682bd6aa335c02b52879675f8075673921
 
 class LDS //law de sine
 {

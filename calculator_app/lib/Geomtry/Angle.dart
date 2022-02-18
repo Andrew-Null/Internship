@@ -9,16 +9,8 @@ typedef float = double; //to reduce pointless errors and frustration
 
 abstract class Angle extends Primitive2D
 {
-<<<<<<< HEAD
   static const AR = pi / 360; //to radian
   static const AD = 360/ pi; // to degrees
-=======
-	static const AR = pi / 360; //to radian
-	static const AD = 360/ pi; // to degrees
-
-	//num Sine();
-	//num Cosine();
->>>>>>> bc32f9682bd6aa335c02b52879675f8075673921
 }
 
 class Radian extends Angle
@@ -84,28 +76,6 @@ class AngleDeSideDePoint extends Angle
 		bool BA = A.B.Equal(B.A); 
 		bool BB = A.B.Equal(B.B); 
 
-<<<<<<< HEAD
-    if ( XOR(XOR(AA, AB), XOR(BA, BB)))
-    {
-      double ian = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : 0.0;
-      ian = AB ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.A.Y - A.A.Y, B.A.X - A.A.X) ) : ian;
-      ian = BA ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
-      ian = BB ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
-      rad = Radian(ian, true);
-      deg = rad.Convert();
-    }
-    else if (AA || AB || BA || BB) 
-    {
-      final dynamic aa = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : false;
-    }
-    else
-    {
-      rad = Radian(0, true);
-      deg = Degree(0);
-      valid = false;
-    }
-  }
-=======
 		if ( XOR(XOR(AA, AB), XOR(BA, BB)))
 		{
 			double ian = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : 0.0;
@@ -122,5 +92,4 @@ class AngleDeSideDePoint extends Angle
 			valid = false;
 		}
 	}
->>>>>>> bc32f9682bd6aa335c02b52879675f8075673921
 }
