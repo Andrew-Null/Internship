@@ -11,9 +11,6 @@ abstract class Angle extends Primitive
 {
   static const AR = pi / 360; //to radian
   static const AD = 360/ pi; // to degrees
-
-  //num Sine();
-  //num Cosine();
 }
 
 class Radian extends Angle
@@ -87,6 +84,10 @@ class AngleDeSideDePoint extends Angle
       ian = BB ? ( atan2(A.A.Y - A.B.Y, A.A.X - A.B.X) - atan2(B.A.Y - A.B.Y, B.A.X - A.B.X) ) : ian;
       rad = Radian(ian, true);
       deg = rad.Convert();
+    }
+    else if (AA || AB || BA || BB) 
+    {
+      final dynamic aa = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : false;
     }
     else
     {

@@ -7,7 +7,7 @@ import '../../Common/Misc.dart';
 
 //typedef Match(Side? s, Angle? a);
 typedef One = bool;
-typedef SineLaw(LDS known, Primitive unknown);
+//typedef SineLaw = (LDS known, Primitive unknown);
 
 class LDS //law de sine
 {
