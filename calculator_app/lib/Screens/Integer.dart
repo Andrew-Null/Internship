@@ -145,6 +145,9 @@ Scaffold IntCalc(BuildContext context)
 
 	return Scaffold(body: Center(child: 
 	Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      //mainAxisAlignment: MainAxisAlignment.center,
 			children: 
 			[
 				Center(child: Column(
@@ -155,6 +158,8 @@ Scaffold IntCalc(BuildContext context)
 						alignment:  Alignment.topCenter
 					),
 					Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
 						children: [ 
 						_NPad.Build(), 
 						Column(children:

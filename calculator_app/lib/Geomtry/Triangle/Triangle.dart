@@ -44,7 +44,7 @@ enum Known
 
 class Triangle extends Polygon
 {
-  Primitive LawOfSines(LDS known, Primitive unknown)
+  static Primitive LawOfSines(LDS known, Primitive unknown)
   {
     if (unknown is Side) 
     {
@@ -57,12 +57,12 @@ class Triangle extends Polygon
     throw 'LawOfSines has recieved a Point Class';
   }
 
-  Radian _FAngle(LDS known, Side unknown) //find angle
+  static Radian _FAngle(LDS known, Side unknown) //find angle
   {
     return Radian(known.angle * unknown.length, true);
   }
 
-  Side _FSide(LDS known, Angle unknown)
+  static Side _FSide(LDS known, Angle unknown)
   {
     if (unknown is Radian)
     {
