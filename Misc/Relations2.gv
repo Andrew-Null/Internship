@@ -1,0 +1,29 @@
+digraph
+{
+	libD -> {CommonD, GeometryD, ScreensD, mainF};
+
+	CommonD -> {MathF, MiscF, NumpadF};
+	MathF -> {BExpressionC -> ASDMC};
+	NumpadF -> NumpadC;
+
+	GeometryD -> {TriangleD, AngleF, AngleDeductionF, GeometryF, PointF, SideF};
+	AngleF -> {AngleC -> RadianC, DegreeC, AngelDeSideDePointC};
+//	GeometryF -> {GeometryC -> {PrimitiveC -> Primitive2DC, Shape2DC -> PolygonC}}
+	GeometryF -> {GeometryC, PrimitiveC, Primitive2DC, Shape2DC, PolygonC};
+	GeometryC -> {PrimitiveC, Shape2DC};
+	PrimitiveC -> Primitive2DC;
+	Shape2DC -> PolygonC;
+
+	PointF -> PointC;
+	Primitive2DC -> {PointC, AngleC};
+	Primitive2DC -> SideC -> DePointsC
+	SideF -> {SideC, DePointsC};
+
+	TriangleD -> TriangleFLGT -> {LDSC, TriangleC};
+	PolygonC -> TriangleC
+
+	ScreensD -> {IntegerF, ScreensF, TriangleFLS, MenusD}
+	IntegerF -> ExpressionC;
+	MenusD -> MMenuF;
+
+}

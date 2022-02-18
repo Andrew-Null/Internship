@@ -1,4 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+
+//import 'dart:convert';
+
+import 'dart:math';
 
 import '../Angle.dart';
 import '../Side.dart';
@@ -6,37 +10,46 @@ import '../Geometry.dart';
 import '../../Common/Misc.dart';
 
 //typedef Match(Side? s, Angle? a);
+<<<<<<< HEAD
 typedef One = bool;
 //typedef SineLaw = (LDS known, Primitive unknown);
+=======
+//typedef One = bool;
+//typedef SineLaw(LDS known, Primitive unknown);
+>>>>>>> bc32f9682bd6aa335c02b52879675f8075673921
 
 class LDS //law de sine
 {
   late double angle;
   late double side;
+
+  LDS(Side s, Angle A)
+  {
+    if (A is Radian)
+    {
+      angle = s.length / A.Sine();
+      side = A.Sine() / s.length;
+    }
+    else
+    {
+      num rad = Radian((A as Degree).value * Angle.AR, true).Sine();
+      side =  rad / s.length;
+      side = s.length / rad;
+    }
+  }
 }
 
-LDS Valid(Side s, Angle A)
+enum Known
 {
-  LDS ret = LDS();
-  if (A is Radian)
-  {
-    ret.angle = s.length / A.Sine();
-    ret.side = A.Sine() / s.length;
-  }
-  else
-  {
-    num rad = Radian((A as Degree).value * Angle.AR, true).Sine();
-    ret.side =  rad / s.length;
-    ret.side = s.length / rad;
-  }
-  return ret;
+  Neither,
+  Side,
+  Angle,
+  Both
 }
-
-
 
 class Triangle extends Polygon
 {
-  Primitive LawOfSines(LDS known, Primitive unknown)
+  static Primitive2D LawOfSines(LDS known, Primitive2D unknown)
   {
     if (unknown is Side) 
     {
@@ -49,12 +62,12 @@ class Triangle extends Polygon
     throw 'LawOfSines has recieved a Point Class';
   }
 
-  Radian _FAngle(LDS known, Side unknown) //find angle
+  static Radian _FAngle(LDS known, Side unknown) //find angle
   {
     return Radian(known.angle * unknown.length, true);
   }
 
-  Side _FSide(LDS known, Angle unknown)
+  static Side _FSide(LDS known, Angle unknown)
   {
     if (unknown is Radian)
     {
@@ -64,22 +77,166 @@ class Triangle extends Polygon
     {
       return Side(known.side * unknown.Convert().Sine());
     }
-    throw 'LawOSine has recieved what should be an impossible input';
+    throw 'LawOSine has recieved what should be an impossible (abstract) input';
   }
 
-  void TempTriangle //constructor in progress
+  Triangle Solve //constructor in progress
   (
-    Side? a, Side? b, Side? c, 
-    Angle? A, Angle? B, Angle? C
+    Side? pa, Side? pb, Side? pc, 
+    Angle? PA, Angle? PB, Angle? PC
   )
   {
     //given
-    final dynamic GivenZ = ((a != null) && (A != null)) ? Valid(a, A) : false;
-    final dynamic GivenY = ((b != null) && (B != null)) ? Valid(b, B) : false;
-    final dynamic GivenX = ((c != null) && (C != null)) ? Valid(c, C) : false;
+    final dynamic GivenZ = ((pa != null) && (PA != null)) ? LDS(pa, PA) : false;
+    final dynamic GivenY = ((pb != null) && (PB != null)) ? LDS(pb, PB) : false;
+    final dynamic GivenX = ((pc != null) && (PC != null)) ? LDS(pc, PC) : false;
 
-    final One zGiven = XOR((a != null), (A != null));
-    final One yGiven = XOR((b != null), (B != null));
-    final One xGiven = XOR((c != null), (C != null));
+    //only check each for null once
+    //b is for bool
+    bool bpa = pa != null;
+    bool bpb = pb != null;
+    bool bpc = pc != null;
+    //so is B
+    bool BPA = PA != null;
+    bool BPB = PB != null;
+    bool BPC = PC != null;
+
+    //Ternary madness
+    final Known zGiven = XOR(bpa, BPA) ?
+     (bpa ? Known.Side : Known.Angle ) : (BPA ? Known.Both : Known.Neither);
+
+    final Known yGiven = XOR(bpb, BPB) ?
+     (bpb ? Known.Side : Known.Angle ) : (BPB ? Known.Both : Known.Neither);
+    
+    final Known xGiven = XOR(bpc, BPC) ?
+     (bpc ? Known.Side : Known.Angle ) : (BPC ? Known.Both : Known.Neither);
+
+    //Start 
+    //Angle 
+    //Deduction
+    double AngTot = 180;
+    int debductions = 0;
+    int which = 0;
+    if (PA != null)
+    {
+      if (PA is Degree)
+      {
+        AngTot -= PA.value;
+        debductions += 1;
+        which = which | 1;
+      }
+      else if (PA is Radian)
+      {
+        
+        AngTot -= PA.Convert().value;
+        debductions += 1;
+        which = which | 1;
+      }
+      else { throw "PA impossibly is the abstract Angle class";}
+    }
+
+    if (PB != null)
+    {
+      if (PB is Degree)
+      {
+        AngTot -= PB.value;
+        debductions += 1;
+        which = which | 2;
+      }
+      else if (PB is Radian)
+      {
+        AngTot -= PB.Convert().value;
+        debductions += 1;
+        which = which | 2;
+      }
+      else { throw "PB impossibly is the abstract Angle class";}
+    }
+
+    if (PC != null)
+    {
+      if (PC is Degree)
+      {
+        AngTot -= PC.value;
+        debductions += 1;
+        which = which | 4;
+      }
+      else if (PC is Radian)
+      {
+        
+        AngTot -= PC.Convert().value;
+        debductions += 1;
+        which = which | 4;
+      }
+      else { throw "PC impossibly is the abstract Angle class";}
+    }
+
+    if (debductions == 2)
+    {
+      if (which & 1 == 0 && which & 2 == 2 && which & 4 == 4)
+      {
+        PA ??= Degree(AngTot);
+      }
+      else if (which & 1 == 1 && which & 2 == 0 && which & 4 == 4)
+      {
+        PB ??= Degree(AngTot);
+      }
+      else if (which & 1 == 1 && which & 2 == 2 && which & 4 == 0)
+      {
+        PC ??= Degree(AngTot);
+      }
+    }
+    //End 
+    //Angle
+    //Deduction
+
+    if (GivenZ != false || GivenY != false || GivenX != false)
+    {//time for law of sines
+
+      LDS good = (GivenZ != false ? GivenZ : (GivenY != false ? GivenY : GivenX));
+
+      if (zGiven == Known.Angle)
+      {
+        pa = Side(asin(
+          good.angle * (PA is Radian ? PA.value : 
+        PA is Degree ? PA.Convert().value : throw "PA is an impossible abstract Angle class")));
+      }
+      else if (zGiven == Known.Side && pa is Side)
+      {
+        PA = Radian
+        (
+          asin(good.side * pa.length), true
+        );
+      }
+
+      if (yGiven == Known.Angle)
+      {
+        pb = Side(asin(
+          good.angle * (PB is Radian ? PB.value : 
+        PB is Degree ? PB.Convert().value : throw "PB is an impossible abstract Angle class")));
+      }
+      else if (yGiven == Known.Side && pb is Side)
+      {
+        PB = Radian
+        (
+          asin(good.side * pb.length), true
+        );
+      }
+
+      if (xGiven == Known.Angle)
+      {
+        pc = Side(asin(
+          good.angle * (PC is Radian ? PC.value : 
+        PC is Degree ? PC.Convert().value : throw "PC is an impossible abstract Angle class")));
+      }
+      else if (xGiven == Known.Side && pc is Side)
+      {
+        PC = Radian
+        (
+          asin(good.side * pc.length), true
+        );
+      }
+
+    }
+    return Triangle();
   }
 }
