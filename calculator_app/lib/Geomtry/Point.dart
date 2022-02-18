@@ -5,7 +5,7 @@ import 'Geometry.dart';
 
 typedef float = double;
 
-class Point extends Primitive
+class Point extends Primitive2D
 {
 	late num X;
 	late num Y;

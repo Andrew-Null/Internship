@@ -44,7 +44,7 @@ enum Known
 
 class Triangle extends Polygon
 {
-  static Primitive LawOfSines(LDS known, Primitive unknown)
+  static Primitive2D LawOfSines(LDS known, Primitive2D unknown)
   {
     if (unknown is Side) 
     {
@@ -98,13 +98,13 @@ class Triangle extends Polygon
 
     //Ternary madness
     final Known zGiven = XOR(bpa, BPA) ?
-     (bpa ? Known.Side : Known.Angle ) : ((BPA && GivenZ != false) ? Known.Both : Known.Neither);
+     (bpa ? Known.Side : Known.Angle ) : (BPA ? Known.Both : Known.Neither);
 
     final Known yGiven = XOR(bpb, BPB) ?
-     (bpb ? Known.Side : Known.Angle ) : ((BPB && GivenY != false) ? Known.Both : Known.Neither);
+     (bpb ? Known.Side : Known.Angle ) : (BPB ? Known.Both : Known.Neither);
     
     final Known xGiven = XOR(bpc, BPC) ?
-     (bpc ? Known.Side : Known.Angle ) : ((BPC && GivenX != false) ? Known.Both : Known.Neither);
+     (bpc ? Known.Side : Known.Angle ) : (BPC ? Known.Both : Known.Neither);
 
     //Start 
     //Angle 
