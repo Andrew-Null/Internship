@@ -4,12 +4,13 @@
 
 import 'dart:math';
 
-import 'package:epics_app/Geomtry/AngleDeduction.dart';
+//import 'package:epics_app/Geomtry/AngleDeduction.dart';
 
 import '../Angle.dart';
 import '../Side.dart';
 import '../Geometry.dart';
 import '../../Common/Misc.dart';
+import '../AngleDeduction.dart' as AD;
 
 //typedef Match(Side? s, Angle? a);
 //typedef One = bool;
@@ -278,15 +279,15 @@ class Triangle extends Polygon
 
           if (PA != null && PB != null)
           {
-            PC = AngDeduction(PA, PB);
+            PC = AD.AngDeduction(PA, PB);
           }
           else if (PA != null && PC != null)
           {
-            PB = AngDeduction(PA, PC);
+            PB = AD.AngDeduction(PA, PC);
           }
           else if (PB != null && PC != null)
           {
-            PA = AngDeduction(PB, PC);
+            PA = AD.AngDeduction(PB, PC);
           }
         }
 

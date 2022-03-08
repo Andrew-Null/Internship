@@ -1,9 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types, file_names
 
 import 'dart:math';
-import 'package:epics_app/Geomtry/Side.dart';
+//import 'package:epics_app/Geomtry/Side.dart';
 import '../Common/Misc.dart';
 import 'Geometry.dart';
+import 'Side.dart';
 
 typedef float = double; //to reduce pointless errors and frustration 
 
@@ -63,7 +64,8 @@ class Degree extends Angle
 	}
 
 }
-
+/* not sure I am accounting for this everywhere I should
+the lack of files this broke when I commented this out is a concerning confirmation
 class AngleDeSideDePoint extends Angle
 {
 	late Radian rad;
@@ -92,4 +94,13 @@ class AngleDeSideDePoint extends Angle
 			valid = false;
 		}
 	}
-}
+  Radian ConvRadian()
+  {
+    return rad;
+  }
+
+  Degree ConvDegree()
+  {
+    return deg;
+  }
+}*/
