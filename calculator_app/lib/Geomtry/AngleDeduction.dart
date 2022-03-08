@@ -1,84 +1,33 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'Angle.dart';
-Map<String, Radian> Triangle(Angle? A, 
-Angle? B, 
-Angle? C)
+import 'dart:math';
+
+Angle AngDeduction(Angle Uno, Angle Dos)
 {
-	Map<String, Radian> ret = {};
-
-	if (A != null)
+	if (Uno is Degree && Dos is Degree)
 	{
-		if (A is Radian)
-		{
-			ret["A"] = A;
-		}
-		else if (A is Degree)
-		{
-			ret["A"] = A.Convert();
-		}
-		else
-		{
-			throw "A is impossibly an abstract Angle class";
-		}
+		return Degree(180.0 - (Uno.value + Dos.value));
 	}
-
-	if (B != null)
+	else if (Uno is Radian && Dos is Radian)
 	{
-		if (B is Radian)
-		{
-			ret["B"] = B;
-		}
-		else if (B is Degree)
-		{
-			ret["B"] = B.Convert();
-		}
-		else
-		{
-			throw "B is impossibly an abstract Angle class";
-		}
+		return Radian
+		(
+			pi - (Uno.value + Dos.value),
+			true
+		);
 	}
-
-	if (C != null)
+	else if (Uno is Radian && Dos is Degree)
 	{
-		if (C is Radian)
-		{
-			ret["C"] = C;
-		}
-		else if (C is Degree)
-		{
-			ret["C"] = C.Convert();
-		}
-		else
-		{
-			throw "C is impossibly an abstract Angle class";
-		}
+		return Radian
+		(
+			pi - (Uno.value + Dos.Convert().value),
+			true
+		);
 	}
-
-	int nn = 0; // not null
-	nn += A != null ? 1 : 0;
-	nn += B != null ? 1 : 0;
-	nn += C != null ? 1 : 0;
-
-	int which = 0;
-	which = which | (A != null ? 1 : 0);
-	which = which | (B != null ? 2 : 0);
-	which = which | (C != null ? 4 : 0);
-
-	if (nn == 2)
+	else if (Uno is Degree && Dos is Radian)
 	{
-
-		if (which & 1 == 0)
-		{
-			
-		}
-		else if (which & 2 == 0)
-		{
-			
-		}
-		else if (which & 4 == 0)
-		{
-			
-		}
+		return Degree(180 - (Uno.value + Dos.Convert().value));
 	}
-
-	return ret;
+	throw "AngDeduction(): Has recieved and abstract angle class";
 }

@@ -4,6 +4,8 @@
 
 import 'dart:math';
 
+import 'package:epics_app/Geomtry/AngleDeduction.dart';
+
 import '../Angle.dart';
 import '../Side.dart';
 import '../Geometry.dart';
@@ -35,12 +37,12 @@ class LDS //law de sine
 
 	Radian GetAngle(Side s)
 	{
-		return Radian(asin(angle * s.length, true));
+		return Radian(asin(angle * s.length), true);
 	}
 
 	Side GetSide(Angle a)
 	{
-		return Side(side * a.Sine());
+		return Side(side * (a is Radian ? a.Sine() : (a is Degree ? a.Convert().Sine() : throw "GetSide has recieved an abstract angle class")));
 	}
 }
 
@@ -54,21 +56,21 @@ enum Known
 
 class Triangle extends Polygon
 {
-	Side a;
-	Side b;
-	Side c;
+	late Side a;
+	late Side b;
+	late Side c;
 
-	Angle A;
-	Angle B;
-	Angle C;
+	late Angle A;
+	late Angle B;
+	late Angle C;
 
-	Triangle Solve
+	static Triangle Solve
 	(
 		Side? pa, Side? pb, Side? pc, 
 		Angle? PA, Angle? PB, Angle? PC
 	)
 	{
-		Triangle ret = Triangle;
+		Triangle ret = Triangle();
 		//given
 		final dynamic GivenZ = ((pa != null) && (PA != null)) ? LDS(pa, PA) : false;
 		final dynamic GivenY = ((pb != null) && (PB != null)) ? LDS(pb, PB) : false;
@@ -136,7 +138,7 @@ class Triangle extends Polygon
 // Law of Sine Time
 				if (pair >= 1 && (sides >= 2 || angles >= 2))
 				{
-					for (fv = 0 ; fv <= 3 ; fv++)
+					for (int fv = 0 ; fv <= 3 ; fv++)
 					{
 						if (Saber[A] == Known.Both)
 						{
@@ -145,32 +147,34 @@ class Triangle extends Polygon
 							LDS lds = LDS(ret.a, ret.A);
 							if (Saber[B] == Known.Angle || Saber[B] == Known.Side)
 							{
-								(Saber[B] == Known.Angle) ?
+								if (Saber[B] == Known.Angle)
 								{
 									ret.b = pb as Side;
-									ret.B = lds.GetSide(ret.b);
+									ret.B = lds.GetAngle(ret.b);
 									sides++;
 									pair++;
-								} :
-								{
+								}
+								else 
+                {
 									ret.B = PB as Angle;
-									ret.b = lds.GetAngle(ret.B);
+									ret.b = lds.GetSide(ret.B);
 									angles++;
 									pair++;
 								};
 							}
 							if (Saber[C] == Known.Angle || Saber[C] == Known.Side)
 							{
-								(Saber[C] == Known.Angle) ?
+								if (Saber[C] == Known.Angle)
 								{
 									ret.c = pc as Side;
-									ret.C = lds.GetSide(ret.c);
+									ret.C = lds.GetAngle(ret.c);
 									sides++;
 									pair++;
-								} :
-								{
+								}
+								else 
+                {
 										ret.C = PC as Angle;
-										ret.c = lds.GetAngle(ret.C);
+										ret.c = lds.GetSide(ret.C);
 										angles++;
 										pair++;
 								};
@@ -183,17 +187,18 @@ class Triangle extends Polygon
 							LDS lds = LDS(ret.b, ret.B);
 							if (Saber[A] == Known.Angle || Saber[A] == Known.Side)
 							{
-								(Saber[A] == Known.Angle) ?
+								if (Saber[A] == Known.Angle) 
 								{
 									ret.a = pa as Side;
-									ret.A = lds.GetSide(ret.a);
+									ret.A = lds.GetAngle(ret.a);
 									neither--;
 									sides++;
 									pair++;
-								} :
-								{
+								} 
+								else
+                {
 									ret.A = PA as Angle;
-									ret.a = lds.GetAngle(ret.A);
+									ret.a = lds.GetSide(ret.A);
 									neither--;
 									angles++;
 									pair++;
@@ -201,17 +206,18 @@ class Triangle extends Polygon
 							}
 							if (Saber[C] == Known.Angle || Saber[C] == Known.Side)
 							{
-								(Saber[C] == Known.Angle) ?
+								if (Saber[C] == Known.Angle)
 								{
 									ret.c = pc as Side;
-									ret.C = lds.GetSide(ret.c);
+									ret.C = lds.GetAngle(ret.c);
 									neither--;
 									sides++;
 									pair++;
-								} :
-								{
+								}
+								else 
+                {
 									ret.C = PC as Angle;
-									ret.c = lds.GetAngle(ret.C);
+									ret.c = lds.GetSide(ret.C);
 									neither--;
 									angles++;
 									pair++;
@@ -225,17 +231,18 @@ class Triangle extends Polygon
 							LDS lds = LDS(ret.c, ret.C);
 							if (Saber[A] == Known.Angle || Saber[A] == Known.Side)
 							{
-								(Saber[A] == Known.Angle) ?
+								if (Saber[A] == Known.Angle)
 								{
 									ret.a = pa as Side;
-									ret.A = lds.GetSide(ret.a);
+									ret.A = lds.GetAngle(ret.a);
 									neither--;
 									sides++;
 									pair++;
-								} :
-								{
+								} 
+								else 
+                {
 									ret.A = PA as Angle;
-									ret.a = lds.GetAngle(ret.A);
+									ret.a = lds.GetSide(ret.A);
 									neither--;
 									angles++;
 									pair++;
@@ -243,17 +250,18 @@ class Triangle extends Polygon
 							}
 							if (Saber[B] == Known.Angle || Saber[B] == Known.Side)
 							{
-								(Saber[B] == Known.Angle) ?
+								if (Saber[B] == Known.Angle)
 								{
 									ret.b = pb as Side;
-									ret.B = lds.GetSide(ret.b);
+									ret.B = lds.GetAngle(ret.b);
 									neither--;
 									sides++;
 									pair++;
-								} :
-								{
+								}
+								else 
+                {
 									ret.B = PB as Angle;
-									ret.b = lds.GetAngle(ret.B);
+									ret.b = lds.GetSide(ret.B);
 									neither--;
 									angles++;
 									pair++;
@@ -262,6 +270,29 @@ class Triangle extends Polygon
 						}
 					}
 
-		return ret;
-	}
+        if (angles == 2)
+        {
+          //bool AAng = (Saber[0] == Known.Both || Saber[0] == Known.Angle);
+          //bool BAng = (Saber[1] == Known.Both || Saber[1] == Known.Angle);
+          //bool CAng = (Saber[2] == Known.Both || Saber[2] == Known.Angle);
+
+          if (PA != null && PB != null)
+          {
+            PC = AngDeduction(PA, PB);
+          }
+          else if (PA != null && PC != null)
+          {
+            PB = AngDeduction(PA, PC);
+          }
+          else if (PB != null && PC != null)
+          {
+            PA = AngDeduction(PB, PC);
+          }
+        }
+
+			}
+
+	  }
+    return ret;
+  }
 }
