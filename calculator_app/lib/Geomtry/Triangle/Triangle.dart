@@ -32,6 +32,16 @@ class LDS //law de sine
 			side = s.length / rad;
 		}
 	}
+
+	Radian GetAngle(Side s)
+	{
+		return Radian(asin(angle * s.length, true));
+	}
+
+	Side GetSide(Angle a)
+	{
+		return Side(side * a.Sine());
+	}
 }
 
 enum Known
@@ -44,36 +54,13 @@ enum Known
 
 class Triangle extends Polygon
 {
-	static Primitive2D LawOfSines(LDS known, Primitive2D unknown)
-	{
-		if (unknown is Side) 
-		{
-			return _FAngle(known, unknown);
-		}
-		else if (unknown is Angle)
-		{
-			return _FSide(known, unknown);
-		}
-		throw 'LawOfSines has recieved a Point Class';
-	}
+	Side a;
+	Side b;
+	Side c;
 
-	static Radian _FAngle(LDS known, Side unknown) //find angle
-	{
-		return Radian(known.angle * unknown.length, true);
-	}
-
-	static Side _FSide(LDS known, Angle unknown)
-	{
-		if (unknown is Radian)
-		{
-			return Side(known.side * unknown.Sine());
-		}
-		if (unknown is Degree)
-		{
-			return Side(known.side * unknown.Convert().Sine());
-		}
-		throw 'LawOSine has recieved what should be an impossible (abstract) input';
-	}
+	Angle A;
+	Angle B;
+	Angle C;
 
 	Triangle Solve
 	(
@@ -81,6 +68,7 @@ class Triangle extends Polygon
 		Angle? PA, Angle? PB, Angle? PC
 	)
 	{
+		Triangle ret = Triangle;
 		//given
 		final dynamic GivenZ = ((pa != null) && (PA != null)) ? LDS(pa, PA) : false;
 		final dynamic GivenY = ((pb != null) && (PB != null)) ? LDS(pb, PB) : false;
@@ -113,12 +101,16 @@ class Triangle extends Polygon
 		Saber[2] = XOR(bpc, BPC) ?
 			(bpc ? Known.Side : Known.Angle) : (BPC ? Known.Both : Known.Neither);
 
+		const A = 0;
+		const B = 1;
+		const C = 2;
+
 		int angles = 0;
 		int sides = 0;
 		int pair = 0;
 		int neither = 0;
 
-			for (int ind = 0 ; ind <= 2; ind ++)
+			for (int ind = 0 ; ind <= 2; ind++)
 			{
 				switch (Saber[ind])
 				{
@@ -135,39 +127,141 @@ class Triangle extends Polygon
 						pair++;
 						sides++;
 						angles++;
-
-						/*switch (ind)
-						{
-							case 0:
-							{
-								pair = pair + "a";
-							} break;
-							case 1:
-							{
-								pair = pair + "b"
-							} break;
-							case 2:
-							{
-								pair = pair + "c";
-							}
-
-						}*/
 					}break;
 				  case Known.Neither: 
 					{
 						neither++;
 					}break;
 				}
+// Law of Sine Time
+				if (pair >= 1 && (sides >= 2 || angles >= 2))
+				{
+					for (fv = 0 ; fv <= 3 ; fv++)
+					{
+						if (Saber[A] == Known.Both)
+						{
+							ret.a = pa as Side;
+							ret.A = PA as Angle;
+							LDS lds = LDS(ret.a, ret.A);
+							if (Saber[B] == Known.Angle || Saber[B] == Known.Side)
+							{
+								(Saber[B] == Known.Angle) ?
+								{
+									ret.b = pb as Side;
+									ret.B = lds.GetSide(ret.b);
+									sides++;
+									pair++;
+								} :
+								{
+									ret.B = PB as Angle;
+									ret.b = lds.GetAngle(ret.B);
+									angles++;
+									pair++;
+								};
+							}
+							if (Saber[C] == Known.Angle || Saber[C] == Known.Side)
+							{
+								(Saber[C] == Known.Angle) ?
+								{
+									ret.c = pc as Side;
+									ret.C = lds.GetSide(ret.c);
+									sides++;
+									pair++;
+								} :
+								{
+										ret.C = PC as Angle;
+										ret.c = lds.GetAngle(ret.C);
+										angles++;
+										pair++;
+								};
+							}
+						}
+						if (Saber[B] == Known.Both)
+						{
+							ret.b = pb as Side;
+							ret.B = PB as Angle;
+							LDS lds = LDS(ret.b, ret.B);
+							if (Saber[A] == Known.Angle || Saber[A] == Known.Side)
+							{
+								(Saber[A] == Known.Angle) ?
+								{
+									ret.a = pa as Side;
+									ret.A = lds.GetSide(ret.a);
+									neither--;
+									sides++;
+									pair++;
+								} :
+								{
+									ret.A = PA as Angle;
+									ret.a = lds.GetAngle(ret.A);
+									neither--;
+									angles++;
+									pair++;
+								};
+							}
+							if (Saber[C] == Known.Angle || Saber[C] == Known.Side)
+							{
+								(Saber[C] == Known.Angle) ?
+								{
+									ret.c = pc as Side;
+									ret.C = lds.GetSide(ret.c);
+									neither--;
+									sides++;
+									pair++;
+								} :
+								{
+									ret.C = PC as Angle;
+									ret.c = lds.GetAngle(ret.C);
+									neither--;
+									angles++;
+									pair++;
+								};
+							}
+						}
+						if (Saber[C] == Known.Both)
+						{
+							ret.c = pc as Side;
+							ret.C = PC as Angle;
+							LDS lds = LDS(ret.c, ret.C);
+							if (Saber[A] == Known.Angle || Saber[A] == Known.Side)
+							{
+								(Saber[A] == Known.Angle) ?
+								{
+									ret.a = pa as Side;
+									ret.A = lds.GetSide(ret.a);
+									neither--;
+									sides++;
+									pair++;
+								} :
+								{
+									ret.A = PA as Angle;
+									ret.a = lds.GetAngle(ret.A);
+									neither--;
+									angles++;
+									pair++;
+								};
+							}
+							if (Saber[B] == Known.Angle || Saber[B] == Known.Side)
+							{
+								(Saber[B] == Known.Angle) ?
+								{
+									ret.b = pb as Side;
+									ret.B = lds.GetSide(ret.b);
+									neither--;
+									sides++;
+									pair++;
+								} :
+								{
+									ret.B = PB as Angle;
+									ret.b = lds.GetAngle(ret.B);
+									neither--;
+									angles++;
+									pair++;
+								};
+							}
+						}
+					}
 
-				if (pair >= 1)
-				{}
-				else if (sides >= 2)
-				{}
-				else if (angles >= 2)
-				{}
-
-			}
-
-		return Triangle();
+		return ret;
 	}
 }
