@@ -1,12 +1,8 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
-//import 'dart:ffi';
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'dart:math';
 import '../main.dart';
-//import '../Screens/Screens.dart';
 
 class Numpad
 {

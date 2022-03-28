@@ -1,20 +1,12 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
-//import 'dart:convert';
-
 import 'dart:math';
-
-//import 'package:epics_app/Geomtry/AngleDeduction.dart';
 
 import '../Angle.dart';
 import '../Side.dart';
 import '../Geometry.dart';
 import '../../Common/Misc.dart';
 import '../AngleDeduction.dart' as AD;
-
-//typedef Match(Side? s, Angle? a);
-//typedef One = bool;
-//typedef SineLaw(LDS known, Primitive unknown);
 
 class LDS //law de sine
 {
@@ -89,14 +81,6 @@ class Triangle extends Polygon
 
 		//Ternary madness
 		List<Known> Saber = [];
-		//final Known zGiven = XOR(bpa, BPA) ?
-		// (bpa ? Known.Side : Known.Angle ) : (BPA ? Known.Both : Known.Neither);
-
-		//final Known yGiven = XOR(bpb, BPB) ?
-		 //(bpb ? Known.Side : Known.Angle ) : (BPB ? Known.Both : Known.Neither);
-		
-		//final Known xGiven = XOR(bpc, BPC) ?
-		 //(bpc ? Known.Side : Known.Angle ) : (BPC ? Known.Both : Known.Neither);
 		Saber[0] = XOR(bpa, BPA) ?
 			(bpa ? Known.Side : Known.Angle) : (BPA ? Known.Both : Known.Neither);
 		Saber[1] = XOR(bpb, BPB) ?
@@ -273,10 +257,6 @@ class Triangle extends Polygon
 
         if (angles == 2)
         {
-          //bool AAng = (Saber[0] == Known.Both || Saber[0] == Known.Angle);
-          //bool BAng = (Saber[1] == Known.Both || Saber[1] == Known.Angle);
-          //bool CAng = (Saber[2] == Known.Both || Saber[2] == Known.Angle);
-
           if (PA != null && PB != null)
           {
             PC = AD.AngDeduction(PA, PB);

@@ -42,7 +42,6 @@ num EvalASDM(num n1, n2, ASDMOPs op)
       return n1 % n2;
     }
   }
-  return 0;
 }
 
 abstract class BExpression //base expression
@@ -55,7 +54,6 @@ class ASDM extends BExpression
   num Num1 = 0;
   num Num2 = 0;
   late ASDMOPs opnum;
-  //bool why = false;
 
   set OP(ASDMOPs op)
   {

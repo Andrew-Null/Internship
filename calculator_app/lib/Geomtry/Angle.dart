@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types, file_names
 
 import 'dart:math';
-//import 'package:epics_app/Geomtry/Side.dart';
 import '../Common/Misc.dart';
 import 'Geometry.dart';
 import 'Side.dart';
