@@ -41,15 +41,15 @@ Scaffold IntCalc(BuildContext context)
 	void IntEvaluate()
 	{
 
-		assert(_op != null, "_op is still null");
-		//var e = Expression(_nms[0], _nms[1],_op as ASDMOPs);
+    if (_op != null)
+    {
+      _nms[0] = EvalASDM(_nms[0], _nms[1], _op as ASDMOPs) as int;
 
-		//_nms[0] = Memo[e] ?? AddYRet(e); 
+  	  _nms[1] = 0;
+		  _op = null;
 
-		_nms[1] = 0;
-		_op = null;
-
-		app.Refresh; 
+		  app.Refresh; 
+    }
 	}
 	
 	void Clear()
