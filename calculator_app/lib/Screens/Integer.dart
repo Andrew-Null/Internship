@@ -25,7 +25,7 @@ class Expression
 	}
 }
 
-Map<Expression, int> Memo = {}; //for memoization, not sure if is necessary, but, it is unlikely to hurt
+//Map<Expression, int> Memo = {}; //for memoization, not sure if is necessary, but, it is unlikely to hurt
 //Map<int, Expression> History {}
 //Memo[History[index]] //maybe how history can work
 //List<Expression> Exprs //to hod all the expressions rather than having both maps hold dupplicate data
@@ -40,17 +40,11 @@ Scaffold IntCalc(BuildContext context)
 
 	void IntEvaluate()
 	{
-		int AddYRet(Expression ex)
-		{
-			int a = EvalASDM(ex.Left, ex.Right, ex.op) as int;
-			Memo[ex] = a;
-			return a;
-		}
 
 		assert(_op != null, "_op is still null");
-		var e = Expression(_nms[0], _nms[1],_op as ASDMOPs);
+		//var e = Expression(_nms[0], _nms[1],_op as ASDMOPs);
 
-		_nms[0] = Memo[e] ?? AddYRet(e); 
+		//_nms[0] = Memo[e] ?? AddYRet(e); 
 
 		_nms[1] = 0;
 		_op = null;
