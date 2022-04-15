@@ -7,37 +7,7 @@ import '../Side.dart';
 import '../Geometry.dart';
 import '../../Common/Misc.dart';
 import '../AngleDeduction.dart' as AD;
-
-class LDS //law de sine
-{
-	late double angle;
-	late double side;
-
-	LDS(Side s, Angle A)
-	{
-		if (A is Radian)
-		{
-			angle = s.length / A.Sine();
-			side = A.Sine() / s.length;
-		}
-		else
-		{
-			num rad = Radian((A as Degree).value * Angle.AR, true).Sine();
-			side =  rad / s.length;
-			side = s.length / rad;
-		}
-	}
-
-	Radian GetAngle(Side s)
-	{
-		return Radian(asin(angle * s.length), true);
-	}
-
-	Side GetSide(Angle a)
-	{
-		return Side(side * (a is Radian ? a.Sine() : (a is Degree ? a.Convert().Sine() : throw "GetSide has recieved an abstract angle class")));
-	}
-}
+import 'Laws.dart';
 
 enum Known
 {
@@ -115,11 +85,13 @@ class Triangle extends Polygon
 						sides++;
 						angles++;
 					}break;
-				  case Known.Neither: 
+					case Known.Neither: 
 					{
 						neither++;
 					}break;
 				}
+			}
+	
 // Law of Sine Time
 				if (pair >= 1 && (sides >= 2 || angles >= 2))
 				{
@@ -140,7 +112,7 @@ class Triangle extends Polygon
 									pair++;
 								}
 								else 
-                {
+								{
 									ret.B = PB as Angle;
 									ret.b = lds.GetSide(ret.B);
 									angles++;
@@ -157,7 +129,7 @@ class Triangle extends Polygon
 									pair++;
 								}
 								else 
-                {
+								{
 										ret.C = PC as Angle;
 										ret.c = lds.GetSide(ret.C);
 										angles++;
@@ -181,7 +153,7 @@ class Triangle extends Polygon
 									pair++;
 								} 
 								else
-                {
+								{
 									ret.A = PA as Angle;
 									ret.a = lds.GetSide(ret.A);
 									neither--;
@@ -200,7 +172,7 @@ class Triangle extends Polygon
 									pair++;
 								}
 								else 
-                {
+								{
 									ret.C = PC as Angle;
 									ret.c = lds.GetSide(ret.C);
 									neither--;
@@ -225,7 +197,7 @@ class Triangle extends Polygon
 									pair++;
 								} 
 								else 
-                {
+								{
 									ret.A = PA as Angle;
 									ret.a = lds.GetSide(ret.A);
 									neither--;
@@ -244,7 +216,7 @@ class Triangle extends Polygon
 									pair++;
 								}
 								else 
-                {
+								{
 									ret.B = PB as Angle;
 									ret.b = lds.GetSide(ret.B);
 									neither--;
@@ -254,26 +226,26 @@ class Triangle extends Polygon
 							}
 						}
 					}
-
-        if (angles == 2)
-        {
-          if (PA != null && PB != null)
-          {
-            PC = AD.AngDeduction(PA, PB);
-          }
-          else if (PA != null && PC != null)
-          {
-            PB = AD.AngDeduction(PA, PC);
-          }
-          else if (PB != null && PC != null)
-          {
-            PA = AD.AngDeduction(PB, PC);
-          }
-        }
-
+// Angle Deduction
+			if (angles == 2)
+			{
+				if (PA != null && PB != null)
+				{
+					ret.C = AD.AngDeduction(PA, PB);
+				}
+				else if (PA != null && PC != null)
+				{
+					ret.B = AD.AngDeduction(PA, PC);
+				}
+				else if (PB != null && PC != null)
+				{
+					ret.A = AD.AngDeduction(PB, PC);
+				}
 			}
 
-	  }
-    return ret;
-  }
+//law of cosine
+			
+		}
+	return ret;
+	}
 }
