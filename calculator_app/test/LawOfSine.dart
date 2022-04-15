@@ -1,0 +1,1 @@
+import '../lib/Geometry/Triangle/Laws.dart';

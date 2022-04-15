@@ -1,7 +1,7 @@
 import 'dart:html';
 import "dart:math";
 
-import 'package:calculator_app/Geomtry/Geometry.dart';
+import 'package:calculator_app/Geometry/Geometry.dart';
 
 import '../Angle.dart';
 import '../Side.dart';

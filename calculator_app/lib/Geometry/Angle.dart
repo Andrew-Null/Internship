@@ -77,7 +77,7 @@ class AngleDeSideDePoint extends Angle
 		bool BA = A.B.Equal(B.A); 
 		bool BB = A.B.Equal(B.B); 
 
-		if ( XOR(XOR(AA, AB), XOR(BA, BB)))
+		if ( XOR(XOR(AA, AB), XOR(BA, BB) ) )
 		{
 			double ian = AA ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.B.Y - A.A.Y, B.B.X - A.A.X) ) : 0.0;
 			ian = AB ? ( atan2(A.B.Y - A.A.Y, A.B.X - A.A.X) - atan2(B.A.Y - A.A.Y, B.A.X - A.A.X) ) : ian;
