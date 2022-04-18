@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'dart:html';
 import "dart:math";
 
@@ -41,20 +43,20 @@ Primitive2D LDC(Side a, Side b, Primitive2D c) //law de cosines
 {
   if (c is Side)
   {
-    final num numerator = pow(a.length,2) + pow(b.length,2) - pow(c.length,2);
+    final num numerator = pow(a.length,2) + pow(b.length,2) - pow((c as Side).length,2);
     final num denominator = 2*a.length*b.length;
     return Radian(acos(numerator/denominator),true);
   }
   else if (c is Degree)
   {
     final num Squared = pow(a.length,2) + pow(b.length,2);
-    final num Multiple = a.length * b.length * c.Convert().Cosine();
+    final num Multiple = a.length * b.length * (c as Degree).Convert().Cosine();
 		return Side(sqrt(Squared - Multiple));
   }
   else if (c is Radian)
   {
 		final num Squared = pow(a.length,2) + pow(b.length,2);
-		final num Multiple = a.length * b.length * c.Cosine();
+		final num Multiple = a.length * b.length * (c as Radian).Cosine();
 		return Side(sqrt(Squared - Multiple));
   }
   throw "LDC has recieved either an abstract angle class or a point class";
