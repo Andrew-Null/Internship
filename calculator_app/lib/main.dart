@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'Screens/Screens.dart';
-//import 'Common/Numpad.dart';
 
 
 
@@ -25,8 +24,6 @@ class MyApp extends StatelessWidget {
 			debugShowCheckedModeBanner: false,
 			theme: ThemeData(
 				primarySwatch: Colors.blue,
-				//scaffoldBackgroundColor: Color
-				//(0xFF101010)
 			),
 			home: const MyHomePage(title: 'Internship App Home'),
 		);
@@ -54,17 +51,3 @@ class _MyHomePageState extends State<MyHomePage> {
 		setState(() {});
 	}
 }
-
-
-/*
-import 'Geometry/Side.dart' as Side;
-import 'Geometry/Angle.dart' as Ang;
-import 'Geometry/Triangle/Laws.dart' as Laws;
-void main()
-{
-  Side.Side a = Side.Side(1);
-  Ang.Angle A = Ang.Degree(75);
-
-  print(Laws.LDS(a,A).GetSide(Ang.Degree(30)).length.toString());
-}
-*/

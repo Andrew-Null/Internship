@@ -25,11 +25,6 @@ class Expression
 	}
 }
 
-//Map<Expression, int> Memo = {}; //for memoization, not sure if is necessary, but, it is unlikely to hurt
-//Map<int, Expression> History {}
-//Memo[History[index]] //maybe how history can work
-//List<Expression> Exprs //to hod all the expressions rather than having both maps hold dupplicate data
-
 int WI() //which index
 {
 	return _op != null ? 1 : 0;
@@ -141,7 +136,6 @@ Scaffold IntCalc(BuildContext context)
 	Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      //mainAxisAlignment: MainAxisAlignment.center,
 			children: 
 			[
 				Center(child: Column(
