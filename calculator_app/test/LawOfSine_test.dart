@@ -1,8 +1,10 @@
 import '../lib/Geometry/Triangle/Laws.dart';
 import '../lib/Geometry/Angle.dart';
 import '../lib/Geometry/Side.dart';
+import '../lib/Geometry/Geometry.dart';
 
-import 'package:flutter_test/flutter_test.dart';
+
+//import 'package:flutter_test/flutter_test.dart';
 
 void main()
 {

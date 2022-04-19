@@ -1,4 +1,5 @@
 // ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types, unused_import
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'Screens/Screens.dart';
@@ -55,16 +56,19 @@ class _MyHomePageState extends State<MyHomePage> {
 	}
 }
 
+*/
 
-/*
 import 'Geometry/Side.dart' as Side;
 import 'Geometry/Angle.dart' as Ang;
 import 'Geometry/Triangle/Laws.dart' as Laws;
+import 'Geometry/Geometry.dart';
 void main()
 {
   Side.Side a = Side.Side(1);
-  Ang.Angle A = Ang.Degree(75);
-
-  print(Laws.LDS(a,A).GetSide(Ang.Degree(30)).length.toString());
+  Ang.Degree A = Ang.Degree(30);
+  //print(Ang.Degree(120).Cosine());
+  //print(((Laws.LDC(a, Side.Side(1), Ang.Degree(120))) as Side.Side).length.toString());
+  //print(z.side.toString());
+  print(Laws.LDS(a,A).GetSide(Ang.Degree(120)).length.toString());
+  //print(A.Sine());
 }
-*/
