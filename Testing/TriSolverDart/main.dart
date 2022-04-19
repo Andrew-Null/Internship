@@ -62,13 +62,14 @@ import 'Geometry/Side.dart' as Side;
 import 'Geometry/Angle.dart' as Ang;
 import 'Geometry/Triangle/Laws.dart' as Laws;
 import 'Geometry/Geometry.dart';
+import 'dart:math';
 void main()
 {
-  Side.Side a = Side.Side(1);
+  Side.Side a = Side.Side(6);
   Ang.Degree A = Ang.Degree(30);
   //print(Ang.Degree(120).Cosine());
-  //print(((Laws.LDC(a, Side.Side(1), Ang.Degree(120))) as Side.Side).length.toString());
+  print(((Laws.LDC(a, Side.Side(4), Side.Side(8))) as Ang.Radian).value.toString());
   //print(z.side.toString());
-  print(Laws.LDS(a,A).GetSide(Ang.Degree(120)).length.toString());
+  //print(Laws.LDS(a,A).GetSide(Ang.Degree(120)).length.toString());
   //print(A.Sine());
 }

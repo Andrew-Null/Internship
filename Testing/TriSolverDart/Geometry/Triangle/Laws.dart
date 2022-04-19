@@ -48,13 +48,13 @@ Primitive2D LDC(Side a, Side b, Primitive2D c) //law de cosines
   else if (c is Degree)
   {
     final num Squared = pow(a.length,2) + pow(b.length,2);
-    final num Multiple = a.length * b.length * (c as Degree).Cosine();
+    final num Multiple = 2 * a.length * b.length * (c as Degree).Cosine();
 		return Side(sqrt(Squared - Multiple));
   }
   else if (c is Radian)
   {
 		final num Squared = pow(a.length,2) + pow(b.length,2);
-		final num Multiple = a.length * b.length * (c as Radian).Cosine();
+		final num Multiple = 2 * a.length * b.length * (c as Radian).Cosine();
 		return Side(sqrt(Squared - Multiple));
   }
   throw "LDC has recieved either an abstract angle class or a point class";
