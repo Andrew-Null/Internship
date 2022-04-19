@@ -1,10 +1,8 @@
 // ignore_for_file: unnecessary_cast
 
-import 'dart:html';
 import "dart:math";
 
-import 'package:calculator_app/Geometry/Geometry.dart';
-
+import '../Geometry.dart';
 import '../Angle.dart';
 import '../Side.dart';
 
@@ -17,14 +15,14 @@ class LDS //law de sine
 	{
 		if (A is Radian)
 		{
-			angle = s.length / A.Sine();
-			side = A.Sine() / s.length;
+			side = s.length / A.Sine();
+			angle = A.Sine() / s.length;
 		}
-		else if (A is Degree)
+		else
 		{
-			num rad = A.Convert().Sine();
-			side =  rad / s.length;
-			angle = s.length / rad;
+			num rad = Radian((A as Degree).value * Angle.AR, true).Sine();
+			angle =  rad / s.length;
+			side = s.length / rad;
 		}
 	}
 
@@ -50,13 +48,13 @@ Primitive2D LDC(Side a, Side b, Primitive2D c) //law de cosines
   else if (c is Degree)
   {
     final num Squared = pow(a.length,2) + pow(b.length,2);
-    final num Multiple = a.length * b.length * (c as Degree).Convert().Cosine();
+    final num Multiple = 2 * a.length * b.length * (c as Degree).Cosine();
 		return Side(sqrt(Squared - Multiple));
   }
   else if (c is Radian)
   {
 		final num Squared = pow(a.length,2) + pow(b.length,2);
-		final num Multiple = a.length * b.length * (c as Radian).Cosine();
+		final num Multiple = 2 * a.length * b.length * (c as Radian).Cosine();
 		return Side(sqrt(Squared - Multiple));
   }
   throw "LDC has recieved either an abstract angle class or a point class";

@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types, file_names
 
 import 'dart:math';
-import '../Common/Misc.dart';
+//import '../Common/Misc.dart';
 import 'Geometry.dart';
 import 'Side.dart';
 
@@ -9,8 +9,8 @@ typedef float = double; //to reduce pointless errors and frustration
 
 abstract class Angle extends Primitive2D
 {
-  static const AR = pi / 360; //to radian
-  static const AD = 360/ pi; // to degrees
+  static const AR = pi / 180; //to radian
+  static const AD = 180/ pi; // to degrees
 }
 
 class Radian extends Angle
@@ -54,12 +54,12 @@ class Degree extends Angle
 
 	num Sine()
 	{
-		return sin(value * Angle.AR) * Angle.AD;
+		return Convert().Sine();
 	}
 
 	num Cosine()
 	{
-		return cos(value * Angle.AR) * Angle.AD;
+		return cos(Convert().value);
 	}
 
 }
