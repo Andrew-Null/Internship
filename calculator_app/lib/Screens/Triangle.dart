@@ -4,34 +4,83 @@
  import 'Menus/MMenu.dart';
  import '../main.dart';
 
-//Contollers
-TextEditingContoller _AngA = TextEditingContoller();
-TextEditingContoller _AngB = TextEditingContoller();
-TextEditingContoller _AngC = TextEditingContoller();
+enum SyAIE //side and angles index enum
+{
+	AA = 0,
+  AB = 1,
+  AC = 2,
+  sa = 3,
+  sb = 4,
+  sc = 5
+}
 
-TextEditingContoller _aSide = TextEditingContoller();
-TextEditingContoller _bSide = TextEditingContoller();
-TextEditingContoller _cSide = TextEditingContoller();
+TextEditingController _TxtControllers =
+[
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController()
+]
 
+String _TxtLabels =
+[
+  "Angle A",
+  "Angle B",
+  "Angle C",
+  "Side a",
+  "Side b",
+  "Side c"
+]
+
+num? _Values =
+[
+  null,
+  null,
+  null,
+  null,
+  null,
+  null
+]
 //TextEditingController _controller = TextEditingController();
 
-TextField TxtBoxGen(String label, Function cambiar, TextEditingController cntrllr) 
+TextField TxtBoxGen(SyAIE index)
 {
   //app.Refresh;
   return TextField
   (
     keyboardType: TextInputType.number,
-    onChanged: cambiar(),
+    onChanged: ()
+    {
+      try
+      {
+        _Values[index] = num.parse(_TxtControllers[index]);
+      }
+      catch
+      {
+        _Values[index] = null;
+      }
+    },
     decoration: InputDecoration
     (
       border: const OutlineInputBorder(),
-      labelText: label,
+      labelText: _TxtLabels[index],
     ),
-    controller: cntrllr,
+    controller: _TxtControllers[index],
   );
 }
 
-Column? AngleTextBoxes() {} //temporarily nullable
+Column AngleTextBoxes()
+{
+  return Column
+  (
+    children:
+    [
+
+    ]
+  )
+}
 
 
 Scaffold TriSolver()
