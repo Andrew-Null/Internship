@@ -4,6 +4,15 @@
  import 'Menus/MMenu.dart';
  import '../main.dart';
 
+//Contollers
+TextEditingContoller _AngA = TextEditingContoller();
+TextEditingContoller _AngB = TextEditingContoller();
+TextEditingContoller _AngC = TextEditingContoller();
+
+TextEditingContoller _aSide = TextEditingContoller();
+TextEditingContoller _bSide = TextEditingContoller();
+TextEditingContoller _cSide = TextEditingContoller();
+
 //TextEditingController _controller = TextEditingController();
 
 TextField TxtBoxGen(String label, Function cambiar, TextEditingController cntrllr) 
