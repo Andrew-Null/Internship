@@ -1,20 +1,20 @@
  // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables
 
- import 'package:flutter/material.dart';
- import 'Menus/MMenu.dart';
- import '../main.dart';
+import 'package:flutter/material.dart';
+import 'Menus/MMenu.dart';
+import '../main.dart';
 
 enum SyAIE //side and angles index enum
 {
-	AA = 0,
-  AB = 1,
-  AC = 2,
-  sa = 3,
-  sb = 4,
-  sc = 5
+	AA,
+	AB,
+	AC,
+	sa,
+	sb,
+	sc
 }
 
-TextEditingController _TxtControllers =
+List<TextEditingController> _TxtControllers =
 [
   TextEditingController(),
   TextEditingController(),
@@ -22,9 +22,9 @@ TextEditingController _TxtControllers =
   TextEditingController(),
   TextEditingController(),
   TextEditingController()
-]
+];
 
-String _TxtLabels =
+List<String> _TxtLabels =
 [
   "Angle A",
   "Angle B",
@@ -32,9 +32,9 @@ String _TxtLabels =
   "Side a",
   "Side b",
   "Side c"
-]
+];
 
-num? _Values =
+List<num?> _Values =
 [
   null,
   null,
@@ -42,32 +42,68 @@ num? _Values =
   null,
   null,
   null
-]
+];
 //TextEditingController _controller = TextEditingController();
 
 TextField TxtBoxGen(SyAIE index)
 {
   //app.Refresh;
+  late int intex;
+  switch (index)
+  {
+    case SyAIE.AA:
+    {
+      intex = 0;
+    }break;
+    case SyAIE.AB:
+    {
+      intex = 1;
+    }break;
+    case SyAIE.AC:
+    {
+      intex = 2;
+    }break;
+    case SyAIE.sa:
+    {
+      intex = 3;
+    }break;
+    case SyAIE.sb:
+    {
+      intex = 4;
+    }break;
+    case SyAIE.sc:
+    {
+      intex = 5;
+    }break;
+  }
+
   return TextField
   (
     keyboardType: TextInputType.number,
-    onChanged: ()
+    onChanged: (content)
     {
       try
       {
-        _Values[index] = num.parse(_TxtControllers[index]);
+        _Values[intex] = num.parse(_TxtControllers[intex].text);
       }
-      catch
+      catch(e)
       {
-        _Values[index] = null;
+        _Values[intex] = null;
       }
+      app.Refresh;
     },
-    decoration: InputDecoration
+		decoration: InputDecoration
     (
-      border: const OutlineInputBorder(),
-      labelText: _TxtLabels[index],
+      labelText: _TxtLabels[intex],
+      border: OutlineInputBorder
+      (
+        borderSide: BorderSide
+        (
+	//      color: _Values[intex] == null ? Colors.red : Colors.green
+        )
+      ),
     ),
-    controller: _TxtControllers[index],
+    controller: _TxtControllers[intex],
   );
 }
 
@@ -77,19 +113,37 @@ Column AngleTextBoxes()
   (
     children:
     [
-
+			TxtBoxGen(SyAIE.AA),
+			TxtBoxGen(SyAIE.AB),
+			TxtBoxGen(SyAIE.AC)
     ]
-  )
+  );
 }
 
+Column SideTextBoxes()
+{
+  return Column
+  (
+    children:
+    [
+			TxtBoxGen(SyAIE.sa),
+			TxtBoxGen(SyAIE.sb),
+			TxtBoxGen(SyAIE.sc)
+    ]
+  );
+}
 
-Scaffold TriSolver()
+Scaffold TriSolver(BuildContext context)
 {
 	// ignore: prefer_const_constructors
 	return Scaffold(body: 
-		Column(children: 
+		Column(children:
 			[
-				const TextField(keyboardType: TextInputType.number),
+        Row(children:
+        [
+          AngleTextBoxes(),
+          //SideTextBoxes()
+      	]),
 				MMB()
 			]
 		)

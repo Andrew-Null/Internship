@@ -32,6 +32,19 @@ TextButton SimICalc() //simple int calculator
 	);
 }
 
+TextButton TSButton() //triangle solver button
+{
+	return TextButton
+	(
+		child: const Text("Triangle Solver"),
+		onPressed: ()
+		{
+			screen = SOptions.TriSolverS;
+			app.Refresh;
+		}
+	);
+}
+
 Scaffold MainMenu(BuildContext context)
 {
 	return Scaffold
@@ -39,7 +52,7 @@ Scaffold MainMenu(BuildContext context)
 		body: Center(child: Column(children:
 		[
 			const Text("Main Menu"),
-			Row(children: [SimICalc()])
+			Row(children: [SimICalc(), TSButton()])
 		]),
 	));
 }
