@@ -45,10 +45,12 @@ List<num?> _Values =
 ];
 //TextEditingController _controller = TextEditingController();
 
-TextField TxtBoxGen(SyAIE index)
+SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
+  final w = MediaQuery.of(context).size.width;
+  print("Creating TextFields");
   //app.Refresh;
-  late int intex;
+  int intex = 0;
   switch (index)
   {
     case SyAIE.AA:
@@ -77,8 +79,7 @@ TextField TxtBoxGen(SyAIE index)
     }break;
   }
 
-  return TextField
-  (
+  return SizedBox(width: w * .49, child: TextField(//);
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
@@ -99,36 +100,38 @@ TextField TxtBoxGen(SyAIE index)
       (
         borderSide: BorderSide
         (
-	//      color: _Values[intex] == null ? Colors.red : Colors.green
+	      color: _Values[intex] == null ? Colors.red : Colors.green
         )
       ),
     ),
     controller: _TxtControllers[intex],
-  );
+  ));
 }
 
-Column AngleTextBoxes()
+Column AngleTextBoxes(BuildContext context)
 {
+  print("Creating Angle Text boxes");
   return Column
   (
     children:
     [
-			TxtBoxGen(SyAIE.AA),
-			TxtBoxGen(SyAIE.AB),
-			TxtBoxGen(SyAIE.AC)
+			TxtBoxGen(SyAIE.AA, context),
+			TxtBoxGen(SyAIE.AB, context),
+			TxtBoxGen(SyAIE.AC, context)
     ]
   );
 }
 
-Column SideTextBoxes()
+Column SideTextBoxes(BuildContext context)
 {
+  print("Creating Side Text Boxes");
   return Column
   (
     children:
     [
-			TxtBoxGen(SyAIE.sa),
-			TxtBoxGen(SyAIE.sb),
-			TxtBoxGen(SyAIE.sc)
+			TxtBoxGen(SyAIE.sa, context),
+			TxtBoxGen(SyAIE.sb, context),
+			TxtBoxGen(SyAIE.sc, context)
     ]
   );
 }
@@ -141,8 +144,9 @@ Scaffold TriSolver(BuildContext context)
 			[
         Row(children:
         [
-          AngleTextBoxes(),
-          //SideTextBoxes()
+          //TxtBoxGen(SyAIE.AA, context)
+          AngleTextBoxes(context),
+          SideTextBoxes(context)
       	]),
 				MMB()
 			]
