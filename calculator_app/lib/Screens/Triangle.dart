@@ -5,6 +5,7 @@ import 'Menus/MMenu.dart';
 import '../main.dart';
 
 bool _RMode = false; //Radian Mode
+const DEFAULTPAD = 1.0;
 
 enum SyAIE //side and angles index enum
 {
@@ -49,9 +50,9 @@ List<num?> _Values =
 
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
-  final double SwitchSpace = 30.0;
+  const double SwitchSpace = 32.5;
   final w = MediaQuery.of(context).size.width;
-  print("Creating TextFields");
+  //print("Creating TextFields");
   //app.Refresh;
   int intex = 0;
   switch (index)
@@ -113,7 +114,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 
 Column AngleTextBoxes(BuildContext context)
 {
-  print("Creating Angle Text boxes");
+  //print("Creating Angle Text boxes");
   return Column
   (
     children:
@@ -127,7 +128,7 @@ Column AngleTextBoxes(BuildContext context)
 
 Column SideTextBoxes(BuildContext context)
 {
-  print("Creating Side Text Boxes");
+  //print("Creating Side Text Boxes");
   return Column
   (
     children:
@@ -141,13 +142,14 @@ Column SideTextBoxes(BuildContext context)
 
 Padding RSwitch(BuildContext context)
 {
+  const double SWITCHPAD = 4.0;
   return Padding
   (
-    padding: EdgeInsets.all(1.0), child:
+    padding: EdgeInsets.all(SWITCHPAD), child:
     Switch
     (
     value: _RMode,
-    onChanged: (bool val)
+    onChanged: (val)
     {
       _RMode = !_RMode;
       app.Refresh;
@@ -180,21 +182,29 @@ Padding PiSwitch(BuildContext context, AngIndex cual)
       intex = 2;
     }break;
   }
-  return Padding(padding: EdgeInsets.all(1.0),
+  return Padding(padding: const EdgeInsets.all(DEFAULTPAD),
     child: Switch
     (
       value: _HasPi[intex],
       onChanged: (value)
       {
+        //print("Switch Flipped:");
+        //print(value);
+        //print(intex);
+        //print(_HasPi[intex]);
+        //print("");
         _HasPi[intex] = !_HasPi[intex];
+        app.Refresh;
       },
     ), 
   );
 }
 Column PiSwitches(BuildContext context)
 {
+  const double TEXTPAD = 2.0;
   return Column
   (children: [
+    const Padding(child: Text("Includes pi?"), padding: EdgeInsets.all(TEXTPAD)),
     PiSwitch(context, AngIndex.a),
     PiSwitch(context, AngIndex.b),
     PiSwitch(context, AngIndex.c)
