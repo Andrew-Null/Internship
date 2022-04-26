@@ -79,7 +79,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     }break;
   }
 
-  return SizedBox(width: w * .49, child: TextField(//);
+  return SizedBox(width: w * .49, child: Padding(padding: const EdgeInsets.all(4.0), child: TextField(//);
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
@@ -105,7 +105,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
       ),
     ),
     controller: _TxtControllers[intex],
-  ));
+  )));
 }
 
 Column AngleTextBoxes(BuildContext context)
