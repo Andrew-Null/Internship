@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'Menus/MMenu.dart';
 import '../main.dart';
 
+bool _RMode = false; //Radian Mode
+
 enum SyAIE //side and angles index enum
 {
 	AA,
@@ -47,6 +49,7 @@ List<num?> _Values =
 
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
+  final double SwitchSpace = 30.0;
   final w = MediaQuery.of(context).size.width;
   print("Creating TextFields");
   //app.Refresh;
@@ -79,7 +82,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     }break;
   }
 
-  return SizedBox(width: w * .49, child: Padding(padding: const EdgeInsets.all(4.0), child: TextField(//);
+  return SizedBox(width: (w * .49) - (_RMode ? SwitchSpace : 0.0), child: Padding(padding: const EdgeInsets.all(4.0), child: TextField(//);
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
@@ -136,19 +139,94 @@ Column SideTextBoxes(BuildContext context)
   );
 }
 
+Padding RSwitch(BuildContext context)
+{
+  return Padding
+  (
+    padding: EdgeInsets.all(1.0), child:
+    Switch
+    (
+    value: _RMode,
+    onChanged: (bool val)
+    {
+      _RMode = !_RMode;
+      app.Refresh;
+    },
+    )
+  );
+}
+enum AngIndex
+{
+  a,
+  b,
+  c
+}
+
+List<bool> _HasPi = [false, false, false];
+
+Padding PiSwitch(BuildContext context, AngIndex cual)
+{
+  int intex = 0;
+  switch (cual)
+  {
+    case AngIndex.a:
+    {}break;
+    case AngIndex.b:
+    {
+      intex = 1;
+    }break;
+    case AngIndex.c:
+    {
+      intex = 2;
+    }break;
+  }
+  return Padding(padding: EdgeInsets.all(1.0),
+    child: Switch
+    (
+      value: _HasPi[intex],
+      onChanged: (value)
+      {
+        _HasPi[intex] = !_HasPi[intex];
+      },
+    ), 
+  );
+}
+Column PiSwitches(BuildContext context)
+{
+  return Column
+  (children: [
+    PiSwitch(context, AngIndex.a),
+    PiSwitch(context, AngIndex.b),
+    PiSwitch(context, AngIndex.c)
+  ]);
+}
+
 Scaffold TriSolver(BuildContext context)
 {
 	// ignore: prefer_const_constructors
 	return Scaffold(body: 
 		Column(children:
 			[
+        (_RMode ?
         Row(children:
         [
           //TxtBoxGen(SyAIE.AA, context)
+          SideTextBoxes(context),
           AngleTextBoxes(context),
-          SideTextBoxes(context)
-      	]),
+          PiSwitches(context)
+      	]):
+        Row(children:
+        [
+          SideTextBoxes(context),
+          AngleTextBoxes(context),
+      	])
+        ),
+        Row(children: 
+        [
+        const Text("Radians?"),
+        RSwitch(context),
 				MMB()
+        ]),
 			]
 		)
 	);
