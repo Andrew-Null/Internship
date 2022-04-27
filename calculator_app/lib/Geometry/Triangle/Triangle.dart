@@ -93,6 +93,8 @@ class Triangle extends Polygon
 			}
 	
 // Law of Sine Time
+//What to do about ambigous case
+//http://jwilson.coe.uga.edu/EMT668/EMAT6680.2001/Mealor/EMAT%206700/law%20of%20sines/Law%20of%20Sines%20ambiguous%20case/lawofsinesambiguouscase.html#:~:text=Law%20of%20Sines%2D%2DAmbiguous%20Case&text=For%20those%20of%20you%20who,of%20those%20angles%20(SSA).
 				if (pair >= 1 && (sides >= 2 || angles >= 2))
 				{
 					for (int fv = 0 ; fv <= 3 ; fv++)
@@ -244,6 +246,8 @@ class Triangle extends Polygon
 			}
 
 //law of cosine
+// there is no escape
+//https://yoshiwarabooks.org/trig/The-Law-of-Cosines.html#:~:text=If%20we%20use%20the%20Law%20of%20Cosines%20to%20find%20a,solutions%2C%20there%20are%20two%20triangles.
 			
 		}
 	return ret;
