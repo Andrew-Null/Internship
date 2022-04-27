@@ -46,14 +46,11 @@ List<num?> _Values =
   null,
   null
 ];
-//TextEditingController _controller = TextEditingController();
 
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
-  const double SwitchSpace = 32.5;
+  const double SWITCHSPACE = 32.5;
   final w = MediaQuery.of(context).size.width;
-  //print("Creating TextFields");
-  //app.Refresh;
   int intex = 0;
   switch (index)
   {
@@ -82,8 +79,10 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
       intex = 5;
     }break;
   }
+  print(intex);
+  print(_Values[intex] == null ? "red\n" : "green\n");
 
-  return SizedBox(width: (w * .49) - (_RMode ? SwitchSpace : 0.0), child: Padding(padding: const EdgeInsets.all(4.0), child: TextField(//);
+  return SizedBox(width: (w * .49) - (_RMode ? SWITCHSPACE : 0.0), child: Padding(padding: const EdgeInsets.all(4.0), child: TextField(
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
@@ -104,7 +103,9 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
       (
         borderSide: BorderSide
         (
-	      color: _Values[intex] == null ? Colors.red : Colors.green
+	        color: _Values[intex] == null ? const Color(0xffff0000) : const Color(0xff00ff00),
+          width: 5.0,
+          //style: BorderStyle.solid
         )
       ),
     ),
@@ -114,7 +115,6 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 
 Column AngleTextBoxes(BuildContext context)
 {
-  //print("Creating Angle Text boxes");
   return Column
   (
     children:
@@ -128,7 +128,6 @@ Column AngleTextBoxes(BuildContext context)
 
 Column SideTextBoxes(BuildContext context)
 {
-  //print("Creating Side Text Boxes");
   return Column
   (
     children:
@@ -188,11 +187,6 @@ Padding PiSwitch(BuildContext context, AngIndex cual)
       value: _HasPi[intex],
       onChanged: (value)
       {
-        //print("Switch Flipped:");
-        //print(value);
-        //print(intex);
-        //print(_HasPi[intex]);
-        //print("");
         _HasPi[intex] = !_HasPi[intex];
         app.Refresh;
       },
@@ -220,7 +214,6 @@ Scaffold TriSolver(BuildContext context)
         (_RMode ?
         Row(children:
         [
-          //TxtBoxGen(SyAIE.AA, context)
           SideTextBoxes(context),
           AngleTextBoxes(context),
           PiSwitches(context)
