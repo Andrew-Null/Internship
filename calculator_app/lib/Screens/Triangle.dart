@@ -1,5 +1,8 @@
  // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables
 
+import 'package:calculator_app/Geometry/Geometry.dart';
+import 'package:calculator_app/Geometry/Angle.dart';
+import 'package:calculator_app/Geometry/Side.dart';
 import 'package:flutter/material.dart';
 import 'Menus/MMenu.dart';
 import '../main.dart';
@@ -37,7 +40,7 @@ List<String> _TxtLabels =
   "Side c"
 ];
 
-List<num?> _Values =
+List<Primitive2D?> _Values =
 [
   null,
   null,
@@ -46,6 +49,21 @@ List<num?> _Values =
   null,
   null
 ];
+
+Primitive2D ToPrimitie2D(SyAIE what, num value)
+{
+  //0-2 which, 3 what, 4 radian, 5 has pi
+  const int ISANG = 3; //is angle
+  final int RadPi = _RMode ? 1 << 4 : 0;
+  int info = 0; //
+  switch (what)
+  {
+    case SyAIE.AA:
+    {
+      info = 1 + (1 << ISANG) + RadPi;
+    }
+  }
+}
 
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
