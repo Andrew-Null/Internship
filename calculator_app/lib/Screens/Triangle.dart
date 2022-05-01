@@ -50,19 +50,39 @@ List<Primitive2D?> _Values =
   null
 ];
 
-Primitive2D ToPrimitie2D(SyAIE what, num value)
+void ToPrimitive2D(int intex)
 {
-  //0-2 which, 3 what, 4 radian, 5 has pi
-  const int ISANG = 3; //is angle
-  final int RadPi = _RMode ? 1 << 4 : 0;
-  int info = 0; //
-  switch (what)
-  {
-    case SyAIE.AA:
-    {
-      info = 1 + (1 << ISANG) + RadPi;
+   try
+   {
+     double val = double.parse(_TxtControllers[intex].text);
+     switch (intex)
+     {
+       case 0 | 1 | 2:
+       {
+         if (_RMode)
+         {
+          	//_HasPi
+  				//controller: _TxtControllers[intex],
+        	 _Values[intex] = Radian(val,_HasPi[intex]);
+        }
+        else
+        {
+          _Values[intex] = Degree(val);
+        }
+
+        }break;
+        case 3 | 4 | 5:
+        {
+					_Values[intex] = Side(val);
+        }
+
+      }
+        //_Values[intex] = num.parse(_TxtControllers[intex].text);
     }
-  }
+  	catch(e)
+    {
+    _Values[intex] = null;
+  	}
 }
 
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
@@ -97,21 +117,12 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
       intex = 5;
     }break;
   }
-  print(intex);
-  print(_Values[intex] == null ? "red\n" : "green\n");
 
-  return SizedBox(width: (w * .49) - (_RMode ? SWITCHSPACE : 0.0), child: Padding(padding: const EdgeInsets.all(4.0), child: TextField(
+  return SizedBox(width: (w * .49) - (_RMode ? SWITCHSPACE : 0.0), child: Padding(padding: const EdgeInsets.all(6.0), child: TextField(
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
-      try
-      {
-        _Values[intex] = num.parse(_TxtControllers[intex].text);
-      }
-      catch(e)
-      {
-        _Values[intex] = null;
-      }
+      ToPrimitive2D(intex);
       app.Refresh;
     },
 		decoration: InputDecoration
