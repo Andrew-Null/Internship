@@ -1,10 +1,10 @@
  // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables
 
-import 'package:calculator_app/Geometry/Geometry.dart';
-import 'package:calculator_app/Geometry/Angle.dart';
-import 'package:calculator_app/Geometry/Side.dart';
+import 'package:calculator_app/Geometry/Geometry.dart' as Geo;
+import 'package:calculator_app/Geometry/Angle.dart' as Ang;
+import 'package:calculator_app/Geometry/Side.dart' as Side;
 import 'package:flutter/material.dart';
-import 'Menus/MMenu.dart';
+import 'Menus/MMenu.dart' as MM;
 import '../main.dart';
 
 bool _RMode = false; //Radian Mode
@@ -40,7 +40,7 @@ List<String> _TxtLabels =
   "Side c"
 ];
 
-List<Primitive2D?> _Values =
+List<Geo.Primitive2D?> _Values =
 [
   null,
   null,
@@ -59,17 +59,17 @@ void ToPrimitive2D(int intex)
     {
       if (_RMode)
       {
-      	_Values[intex] = Radian(val,_HasPi[intex]);
+      	_Values[intex] = Ang.Radian(val,_HasPi[intex]);
       }
       else
       {
-        _Values[intex] = Degree(val);
+        _Values[intex] = Ang.Degree(val);
       }
 
     }
     else
     {
-			_Values[intex] = Side(val);
+			_Values[intex] = Side.Side(val);
     }
 
   }
@@ -94,15 +94,15 @@ SizedBox OutBoxGen(SyAIE index, BuildContext context)
 
   var raw = _Values[source];
   String text = "";
-  if (raw is Degree)
+  if (raw is Ang.Degree)
   {
     text = raw.value.toString();
   }
-  else if (raw is Radian)
+  else if (raw is Ang.Radian)
   {
     text = raw.value.toString();
   }
-  else if (raw is Side)
+  else if (raw is Side.Side)
   {
     text = raw.length.toString();
   }
@@ -309,7 +309,7 @@ Scaffold TriSolver(BuildContext context)
         [
         const Text("Radians?"),
         RSwitch(context),
-				MMB()
+				MM.MMB()
         ]),
 			]
 		)
