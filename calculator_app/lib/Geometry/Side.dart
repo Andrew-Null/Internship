@@ -1,9 +1,9 @@
-import 'Point.dart';
-import 'Geometry.dart';
+import 'Point.dart' as Point;
+import 'Geometry.dart' as Geo;
 
 
 
-class Side extends Primitive2D
+class Side extends Geo.Primitive2D
 {
   late num length;
 
@@ -15,9 +15,9 @@ class Side extends Primitive2D
 
 class DePoints extends Side
 {
-  late Point A;
-  late Point B;
-  DePoints(Point a, b) : super(Distance(a,b)) 
+  late Point.Point A;
+  late Point.Point B;
+  DePoints(Point.Point a, b) : super(Point.Distance(a,b)) 
   {
     A = a;
     B = b;
