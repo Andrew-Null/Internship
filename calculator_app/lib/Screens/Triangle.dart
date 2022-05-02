@@ -1,11 +1,11 @@
- // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables
+ // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables, library_prefixes
 
 import 'package:calculator_app/Geometry/Geometry.dart' as Geo;
 import 'package:calculator_app/Geometry/Angle.dart' as Ang;
 import 'package:calculator_app/Geometry/Side.dart' as Side;
 import 'package:flutter/material.dart';
 import 'Menus/MMenu.dart' as MM;
-import '../main.dart';
+import '../main.dart' as main;
 
 bool _RMode = false; //Radian Mode
 const _DEFAULTPAD = 1.0;
@@ -178,7 +178,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     onChanged: (content)
     {
       ToPrimitive2D(intex);
-      app.Refresh;
+      main.app.Refresh;
     },
 		decoration: InputDecoration
     (
@@ -241,7 +241,7 @@ Padding RSwitch(BuildContext context)
         ToPrimitive2D(fv);
       }
       
-      app.Refresh;
+      main.app.Refresh;
     },
     )
   );
@@ -264,7 +264,7 @@ Padding PiSwitch(BuildContext context, AngIndex cual)
       value: _HasPi[intex],
       onChanged: (value)
       {
-        _HasPi[intex] = !_HasPi[intex];ToPrimitive2D(intex);app.Refresh;
+        _HasPi[intex] = !_HasPi[intex];ToPrimitive2D(intex);main.app.Refresh;
       },
     ), 
   );

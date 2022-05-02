@@ -1,11 +1,9 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names, library_prefixes, file_names
 
-import 'dart:math';
 
 import '../Angle.dart' as Ang;
 import '../Side.dart' as Side;
 import '../Geometry.dart' as Geo;
-import '../../Common/Misc.dart' as Misc;
 import '../AngleDeduction.dart' as AD;
 import 'Laws.dart' as Laws;
 
