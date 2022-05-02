@@ -1,10 +1,10 @@
 // ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
 
 import 'package:flutter/material.dart';
-import '../main.dart';
-import 'Integer.dart';
-import 'Menus/MMenu.dart';
-import 'Triangle.dart';
+import '../main.dart' as main;
+import 'Integer.dart' as Int;
+import 'Menus/MMenu.dart' as MM;
+import 'Triangle.dart' as Tri;
 
 enum SOptions //screen options
 {
@@ -16,19 +16,19 @@ enum SOptions //screen options
 
 Scaffold ChooseScreen(BuildContext context)
 {
-	switch(screen)
+	switch(main.screen)
 	{
 		case SOptions.IntegerCS:
 		{
-			return IntCalc(context);
+			return Int.IntCalc(context);
 		} 
 		case SOptions.MM:
 		{
-			return MainMenu(context);
+			return MM.MainMenu(context);
 		}
 		case SOptions.TriSolverS:
 		{
-			return TriSolver(context);
+			return Tri.TriSolver(context);
 		}
 	}
 }
