@@ -1,8 +1,8 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'dart:math';
-import '../main.dart';
+import 'dart:math' as DMath;
+import '../main.dart' as main;
 
 class Numpad
 {
@@ -27,7 +27,7 @@ class Numpad
 		{
 			if (float == true)
 			{
-					total = total + (BNT * pow(10, -1 * (1+ decimal)));
+					total = total + (BNT * DMath.pow(10, -1 * (1+ decimal)));
 					decimal++;
 				}
 				else
@@ -82,7 +82,7 @@ class Numpad
 		{FinishL = LB as Widget;}
 		else
 		{
-			FinishL = TextButton(onPressed: () {neg = !neg; update(); app.Refresh;},
+			FinishL = TextButton(onPressed: () {neg = !neg; update(); main.app.Refresh;},
 				child: const Text("-/+"),
 				);
 		}
@@ -148,7 +148,7 @@ class Numpad
 		BWidth = Width;
 		FSize = Font;
 
-		update = () {app.Refresh;};
+		update = () {main.app.Refresh;};
 
 	 if (updt != null)
 		{
