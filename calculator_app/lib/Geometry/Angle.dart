@@ -5,8 +5,6 @@ import 'dart:math';
 import 'Geometry.dart';
 import 'Side.dart';
 
-typedef float = double; //to reduce pointless errors and frustration 
-
 abstract class Angle extends Primitive2D
 {
   late double value;

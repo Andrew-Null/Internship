@@ -14,7 +14,7 @@ TextButton MMB() //main menu button
 
 	return TextButton
 	(
-		child: Text("Main Menu"),
+		child: const Text("Main Menu"),
 		onPressed: () {RetMain();}
 	);
 }

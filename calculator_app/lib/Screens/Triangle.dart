@@ -145,33 +145,6 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
   const double SWITCHSPACE = 32.5;
   final w = MediaQuery.of(context).size.width;
   int intex = index.index;
-  /*switch (index)
-  {
-    case SyAIE.AA:
-    {
-      intex = 0;
-    }break;
-    case SyAIE.AB:
-    {
-      intex = 1;
-    }break;
-    case SyAIE.AC:
-    {
-      intex = 2;
-    }break;
-    case SyAIE.sa:
-    {
-      intex = 3;
-    }break;
-    case SyAIE.sb:
-    {
-      intex = 4;
-    }break;
-    case SyAIE.sc:
-    {
-      intex = 5;
-    }break;
-  }*/
 
   return SizedBox(width: (w * .49) - (_RMode ? SWITCHSPACE : 0.0), child: Padding(padding: const EdgeInsets.all(6.0), child: TextField(
     keyboardType: TextInputType.number,
