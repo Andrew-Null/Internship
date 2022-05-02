@@ -8,7 +8,7 @@ import 'Menus/MMenu.dart';
 import '../main.dart';
 
 bool _RMode = false; //Radian Mode
-const DEFAULTPAD = 1.0;
+const _DEFAULTPAD = 1.0;
 
 enum SyAIE //side and angles index enum
 {
@@ -55,31 +55,28 @@ void ToPrimitive2D(int intex)
   try
   {
     double val = double.parse(_TxtControllers[intex].text);
-    switch (intex >= 3)
+    if (intex >= 3)
     {
-      case false:
+      if (_RMode)
       {
-        if (_RMode)
-        {
-        	_Values[intex] = Radian(val,_HasPi[intex]);
-        }
-        else
-        {
-          _Values[intex] = Degree(val);
-        }
-
-        }break;
-        case true:
-        {
-			  	_Values[intex] = Side(val);
-        }break;
-
+      	_Values[intex] = Radian(val,_HasPi[intex]);
       }
+      else
+      {
+        _Values[intex] = Degree(val);
+      }
+
     }
-  	catch(e)
+    else
     {
-      _Values[intex] = null;
-  	}
+			_Values[intex] = Side(val);
+    }
+
+  }
+  catch(e)
+  {
+    _Values[intex] = null;
+  }
 }
 
 SizedBox OutBoxGen(SyAIE index, BuildContext context)
@@ -147,8 +144,8 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
   const double SWITCHSPACE = 32.5;
   final w = MediaQuery.of(context).size.width;
-  int intex = 0;
-  switch (index)
+  int intex = index.index;
+  /*switch (index)
   {
     case SyAIE.AA:
     {
@@ -174,7 +171,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     {
       intex = 5;
     }break;
-  }
+  }*/
 
   return SizedBox(width: (w * .49) - (_RMode ? SWITCHSPACE : 0.0), child: Padding(padding: const EdgeInsets.all(6.0), child: TextField(
     keyboardType: TextInputType.number,
@@ -260,21 +257,8 @@ List<bool> _HasPi = [false, false, false];
 
 Padding PiSwitch(BuildContext context, AngIndex cual)
 {
-  int intex = 0;
-  switch (cual)
-  {
-    case AngIndex.a:
-    {}break;
-    case AngIndex.b:
-    {
-      intex = 1;
-    }break;
-    case AngIndex.c:
-    {
-      intex = 2;
-    }break;
-  }
-  return Padding(padding: const EdgeInsets.all(DEFAULTPAD),
+  int intex = cual.index;
+  return Padding(padding: const EdgeInsets.all(_DEFAULTPAD),
     child: Switch
     (
       value: _HasPi[intex],
