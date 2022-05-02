@@ -1,11 +1,11 @@
- // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables
+ // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables, library_prefixes
 
-import 'package:calculator_app/Geometry/Geometry.dart';
-import 'package:calculator_app/Geometry/Angle.dart';
-import 'package:calculator_app/Geometry/Side.dart';
+import 'package:calculator_app/Geometry/Geometry.dart' as Geo;
+import 'package:calculator_app/Geometry/Angle.dart' as Ang;
+import 'package:calculator_app/Geometry/Side.dart' as Side;
 import 'package:flutter/material.dart';
-import 'Menus/MMenu.dart';
-import '../main.dart';
+import 'Menus/MMenu.dart' as MM;
+import '../main.dart' as main;
 
 bool _RMode = false; //Radian Mode
 const _DEFAULTPAD = 1.0;
@@ -40,7 +40,7 @@ List<String> _TxtLabels =
   "Side c"
 ];
 
-List<Primitive2D?> _Values =
+List<Geo.Primitive2D?> _Values =
 [
   null,
   null,
@@ -59,17 +59,17 @@ void ToPrimitive2D(int intex)
     {
       if (_RMode)
       {
-      	_Values[intex] = Radian(val,_HasPi[intex]);
+      	_Values[intex] = Ang.Radian(val,_HasPi[intex]);
       }
       else
       {
-        _Values[intex] = Degree(val);
+        _Values[intex] = Ang.Degree(val);
       }
 
     }
     else
     {
-			_Values[intex] = Side(val);
+			_Values[intex] = Side.Side(val);
     }
 
   }
@@ -82,27 +82,27 @@ void ToPrimitive2D(int intex)
 SizedBox OutBoxGen(SyAIE index, BuildContext context)
 {
   int source = 0;
-  String debug = "AA";
   switch (index)
   {
-    case SyAIE.sc: {source = 5; debug = "sc";}break;
-    case SyAIE.sb: {source = 4; debug = "sb";}break;
-    case SyAIE.sa: {source = 3; debug = "sa";}break;
-    case SyAIE.AC: {source = 2; debug = "AC";}break;
-    case SyAIE.AB: {source = 1; debug = "AB";}break;
+    case SyAIE.sc: {source = 5;}break;
+    case SyAIE.sb: {source = 4;}break;
+    case SyAIE.sa: {source = 3;}break;
+    case SyAIE.AC: {source = 2;}break;
+    case SyAIE.AB: {source = 1;}break;
+    case SyAIE.AA: {source = 0;}break;
   }
 
   var raw = _Values[source];
   String text = "";
-  if (raw is Degree)
+  if (raw is Ang.Degree)
   {
     text = raw.value.toString();
   }
-  else if (raw is Radian)
+  else if (raw is Ang.Radian)
   {
     text = raw.value.toString();
   }
-  else if (raw is Side)
+  else if (raw is Side.Side)
   {
     text = raw.length.toString();
   }
@@ -151,7 +151,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     onChanged: (content)
     {
       ToPrimitive2D(intex);
-      app.Refresh;
+      main.app.Refresh;
     },
 		decoration: InputDecoration
     (
@@ -214,7 +214,7 @@ Padding RSwitch(BuildContext context)
         ToPrimitive2D(fv);
       }
       
-      app.Refresh;
+      main.app.Refresh;
     },
     )
   );
@@ -237,7 +237,7 @@ Padding PiSwitch(BuildContext context, AngIndex cual)
       value: _HasPi[intex],
       onChanged: (value)
       {
-        _HasPi[intex] = !_HasPi[intex];ToPrimitive2D(intex);app.Refresh;
+        _HasPi[intex] = !_HasPi[intex];ToPrimitive2D(intex);main.app.Refresh;
       },
     ), 
   );
@@ -282,7 +282,7 @@ Scaffold TriSolver(BuildContext context)
         [
         const Text("Radians?"),
         RSwitch(context),
-				MMB()
+				MM.MMB()
         ]),
 			]
 		)

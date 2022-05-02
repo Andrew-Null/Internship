@@ -1,15 +1,15 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import '../Screens.dart';
+import '../../main.dart' as main;
+import '../Screens.dart' as screen;
 
 TextButton MMB() //main menu button 
 {//likely to be used on most screens as a home button
 	void RetMain() //return to main menu
 	{
-		screen = SOptions.MM;
-		app.Refresh;
+		main.screen = screen.SOptions.MM;
+		main.app.Refresh;
 	}
 
 	return TextButton
@@ -26,8 +26,8 @@ TextButton SimICalc() //simple int calculator
 		child: const Text("Integer Calculator"), 
 		onPressed: () 
 		{
-			screen = SOptions.IntegerCS;
-			app.Refresh;
+			main.screen = screen.SOptions.IntegerCS;
+			main.app.Refresh;
 		}
 	);
 }
@@ -39,8 +39,8 @@ TextButton TSButton() //triangle solver button
 		child: const Text("Triangle Solver"),
 		onPressed: ()
 		{
-			screen = SOptions.TriSolverS;
-			app.Refresh;
+			main.screen = screen.SOptions.TriSolverS;
+			main.app.Refresh;
 		}
 	);
 }

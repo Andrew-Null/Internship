@@ -1,11 +1,11 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, library_prefixes
 
-import 'dart:math';
-import 'Geometry.dart';
+import 'dart:math' as DMath;
+import 'Geometry.dart' as Geo;
 
 typedef float = double;
 
-class Point extends Primitive2D
+class Point extends Geo.Primitive2D
 {
 	late num X;
 	late num Y;
@@ -30,5 +30,5 @@ num Distance(Point A, Point B)
 	num BX = B.X;
 	num BY = B.Y;
 
-	return sqrt(pow((AX - BX),2) + pow((AY- BY), 2));
+	return DMath.sqrt(DMath.pow((AX - BX),2) + DMath.pow((AY- BY), 2));
 }

@@ -1,9 +1,9 @@
-import 'Point.dart';
-import 'Geometry.dart';
+import 'Point.dart' as Point;
+import 'Geometry.dart' as Geo;
 
 
 
-class Side extends Primitive2D
+class Side extends Geo.Primitive2D
 {
   late num length;
 

@@ -1,15 +1,13 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types, file_names
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names, camel_case_types, file_names, library_prefixes
 
-import 'dart:math';
-//import '../Common/Misc.dart';
-import 'Geometry.dart';
-import 'Side.dart';
+import 'dart:math' as DMath;
+import 'Geometry.dart' as Geo;
 
-abstract class Angle extends Primitive2D
+abstract class Angle extends Geo.Primitive2D
 {
   late double value;
-  static const AR = pi / 180; //to radian
-  static const AD = 180/ pi; // to degrees
+  static const AR = DMath.pi / 180; //to radian
+  static const AD = 180/ DMath.pi; // to degrees
 }
 
 class Radian extends Angle
@@ -18,7 +16,7 @@ class Radian extends Angle
 
 	Radian(double v, bool HasPi)
 	{
-		value = v * (HasPi ? 1 : pi);
+		value = v * (HasPi ? 1 : DMath.pi);
 	}
 
 	Degree Convert()
@@ -28,11 +26,11 @@ class Radian extends Angle
 
 	num Sine()
 	{
-		return sin(value);
+		return DMath.sin(value);
 	}
 	num Cosine()
 	{
-		return cos(value);
+		return DMath.cos(value);
 	}
 
 }
@@ -58,7 +56,7 @@ class Degree extends Angle
 
 	num Cosine()
 	{
-		return cos(Convert().value);
+		return DMath.cos(Convert().value);
 	}
 
 }

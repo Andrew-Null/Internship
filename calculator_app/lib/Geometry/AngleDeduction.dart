@@ -1,33 +1,33 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, library_prefixes
 
-import 'Angle.dart';
-import 'dart:math';
+import 'Angle.dart' as Ang;
+import 'dart:math' as DMath;
 
-Angle AngDeduction(Angle Uno, Angle Dos)
+Ang.Angle AngDeduction(Ang.Angle Uno, Ang.Angle Dos)
 {
-	if (Uno is Degree && Dos is Degree)
+	if (Uno is Ang.Degree && Dos is Ang.Degree)
 	{
-		return Degree(180.0 - (Uno.value + Dos.value));
+		return Ang.Degree(180.0 - (Uno.value + Dos.value));
 	}
-	else if (Uno is Radian && Dos is Radian)
+	else if (Uno is Ang.Radian && Dos is Ang.Radian)
 	{
-		return Radian
+		return Ang.Radian
 		(
-			pi - (Uno.value + Dos.value),
+			DMath.pi - (Uno.value + Dos.value),
 			true
 		);
 	}
-	else if (Uno is Radian && Dos is Degree)
+	else if (Uno is Ang.Radian && Dos is Ang.Degree)
 	{
-		return Radian
+		return Ang.Radian
 		(
-			pi - (Uno.value + Dos.Convert().value),
+			DMath.pi - (Uno.value + Dos.Convert().value),
 			true
 		);
 	}
-	else if (Uno is Degree && Dos is Radian)
+	else if (Uno is Ang.Degree && Dos is Ang.Radian)
 	{
-		return Degree(180 - (Uno.value + Dos.Convert().value));
+		return Ang.Degree(180 - (Uno.value + Dos.Convert().value));
 	}
 	throw "AngDeduction(): Has recieved and abstract angle class";
 }
