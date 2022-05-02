@@ -85,6 +85,26 @@ void ToPrimitive2D(int intex)
   	}
 }
 
+SizedBox OutBoxGen(SyAIE index, BuildContext context)
+{
+  int source = 0;
+  switch (index)
+  {
+    case SyAIE.sc: {source = 5;}break;
+    case SyAIE.sb: {source = 4;}break;
+    case SyAIE.sa: {source = 3;}break;
+    case SyAIE.AC: {source = 2;}break;
+    case SyAIE.AB: {source = 1;}break;
+  }
+
+  final w = MediaQuery.of(context).size.width;
+  return SizedBox(width: (w * .49), child: Padding(padding: const EdgeInsets.all(6.0), child: Text
+    (
+       _TxtControllers[source].text,
+		)
+	));
+}
+
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
 {
   const double SWITCHSPACE = 32.5;
