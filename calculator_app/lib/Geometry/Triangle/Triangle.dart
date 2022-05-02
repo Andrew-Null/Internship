@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, library_prefixes
 
-import 'dart:math' as DMath;
+import 'dart:math';
 
 import '../Angle.dart' as Ang;
 import '../Side.dart' as Side;
