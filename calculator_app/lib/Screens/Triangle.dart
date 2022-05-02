@@ -52,43 +52,33 @@ List<Primitive2D?> _Values =
 
 void ToPrimitive2D(int intex)
 {
-  print(_TxtControllers[intex].text);
   try
   {
     double val = double.parse(_TxtControllers[intex].text);
-    switch (intex == 3 || intex == 4 || intex == 5)
+    switch (intex >= 3)
     {
       case false:
       {
-         print("angle case");
         if (_RMode)
         {
-          print("assign F");
         	_Values[intex] = Radian(val,_HasPi[intex]);
         }
         else
         {
-          print("assign degree");
           _Values[intex] = Degree(val);
         }
 
         }break;
         case true:
         {
-          print("assign side");
 			  	_Values[intex] = Side(val);
         }break;
-        default:
-        {
-          print("Primitve2D defaulted");
-        }
 
       }
     }
   	catch(e)
     {
       _Values[intex] = null;
-      print("conversion failed");
   	}
 }
 
@@ -109,21 +99,16 @@ SizedBox OutBoxGen(SyAIE index, BuildContext context)
   String text = "";
   if (raw is Degree)
   {
-    print(raw.value);
     text = raw.value.toString();
   }
   else if (raw is Radian)
   {
-    print(raw.value);
     text = raw.value.toString();
   }
   else if (raw is Side)
   {
-    print(raw.length);
     text = raw.length.toString();
   }
-  //else {print("is null");}
-  print(_Values);
 
   final w = MediaQuery.of(context).size.width;
   return SizedBox(width: (w * .49), child: Padding(padding: const EdgeInsets.all(6.0), child: Text
@@ -195,7 +180,6 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
-      print(intex);
       ToPrimitive2D(intex);
       app.Refresh;
     },
