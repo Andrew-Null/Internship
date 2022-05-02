@@ -1,23 +1,23 @@
-// ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types, unused_import
+// ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types, unused_import, library_prefixes
 
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../Common/Numpad.dart';
-import '../Common/Math.dart';
-import 'Menus/MMenu.dart';
+import '../main.dart' as main;
+import '../Common/Numpad.dart' as NP;
+import '../Common/Math.dart' as Math;
+import 'Menus/MMenu.dart' as MM;
 
 List<int> _nms = [0, 0];
-ASDMOPs? _op;
+Math.ASDMOPs? _op;
 
-Numpad _NPad = Numpad();
+NP.Numpad _NPad = NP.Numpad();
 
 class Expression
 {
 	late num Left;
 	late num Right;
-	late ASDMOPs op;
+	late Math.ASDMOPs op;
 
-	Expression(int l, int r, ASDMOPs o)
+	Expression(int l, int r, Math.ASDMOPs o)
 	{
 		Left = l;
 		Right = r;
@@ -38,12 +38,12 @@ Scaffold IntCalc(BuildContext context)
 
     if (_op != null)
     {
-      _nms[0] = EvalASDM(_nms[0], _nms[1], _op as ASDMOPs) as int;
+      _nms[0] = Math.EvalASDM(_nms[0], _nms[1], _op as Math.ASDMOPs) as int;
 
   	  _nms[1] = 0;
 		  _op = null;
 
-		  app.Refresh; 
+		  main.app.Refresh; 
     }
 	}
 	
@@ -59,36 +59,36 @@ Scaffold IntCalc(BuildContext context)
 			_nms = [0,0];
 			_op = null;
 		}
-		app.Refresh;
+		main.app.Refresh;
 	}
 	
-	TextButton GOpButton(ASDMOPs eop)
+	TextButton GOpButton(Math.ASDMOPs eop)
 	{
 		late String symbol;
 
 		switch (eop)
 		{
-			case ASDMOPs.Add:
+			case Math.ASDMOPs.Add:
 			{
 				symbol = "+";
 			}break;
-			case ASDMOPs.AprxDiv:
+			case Math.ASDMOPs.AprxDiv:
 			{
 				symbol = "~/";
 			}break;
-			case ASDMOPs.Div:
+			case Math.ASDMOPs.Div:
 			{
 				symbol = "/";
 			}break;
-			case ASDMOPs.Mod:
+			case Math.ASDMOPs.Mod:
 			{
 				symbol = "%";
 			}break;
-			case ASDMOPs.Mul:
+			case Math.ASDMOPs.Mul:
 			{
 				symbol = "*";
 			}break;
-			case ASDMOPs.Sub:
+			case Math.ASDMOPs.Sub:
 			{
 				symbol = "-";
 			}break;
@@ -103,7 +103,7 @@ Scaffold IntCalc(BuildContext context)
 
 			if (_op != null)
 			{
-				_nms[0] = EvalASDM(_nms[0], _nms[1], _op as ASDMOPs) as int;
+				_nms[0] = Math.EvalASDM(_nms[0], _nms[1], _op as Math.ASDMOPs) as int;
 				_nms[1] = 0;
 			}
 
@@ -111,7 +111,7 @@ Scaffold IntCalc(BuildContext context)
 			assert(_op != null, "op unassigned"); 
 			_NPad.Reset();
 			_nms[1] = 0;
-			app.Refresh;
+			main.app.Refresh;
 		});
 	}
 
@@ -124,7 +124,7 @@ Scaffold IntCalc(BuildContext context)
 	_NPad.Update(()
 	{
 		_nms[(_op != null) ? 1 : 0] = ETotal() as int;
-		app.Refresh;
+		main.app.Refresh;
 	});
 
 	_NPad.Buttons(DecimalB: TextButton(child: const Text("Clear"), onPressed: () 
@@ -152,10 +152,10 @@ Scaffold IntCalc(BuildContext context)
 						_NPad.Build(), 
 						Column(children:
 							[
-								GOpButton(ASDMOPs.Add),
-								GOpButton(ASDMOPs.Sub),
-								GOpButton(ASDMOPs.Mul),
-								GOpButton(ASDMOPs.AprxDiv)
+								GOpButton(Math.ASDMOPs.Add),
+								GOpButton(Math.ASDMOPs.Sub),
+								GOpButton(Math.ASDMOPs.Mul),
+								GOpButton(Math.ASDMOPs.AprxDiv)
 							]
 						),
 						Column(children: 
@@ -166,7 +166,7 @@ Scaffold IntCalc(BuildContext context)
 								{
 									int wi = WI();
 									_nms[wi] = _nms[wi] << 1;
-									app.Refresh;
+									main.app.Refresh;
 								},
 							),
 							TextButton(child: const Text(">>"),     
@@ -174,12 +174,12 @@ Scaffold IntCalc(BuildContext context)
 							{
 								_nms[WI()] = _nms[WI()] >> 1; 
 								_NPad.STotal(_nms[WI()]); 
-								app.Refresh;
+								main.app.Refresh;
 							}
 							),
 						]) 
 					]),
-					MMB()  
+					MM.MMB()  
 				])
 			)
 		]),
