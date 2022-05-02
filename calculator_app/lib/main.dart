@@ -1,11 +1,11 @@
 // ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types, unused_import
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'Screens/Screens.dart';
+import 'Screens/Screens.dart' as screens;
 
 
 
-SOptions screen = SOptions.MM;
+screens.SOptions screen = screens.SOptions.MM;
 
 
 late _MyHomePageState app;
@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 	Widget build(BuildContext context) 
 	{
 		app = this;
-		return ChooseScreen(context);
+		return screens.ChooseScreen(context);
 	}
 
 	get Refresh
