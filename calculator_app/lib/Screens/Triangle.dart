@@ -82,14 +82,14 @@ void ToPrimitive2D(int intex)
 SizedBox OutBoxGen(SyAIE index, BuildContext context)
 {
   int source = 0;
-  String debug = "AA";
   switch (index)
   {
-    case SyAIE.sc: {source = 5; debug = "sc";}break;
-    case SyAIE.sb: {source = 4; debug = "sb";}break;
-    case SyAIE.sa: {source = 3; debug = "sa";}break;
-    case SyAIE.AC: {source = 2; debug = "AC";}break;
-    case SyAIE.AB: {source = 1; debug = "AB";}break;
+    case SyAIE.sc: {source = 5;}break;
+    case SyAIE.sb: {source = 4;}break;
+    case SyAIE.sa: {source = 3;}break;
+    case SyAIE.AC: {source = 2;}break;
+    case SyAIE.AB: {source = 1;}break;
+    case SyAIE.AA: {source = 0;}break;
   }
 
   var raw = _Values[source];
