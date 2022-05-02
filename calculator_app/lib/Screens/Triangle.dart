@@ -57,13 +57,11 @@ void ToPrimitive2D(int intex)
      double val = double.parse(_TxtControllers[intex].text);
      switch (intex)
      {
-       case 0 | 1 | 2:
+       case 3 | 4 | 5:
        {
          if (_RMode)
          {
-          	//_HasPi
-  				//controller: _TxtControllers[intex],
-        	 _Values[intex] = Radian(val,_HasPi[intex]);
+        	 _Values[intex] = Radian(val,_HasPi[intex - 3]);
         }
         else
         {
@@ -71,38 +69,81 @@ void ToPrimitive2D(int intex)
         }
 
         }break;
-        case 3 | 4 | 5:
+        case 0 | 1 | 2:
         {
 					_Values[intex] = Side(val);
         }
 
       }
-        //_Values[intex] = num.parse(_TxtControllers[intex].text);
     }
   	catch(e)
     {
-    _Values[intex] = null;
+      _Values[intex] = null;
+      print("conversion failed");
   	}
 }
 
 SizedBox OutBoxGen(SyAIE index, BuildContext context)
 {
   int source = 0;
+  String debug = "AA";
   switch (index)
   {
-    case SyAIE.sc: {source = 5;}break;
-    case SyAIE.sb: {source = 4;}break;
-    case SyAIE.sa: {source = 3;}break;
-    case SyAIE.AC: {source = 2;}break;
-    case SyAIE.AB: {source = 1;}break;
+    case SyAIE.sc: {source = 5; debug = "sc";}break;
+    case SyAIE.sb: {source = 4; debug = "sb";}break;
+    case SyAIE.sa: {source = 3; debug = "sa";}break;
+    case SyAIE.AC: {source = 2; debug = "AC";}break;
+    case SyAIE.AB: {source = 1; debug = "AB";}break;
   }
+
+  var raw = _Values[source];
+  String text = "";
+  //print(debug);
+  //print(source);
+  if (raw is Angle)
+  {
+    //print("is angle");
+    text = raw.value.toString();
+  }
+  else if (raw is Side)
+  {
+   // print("is side");
+    text = raw.length.toString();
+  }
+  //else {print("is null");}
+  //print("\n");
 
   final w = MediaQuery.of(context).size.width;
   return SizedBox(width: (w * .49), child: Padding(padding: const EdgeInsets.all(6.0), child: Text
     (
-       _TxtControllers[source].text,
+        text,
 		)
 	));
+}
+
+Column AngleOut(BuildContext context)
+{
+  return Column
+  (
+    children: 
+    [
+      OutBoxGen(SyAIE.AA, context),
+      OutBoxGen(SyAIE.AB, context),
+      OutBoxGen(SyAIE.AC, context)
+    ],
+  );
+}
+Column SideOut(BuildContext context)
+{
+  return Column
+  (
+    children: 
+    [
+      OutBoxGen(SyAIE.sa, context),
+      OutBoxGen(SyAIE.sb, context),
+      OutBoxGen(SyAIE.sc, context)
+    ],
+  );
 }
 
 SizedBox TxtBoxGen(SyAIE index, BuildContext context)
@@ -273,6 +314,11 @@ Scaffold TriSolver(BuildContext context)
           AngleTextBoxes(context),
       	])
         ),
+        Row(children: 
+        [
+          SideOut(context),
+          AngleOut(context),
+        ]),
         Row(children: 
         [
         const Text("Radians?"),

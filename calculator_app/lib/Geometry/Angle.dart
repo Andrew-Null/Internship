@@ -9,6 +9,7 @@ typedef float = double; //to reduce pointless errors and frustration
 
 abstract class Angle extends Primitive2D
 {
+  late double value;
   static const AR = pi / 180; //to radian
   static const AD = 180/ pi; // to degrees
 }
