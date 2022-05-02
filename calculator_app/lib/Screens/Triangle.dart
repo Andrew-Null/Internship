@@ -52,26 +52,35 @@ List<Primitive2D?> _Values =
 
 void ToPrimitive2D(int intex)
 {
-   try
-   {
-     double val = double.parse(_TxtControllers[intex].text);
-     switch (intex)
-     {
-       case 3 | 4 | 5:
-       {
-         if (_RMode)
-         {
-        	 _Values[intex] = Radian(val,_HasPi[intex - 3]);
+  print(_TxtControllers[intex].text);
+  try
+  {
+    double val = double.parse(_TxtControllers[intex].text);
+    switch (intex == 3 || intex == 4 || intex == 5)
+    {
+      case false:
+      {
+         print("angle case");
+        if (_RMode)
+        {
+          print("assign F");
+        	_Values[intex] = Radian(val,_HasPi[intex]);
         }
         else
         {
+          print("assign degree");
           _Values[intex] = Degree(val);
         }
 
         }break;
-        case 0 | 1 | 2:
+        case true:
         {
-					_Values[intex] = Side(val);
+          print("assign side");
+			  	_Values[intex] = Side(val);
+        }break;
+        default:
+        {
+          print("Primitve2D defaulted");
         }
 
       }
@@ -98,20 +107,23 @@ SizedBox OutBoxGen(SyAIE index, BuildContext context)
 
   var raw = _Values[source];
   String text = "";
-  //print(debug);
-  //print(source);
-  if (raw is Angle)
+  if (raw is Degree)
   {
-    //print("is angle");
+    print(raw.value);
+    text = raw.value.toString();
+  }
+  else if (raw is Radian)
+  {
+    print(raw.value);
     text = raw.value.toString();
   }
   else if (raw is Side)
   {
-   // print("is side");
+    print(raw.length);
     text = raw.length.toString();
   }
   //else {print("is null");}
-  //print("\n");
+  print(_Values);
 
   final w = MediaQuery.of(context).size.width;
   return SizedBox(width: (w * .49), child: Padding(padding: const EdgeInsets.all(6.0), child: Text
@@ -183,6 +195,7 @@ SizedBox TxtBoxGen(SyAIE index, BuildContext context)
     keyboardType: TextInputType.number,
     onChanged: (content)
     {
+      print(intex);
       ToPrimitive2D(intex);
       app.Refresh;
     },
@@ -241,6 +254,12 @@ Padding RSwitch(BuildContext context)
     onChanged: (val)
     {
       _RMode = !_RMode;
+      
+      for(int fv = 0; fv <= 2; fv ++)
+      {
+        ToPrimitive2D(fv);
+      }
+      
       app.Refresh;
     },
     )
@@ -277,8 +296,7 @@ Padding PiSwitch(BuildContext context, AngIndex cual)
       value: _HasPi[intex],
       onChanged: (value)
       {
-        _HasPi[intex] = !_HasPi[intex];
-        app.Refresh;
+        _HasPi[intex] = !_HasPi[intex];ToPrimitive2D(intex);app.Refresh;
       },
     ), 
   );
