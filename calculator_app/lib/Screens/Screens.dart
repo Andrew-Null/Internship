@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../main.dart' as main;
 import 'Integer.dart' as Int;
 import 'Menus/MMenu.dart' as MM;
-import 'Triangle.dart' as Tri;
+import 'Menus/Triangle/Triangle.dart' as Tri;
 
 enum SOptions //screen options
 {
