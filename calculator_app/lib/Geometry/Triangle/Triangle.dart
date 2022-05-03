@@ -25,6 +25,34 @@ class Triangle extends Geo.Polygon
 	late Ang.Angle B;
 	late Ang.Angle C;
 
+  //Rotate
+  void RotAaB()
+  {
+    Side.Side TempS = c;
+    c = b;
+    b = a;
+    a = TempS;
+
+    Ang.Angle TempA = C;
+    B = A;
+    C = B;
+    A = TempA;
+  }
+
+  void RotAaC()
+  {
+    Side.Side TempS = b;
+    b = c;
+    c = a;
+    a = TempS;
+
+    Ang.Angle TempA = B;
+    B = C;
+    C = A;
+    A = TempA;
+
+  }
+
   //'constructors'
 
   static Triangle AAS(Ang.Angle A, Ang.Angle B, Side.Side a)
