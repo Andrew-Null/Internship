@@ -54,3 +54,10 @@ enum AngIndex
   b,
   c
 }
+
+enum Contents
+{
+  None, //null
+  Side,
+  Angle
+}
