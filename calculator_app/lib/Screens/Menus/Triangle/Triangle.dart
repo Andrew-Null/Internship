@@ -1,6 +1,5 @@
  // ignore_for_file: non_constant_identifier_names, prefer_const_literals_to_create_immutables, library_prefixes
 
-//import 'package:calculator_app/Geometry/Geometry.dart' as Geo;
 import 'package:calculator_app/Geometry/Angle.dart' as Ang;
 import 'package:calculator_app/Geometry/Side.dart' as Side;
 import 'package:flutter/material.dart';
@@ -46,7 +45,6 @@ void ToPrimitive2D(int intex)
 
 Scaffold TriSolver(BuildContext context)
 {
-	// ignore: prefer_const_constructors
 	return Scaffold(body: 
 		Column(children:
 			[

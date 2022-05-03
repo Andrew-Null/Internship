@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-//import '../../../Geometry/Geometry.dart' as Geo;
 import '../../../Geometry/Angle.dart' as Ang; 
 import '../../../Geometry/Side.dart' as Side;
 import 'TriVars.dart' as TV;
@@ -169,7 +168,6 @@ SizedBox TxtBoxGen(TV.SyAIE index, BuildContext context)
         (
 	        color: TV.Values[intex] == null ? const Color(0xffff0000) : const Color(0xff00ff00),
           width: 5.0,
-          //style: BorderStyle.solid
         )
       ),
     ),

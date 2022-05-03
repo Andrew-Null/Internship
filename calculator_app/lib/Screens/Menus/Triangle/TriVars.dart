@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../Geometry/Geometry.dart' as Geo;
-//import '../../../Geometry/Side.dart' as Side;
-//import '../../../Geometry/Angle.dart' as Ang;
 
 bool RMode = false; //Radian Mode
 const DEFAULTPAD = 1.0;
