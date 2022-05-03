@@ -15,7 +15,7 @@ void ToPrimitive2D(int intex)
   try
   {
     double val = double.parse(TV.TxtControllers[intex].text);
-    if (intex >= 3)
+    if (intex <= 3)
     {
       if (TV.RMode)
       {

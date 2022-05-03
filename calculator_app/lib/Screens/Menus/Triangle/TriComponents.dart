@@ -1,8 +1,8 @@
-// ignore_for_file: file_names, library_prefixes, non_constant_identifier_names
+// ignore_for_file: file_names, library_prefixes, non_constant_identifier_names, constant_identifier_names
 
 import 'package:flutter/material.dart';
 
-import '../../../Geometry/Geometry.dart' as Geo;
+//import '../../../Geometry/Geometry.dart' as Geo;
 import '../../../Geometry/Angle.dart' as Ang; 
 import '../../../Geometry/Side.dart' as Side;
 import 'TriVars.dart' as TV;
@@ -102,7 +102,7 @@ Padding RSwitch(BuildContext context)
   const double SWITCHPAD = 4.0;
   return Padding
   (
-    padding: EdgeInsets.all(SWITCHPAD), child:
+    padding: const EdgeInsets.all(SWITCHPAD), child:
     Switch
     (
     value: TV.RMode,
