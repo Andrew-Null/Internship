@@ -9,21 +9,45 @@ import '../../../Geometry/Triangle/Triangle.dart' as Tri;
 import 'TriVars.dart' as TV;
 import 'TriComponents.dart' as TC;
 
-int Iterate(int val)
+int Iterate(int val, TV.Contents mode)
 {
-  switch (val.abs() % 6)
+  switch (mode)
   {
-    case 0: {return 5;}
-    case 5: {return 1;}
-    case 1: {return 3;}
-    case 3: {return 2;}
-    case 2: {return 4;}
-    case 4: {return 0;}
-    default: 
+    case TV.Contents.None:
     {
-      int switched = val % 6;
-      print("Iterate() defaulted after recieving $val | $switched");
-      return Iterate(val);
+      switch (val)
+      {
+        case 0: {return 5;}
+        case 5: {return 1;}
+        case 1: {return 3;}
+        case 3: {return 2;}
+        case 2: {return 4;}
+        case 4: {return 0;}
+        default: 
+        {
+          return Iterate(val.abs() % 6, mode);
+        }
+      }
+    }
+    case TV.Contents.Side:
+    {
+      switch(val)
+      {
+        case 1 | 5: {return 3;}
+        case 2 | 3: {return 4;}
+        case 0 | 4: {return 5;}
+        default: {return Iterate(val.abs() % 6, mode);}
+      }
+    }
+    case TV.Contents.Angle:
+    {
+      switch(val)
+      {
+        case 0 | 5: {return 1;}
+        case 1 | 3: {return 2;}
+        case 2 | 4: {return 0;}
+        default: {return Iterate(val.abs() % 6, mode);}
+      }
     }
   }
 }
@@ -44,17 +68,6 @@ Future<void> CanSolve() async
       nn[fv] = TV.Contents.Side;
     }
   }
-
-  late int iter1;
-  late int iter2;
-  late int iter3;
-  void UpdateIter(int start)
-  {
-    iter1 = start;
-    iter2 = Iterate(iter1);
-    iter3 = Iterate(iter2);
-  }
-
 }
 
 void ToPrimitive2D(int intex)
