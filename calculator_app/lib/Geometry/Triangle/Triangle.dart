@@ -54,7 +54,17 @@ class Triangle extends Geo.Polygon
   }
 
   //'constructors'
+  Triangle(Side.Side pa, pb, pc, 
+  Ang.Angle PA, PB, PC)
+  {
+    a = pa;
+    b = pb;
+    c = pc;
 
+    A = PA;
+    B = PB;
+    C = PC;
+  }
   static Triangle AAS(Ang.Angle A, Ang.Angle B, Side.Side a)
   {
     Triangle ret = Triangle();
@@ -74,18 +84,22 @@ class Triangle extends Geo.Polygon
 
   static Triangle ASA(Ang.Angle A, Side.Side c, Ang.Angle B)
   {
-    Triangle ret = Triangle();
+   // Triangle ret = Triangle();
     Ang.Angle C = AD.AngDeduction(A, B);
     Laws.LDS SLaw = Laws.LDS(c, C);
 
-    ret.A = A;
+    /*ret.A = A;
     ret.B = B;
     ret.C = C;
 
     ret.a = SLaw.GetSide(A);
     ret.b = SLaw.GetSide(B);
-    ret.c = c;
+    ret.c = c;*/
 
-    return ret;
+    return Triangle
+    (
+      SLaw.GetSide(A), SLaw.GetSide(B), c,
+      A, B, C
+    );
   }
 }

@@ -11,7 +11,7 @@ import 'TriComponents.dart' as TC;
 
 int Iterate(int val)
 {
-  switch (val % 6)
+  switch (val.abs() % 6)
   {
     case 0: {return 5;}
     case 5: {return 1;}
@@ -28,13 +28,13 @@ int Iterate(int val)
   }
 }
 
-Future<bool> CanSolve() async
+Future<void> CanSolve() async
 {
   int total = 0;
   List<TV.Contents> nn = List<TV.Contents>.filled(6, TV.Contents.None);
   for (int fv = 0; fv <= 5; fv ++)
   {
-    if (TV.Values != null) {total++;}
+    if (TV.Values[fv] != null) {total++;}
     if  (TV.Values[fv] is Ang.Angle)
     {
       nn[fv] = TV.Contents.Angle;
@@ -45,7 +45,15 @@ Future<bool> CanSolve() async
     }
   }
 
-  int iter = 0;  
+  late int iter1;
+  late int iter2;
+  late int iter3;
+  void UpdateIter(int start)
+  {
+    iter1 = start;
+    iter2 = Iterate(iter1);
+    iter3 = Iterate(iter2);
+  }
 
 }
 
@@ -76,7 +84,6 @@ void ToPrimitive2D(int intex)
   {
     TV.Values[intex] = null;
   }
-  print(TV.Values);
 }
 
 
