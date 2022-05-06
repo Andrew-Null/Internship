@@ -25,34 +25,46 @@ class Triangle extends Geo.Polygon
 	late Ang.Angle B;
 	late Ang.Angle C;
 
+  late Side.Side _TempS;
+  late Ang.Angle _TempA;
+
   //Rotate
   void RotAaB()
   {
-    Side.Side TempS = c;
+    _TempS = c;
     c = b;
     b = a;
-    a = TempS;
+    a = _TempS;
 
-    Ang.Angle TempA = C;
+    _TempA = C;
     B = A;
     C = B;
-    A = TempA;
+    A = _TempA;
   }
 
   void RotAaC()
   {
-    Side.Side TempS = b;
+    _TempS = b;
     b = c;
     c = a;
-    a = TempS;
+    a = _TempS;
 
-    Ang.Angle TempA = B;
+    _TempA = B;
     B = C;
     C = A;
-    A = TempA;
-
+    A = _TempA;
   }
 
+  void Mirror()
+  {
+    _TempS = b;
+    b = c;
+    c = _TempS;
+
+    _TempA = B;
+    B = C;
+    C = _TempA;
+  }
   //'constructors'
   Triangle
   (

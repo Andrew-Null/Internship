@@ -10,16 +10,7 @@ import 'Triangle.dart' as TS;
 
 SizedBox OutBoxGen(TV.SyAIE index, BuildContext context)
 {
-  int source = 0;
-  switch (index)
-  {
-    case TV.SyAIE.sc: {source = 5;}break;
-    case TV.SyAIE.sb: {source = 4;}break;
-    case TV.SyAIE.sa: {source = 3;}break;
-    case TV.SyAIE.AC: {source = 2;}break;
-    case TV.SyAIE.AB: {source = 1;}break;
-    case TV.SyAIE.AA: {source = 0;}break;
-  }
+  int source = index.index;
 
   var raw = TV.Values[source];
   String text = "";

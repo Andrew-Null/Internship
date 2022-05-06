@@ -12,11 +12,14 @@ abstract class Angle extends Geo.Primitive2D
 
 class Radian extends Angle
 {
-	late double value;
 
 	Radian(double v, bool HasPi)
 	{
 		value = v * (HasPi ? 1 : DMath.pi);
+    while (value > (2 * DMath.pi))
+    {value -= 2 * DMath.pi;}
+    while (value < 0)
+    {value += 2 * DMath.pi;}
 	}
 
 	Degree Convert()
@@ -37,11 +40,13 @@ class Radian extends Angle
 
 class Degree extends Angle
 {
-	late double value;
-
 	Degree(double v)
 	{
 		value = v;
+    while (value > 360)
+    {value -= 360;}
+    while (value < 0)
+    {value += 360;}
 	}
 
 	Radian Convert()

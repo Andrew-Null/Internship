@@ -9,8 +9,12 @@ import '../../../Geometry/Triangle/Triangle.dart' as Tri;
 import 'TriVars.dart' as TV;
 import 'TriComponents.dart' as TC;
 
+//import 'dart:io' as DIO;
+
 int Iterate(int val, TV.Contents mode)
 {
+  print("Iterating $val for $mode");
+  //Future.delayed(Duration(seconds: 10), () => null);
   switch (mode)
   {
     case TV.Contents.None:
@@ -25,7 +29,8 @@ int Iterate(int val, TV.Contents mode)
         case 4: {return 0;}
         default: 
         {
-          return Iterate(val.abs() % 6, mode);
+          print("None defaulted with $val");
+          return Iterate((val % 6).abs(), mode);
         }
       }
     }
@@ -33,45 +38,80 @@ int Iterate(int val, TV.Contents mode)
     {
       switch(val)
       {
-        case 1 | 5: {return 3;}
-        case 2 | 3: {return 4;}
-        case 0 | 4: {return 5;}
-        default: {return Iterate(val.abs() % 6, mode);}
+        case 1: {return 3;} case 5: {return 3;}
+        case 2: {return 4;} case 3: {return 4;}
+        case 0: {return 5;} case 4: {return 5;}
+        default: 
+        {
+          print("Side defaulted with $val");
+          return Iterate(val.abs() % 6, mode);
+        }
       }
     }
     case TV.Contents.Angle:
     {
       switch(val)
       {
-        case 0 | 5: {return 1;}
-        case 1 | 3: {return 2;}
-        case 2 | 4: {return 0;}
-        default: {return Iterate(val.abs() % 6, mode);}
+        case 0: {return 1;} case 5: {return 1;}
+        case 1: {return 2;} case 3: {return 2;}
+        case 2: {return 0;} case 4: {return 0;}
+        default: 
+        {
+          print("Angle defaulted with $val");
+          return Iterate(val.abs() % 6, mode);
+        }
       }
     }
   }
 }
-
-Future<void> CanSolve() async
+Tri.Triangle? TryAAS(int A1, {int limit = 3})
 {
-  int total = 0;
-  List<TV.Contents> nn = List<TV.Contents>.filled(6, TV.Contents.None);
-  for (int fv = 0; fv <= 5; fv ++)
+  print("Trying AAS $limit");
+  //DIO.sleep(Duration(seconds: 10));
+  int A2 = Iterate(A1, TV.Contents.Angle);
+  int S = Iterate(A2, TV.Contents.Side);
+
+  if (TV.Values[A1] is Ang.Angle && TV.Values[A2] is Ang.Angle && TV.Values[S] is Side.Side)
   {
-    if (TV.Values[fv] != null) {total++;}
-    if  (TV.Values[fv] is Ang.Angle)
-    {
-      nn[fv] = TV.Contents.Angle;
-    }
-    else if (TV.Values[fv] is Side.Side)
-    {
-      nn[fv] = TV.Contents.Side;
-    }
+    var tri = Tri.Triangle.AAS
+    (
+      TV.Values[A1] as Ang.Angle,
+      TV.Values[A2] as Ang.Angle,
+      TV.Values[S] as Side.Side
+    );
+    return tri;
+  }
+
+  if (limit > 0)
+  {
+    return TryAAS(Iterate(A1, TV.Contents.Angle), limit: limit - 1);
+  }
+  return null;
+}
+
+void TrySolve()
+{
+  print("Trying to Solve");
+  Tri.Triangle? tri = TryAAS(0);
+  if (tri == null)
+  {
+
+  }
+
+  if (tri != null)
+  {
+    TV.Values[TV.SyAIE.AA.index] = tri.A;
+    TV.Values[TV.SyAIE.AB.index] = tri.B;
+    TV.Values[TV.SyAIE.AC.index] = tri.C;
+    TV.Values[TV.SyAIE.sa.index] = tri.a;
+    TV.Values[TV.SyAIE.sb.index] = tri.b;
+    TV.Values[TV.SyAIE.sc.index] = tri.c;
   }
 }
 
 void ToPrimitive2D(int intex)
 {
+  //TrySolve();
   try
   {
     double val = double.parse(TV.TxtControllers[intex].text);
@@ -106,9 +146,7 @@ void ToPrimitive2D(int intex)
 
 Scaffold TriSolver(BuildContext context)
 {
-
-
-
+  TrySolve();
 	return Scaffold(body: 
 		Column(children:
 			[
