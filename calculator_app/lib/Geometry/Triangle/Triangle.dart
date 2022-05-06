@@ -54,8 +54,11 @@ class Triangle extends Geo.Polygon
   }
 
   //'constructors'
-  Triangle(Side.Side pa, pb, pc, 
-  Ang.Angle PA, PB, PC)
+  Triangle
+  (
+    Side.Side pa, Side.Side pb, Side.Side pc, 
+    Ang.Angle PA, Ang.Angle PB, Ang.Angle PC
+  )
   {
     a = pa;
     b = pb;
@@ -65,36 +68,57 @@ class Triangle extends Geo.Polygon
     B = PB;
     C = PC;
   }
-  
+
   static Triangle AAS(Ang.Angle A, Ang.Angle B, Side.Side a)
   {
-    Laws.LDS SLaw = Laws.LDS(a, A);
+    final SLaw = Laws.LDS(a, A);
+    final C = AD.AngDeduction(A, B);
 
     return Triangle
     (
-      a, SLaw.GetSide(B), SLaw.GetSide(C), 
-      A, B, AD.AngDeduction(A, B)
+      a, 
+      SLaw.GetSide(B), 
+      SLaw.GetSide(C), 
+      A, B, C
     );
   }
 
   static Triangle ASA(Ang.Angle A, Side.Side c, Ang.Angle B)
   {
-   // Triangle ret = Triangle();
-    Ang.Angle C = AD.AngDeduction(A, B);
-    Laws.LDS SLaw = Laws.LDS(c, C);
-
-    /*ret.A = A;
-    ret.B = B;
-    ret.C = C;
-
-    ret.a = SLaw.GetSide(A);
-    ret.b = SLaw.GetSide(B);
-    ret.c = c;*/
+    final C = AD.AngDeduction(A, B);
+    final SLaw = Laws.LDS(c, C);
 
     return Triangle
     (
       SLaw.GetSide(A), SLaw.GetSide(B), c,
       A, B, C
     );
+  }
+
+  static Triangle SSA(Side.Side a, Side.Side c, Ang.Angle A)
+  {
+    final Law = Laws.LDS(a, A);
+    final C = Law.GetAngle(c);
+    final B = AD.AngDeduction(A, C);
+    return Triangle
+    (
+      a,Law.GetSide(B),c,
+      A,B,C
+    );
+  }
+
+  static Triangle SAS(Side.Side a, Ang.Angle B, Side.Side c)
+  {
+    final b = Laws.LDC(a, c, B) as Side.Side;
+    final law = Laws.LDS(b,B);
+
+    return Triangle(a, b, c, law.GetAngle(a), B, law.GetAngle(c));
+  } 
+  static Triangle SSS(Side.Side a, Side.Side b, Side.Side c)
+  {
+    return Triangle(a, b, c, 
+    Laws.LDC(a, b, c) as Ang.Radian, 
+    Laws.LDC(a, c, b) as Ang.Radian, 
+    Laws.LDC(c, b, a) as Ang.Radian);
   }
 }
