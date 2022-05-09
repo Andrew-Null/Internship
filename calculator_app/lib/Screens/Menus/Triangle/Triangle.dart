@@ -64,6 +64,7 @@ int Iterate(int val, TV.Contents mode)
     }
   }
 }
+
 Tri.Triangle? TryAAS(int A1, {int limit = 3})
 {
   print("Trying AAS $limit");
@@ -89,14 +90,97 @@ Tri.Triangle? TryAAS(int A1, {int limit = 3})
   return null;
 }
 
+Tri.Triangle? TryASA(int A1, {int limit = 3})
+{
+  print("Trying ASA $limit");
+  //DIO.sleep(Duration(seconds: 10));
+  int S = Iterate(A1, TV.Contents.Side);
+  int A2 = Iterate(S, TV.Contents.Angle);
+
+  if (TV.Values[A1] is Ang.Angle && TV.Values[A2] is Ang.Angle && TV.Values[S] is Side.Side)
+  {
+    var tri = Tri.Triangle.ASA
+    (
+      TV.Values[A1] as Ang.Angle,
+      TV.Values[S] as Side.Side,
+      TV.Values[A2] as Ang.Angle
+    );
+    return tri;
+  }
+
+  if (limit > 0)
+  {
+    return TryASA(Iterate(A1, TV.Contents.Angle), limit: limit - 1);
+  }
+  return null;
+}
+
+Tri.Triangle? TrySSA(int S1, {int limit = 3})
+{
+  print("Trying SSA $limit");
+  //DIO.sleep(Duration(seconds: 10));
+  int S2 = Iterate(S1, TV.Contents.Side);
+  int A = Iterate(S2, TV.Contents.Angle);
+
+  if (TV.Values[S1] is Side.Side && TV.Values[S2] is Side.Side && TV.Values[A] is Ang.Angle)
+  {
+    var tri = Tri.Triangle.SSA
+    (
+      TV.Values[S1] as Side.Side,
+      TV.Values[S2] as Side.Side,
+      TV.Values[A] as Ang.Angle
+    );
+    return tri;
+  }
+
+  if (limit > 0)
+  {
+    return TrySSA(Iterate(S1, TV.Contents.Side), limit: limit - 1);
+  }
+  return null;
+}
+
+Tri.Triangle? TrySAS(int S1, {int limit = 3})
+{
+  print("Trying SAS $limit");
+  //DIO.sleep(Duration(seconds: 10));
+  int A = Iterate(S1, TV.Contents.Angle);
+  int S2 = Iterate(A, TV.Contents.Side);
+
+  if (TV.Values[S1] is Side.Side && TV.Values[A] is Ang.Angle && TV.Values[S2] is Side.Side)
+  {
+    var tri = Tri.Triangle.SAS
+    (
+      TV.Values[S1] as Side.Side,
+      TV.Values[A] as Ang.Angle,
+      TV.Values[S2] as Side.Side
+    );
+    return tri;
+  }
+
+  if (limit > 0)
+  {
+    return TryASA(Iterate(S1, TV.Contents.Side), limit: limit - 1);
+  }
+  return null;
+}
+
+Tri.Triangle? TrySSS()
+{
+  if (TV.Values[4] is Side.Side && TV.Values[3] is Side.Side && TV.Values[5] is Side.Side)
+  {
+    return Tri.Triangle.SSS(TV.Values[3] as Side.Side, TV.Values[4] as Side.Side, TV.Values[5] as Side.Side);
+  }
+}
+
 void TrySolve()
 {
   print("Trying to Solve");
   Tri.Triangle? tri = TryAAS(0);
-  if (tri == null)
-  {
-
-  }
+  tri ??= TryASA(0);
+  tri ??= TrySSA(5);
+  tri ??= TrySAS(5);
+  tri ??= TrySSS();
 
   if (tri != null)
   {

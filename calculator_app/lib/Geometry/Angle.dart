@@ -12,7 +12,6 @@ abstract class Angle extends Geo.Primitive2D
 
 class Radian extends Angle
 {
-
 	Radian(double v, bool HasPi)
 	{
 		value = v * (HasPi ? 1 : DMath.pi);
