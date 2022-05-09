@@ -133,4 +133,20 @@ class Triangle extends Geo.Polygon
     Laws.LDC(a, c, b) as Ang.Radian, 
     Laws.LDC(c, b, a) as Ang.Radian);
   }
+
+  void ConvertAngle(bool TR) //to radian
+  {
+    if (TR)
+    {
+      A = A is Ang.Degree ?(A as Ang.Degree).Convert(): A;
+      B is Ang.Degree ? B = (B as Ang.Degree).Convert() : B;
+      C is Ang.Degree ? C = (C as Ang.Degree).Convert() : C;
+    }
+    else
+    {
+      A = A is Ang.Radian ?(A as Ang.Radian).Convert(): A;
+      B is Ang.Radian ? B = (B as Ang.Radian).Convert() : B;
+      C is Ang.Radian ? C = (C as Ang.Radian).Convert() : C;
+    }
+  }
 }

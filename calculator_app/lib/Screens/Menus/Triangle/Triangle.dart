@@ -29,7 +29,7 @@ int Iterate(int val, TV.Contents mode)
         case 4: {return 0;}
         default: 
         {
-          print("None defaulted with $val");
+          //print("None defaulted with $val");
           return Iterate((val % 6).abs(), mode);
         }
       }
@@ -43,7 +43,7 @@ int Iterate(int val, TV.Contents mode)
         case 0: {return 5;} case 4: {return 5;}
         default: 
         {
-          print("Side defaulted with $val");
+          //print("Side defaulted with $val");
           return Iterate(val.abs() % 6, mode);
         }
       }
@@ -57,7 +57,7 @@ int Iterate(int val, TV.Contents mode)
         case 2: {return 0;} case 4: {return 0;}
         default: 
         {
-          print("Angle defaulted with $val");
+          //print("Angle defaulted with $val");
           return Iterate(val.abs() % 6, mode);
         }
       }
@@ -67,7 +67,7 @@ int Iterate(int val, TV.Contents mode)
 
 Tri.Triangle? TryAAS(int A1, {int limit = 3})
 {
-  //print("Trying AAS $limit");
+  print("Trying AAS $limit");
   //DIO.sleep(Duration(seconds: 10));
   int A2 = Iterate(A1, TV.Contents.Angle);
   int S = Iterate(A2, TV.Contents.Side);
@@ -92,7 +92,7 @@ Tri.Triangle? TryAAS(int A1, {int limit = 3})
 
 Tri.Triangle? TryASA(int A1, {int limit = 3})
 {
-  //print("Trying ASA $limit");
+  print("Trying ASA $limit");
   //DIO.sleep(Duration(seconds: 10));
   int S = Iterate(A1, TV.Contents.Side);
   int A2 = Iterate(S, TV.Contents.Angle);
@@ -117,7 +117,7 @@ Tri.Triangle? TryASA(int A1, {int limit = 3})
 
 Tri.Triangle? TrySSA(int S1, {int limit = 3})
 {
-  //print("Trying SSA $limit");
+  print("Trying SSA $limit");
   //DIO.sleep(Duration(seconds: 10));
   int S2 = Iterate(S1, TV.Contents.Side);
   int A = Iterate(S2, TV.Contents.Angle);
@@ -142,7 +142,7 @@ Tri.Triangle? TrySSA(int S1, {int limit = 3})
 
 Tri.Triangle? TrySAS(int S1, {int limit = 3})
 {
-  //print("Trying SAS $limit");
+  print("Trying SAS $limit");
   //DIO.sleep(Duration(seconds: 10));
   int A = Iterate(S1, TV.Contents.Angle);
   int S2 = Iterate(A, TV.Contents.Side);
@@ -160,7 +160,11 @@ Tri.Triangle? TrySAS(int S1, {int limit = 3})
 
   if (limit > 0)
   {
-    return TryASA(Iterate(S1, TV.Contents.Side), limit: limit - 1);
+    var irt = TryASA(Iterate(S1, TV.Contents.Side), limit: limit - 1);
+    if (irt is Tri.Triangle)
+    {
+      irt.RotAaB();
+    }
   }
   return null;
 }
@@ -184,6 +188,7 @@ void TrySolve()
 
   if (tri != null)
   {
+    tri.ConvertAngle(TV.RMode);
     TV.Values[TV.SyAIE.AA.index] = tri.A;
     TV.Values[TV.SyAIE.AB.index] = tri.B;
     TV.Values[TV.SyAIE.AC.index] = tri.C;
@@ -198,7 +203,7 @@ void ToPrimitive2D(int intex)
   //TrySolve();
   if(TV.TxtControllers[intex].text.isEmpty)
   {
-    print("$intex is empty");
+    //print("$intex is empty");
   }
   try
   {
@@ -238,12 +243,13 @@ Scaffold TriSolver(BuildContext context)
   for(int fv = 0; fv <= 2; fv ++)
   {
     TV.Values[fv] = null;
+    (TV.TxtControllers[fv].text.isEmpty) ? null : ToPrimitive2D(fv);
   }
   TrySolve();
   print(TV.Values);
   for (var box in TV.TxtControllers)
   {
-    print(box.text);
+   // print(box.text);
   }
 	return Scaffold(body: 
 		Column(children:
