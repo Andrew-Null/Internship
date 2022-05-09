@@ -13,7 +13,7 @@ import 'TriComponents.dart' as TC;
 
 int Iterate(int val, TV.Contents mode)
 {
-  print("Iterating $val for $mode");
+  //print("Iterating $val for $mode");
   //Future.delayed(Duration(seconds: 10), () => null);
   switch (mode)
   {
@@ -67,7 +67,7 @@ int Iterate(int val, TV.Contents mode)
 
 Tri.Triangle? TryAAS(int A1, {int limit = 3})
 {
-  print("Trying AAS $limit");
+  //print("Trying AAS $limit");
   //DIO.sleep(Duration(seconds: 10));
   int A2 = Iterate(A1, TV.Contents.Angle);
   int S = Iterate(A2, TV.Contents.Side);
@@ -92,7 +92,7 @@ Tri.Triangle? TryAAS(int A1, {int limit = 3})
 
 Tri.Triangle? TryASA(int A1, {int limit = 3})
 {
-  print("Trying ASA $limit");
+  //print("Trying ASA $limit");
   //DIO.sleep(Duration(seconds: 10));
   int S = Iterate(A1, TV.Contents.Side);
   int A2 = Iterate(S, TV.Contents.Angle);
@@ -117,7 +117,7 @@ Tri.Triangle? TryASA(int A1, {int limit = 3})
 
 Tri.Triangle? TrySSA(int S1, {int limit = 3})
 {
-  print("Trying SSA $limit");
+  //print("Trying SSA $limit");
   //DIO.sleep(Duration(seconds: 10));
   int S2 = Iterate(S1, TV.Contents.Side);
   int A = Iterate(S2, TV.Contents.Angle);
@@ -142,7 +142,7 @@ Tri.Triangle? TrySSA(int S1, {int limit = 3})
 
 Tri.Triangle? TrySAS(int S1, {int limit = 3})
 {
-  print("Trying SAS $limit");
+  //print("Trying SAS $limit");
   //DIO.sleep(Duration(seconds: 10));
   int A = Iterate(S1, TV.Contents.Angle);
   int S2 = Iterate(A, TV.Contents.Side);
@@ -196,8 +196,13 @@ void TrySolve()
 void ToPrimitive2D(int intex)
 {
   //TrySolve();
+  if(TV.TxtControllers[intex].text.isEmpty)
+  {
+    print("$intex is empty");
+  }
   try
   {
+    TV.Values[intex] = null;
     double val = double.parse(TV.TxtControllers[intex].text);
     if (intex <= 2)
     {
@@ -230,7 +235,16 @@ void ToPrimitive2D(int intex)
 
 Scaffold TriSolver(BuildContext context)
 {
+  for(int fv = 0; fv <= 2; fv ++)
+  {
+    TV.Values[fv] = null;
+  }
   TrySolve();
+  print(TV.Values);
+  for (var box in TV.TxtControllers)
+  {
+    print(box.text);
+  }
 	return Scaffold(body: 
 		Column(children:
 			[
