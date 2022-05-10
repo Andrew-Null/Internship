@@ -113,6 +113,7 @@ Tri.Triangle? TryASA(int A1, {int limit = 3})
     {
       irt.RotAaB();
     }
+    return irt;
   }
   return null;
 }
@@ -156,7 +157,12 @@ Tri.Triangle? TrySAA(int S, {int limit = 3})
 
   if (s != null && a1 != null && a2 != null)
   {
-    return Tri.Triangle.AAS(a2, a1, s);
+    var tri = Tri.Triangle.AAS(a2, a1, s);
+    if (tri != null)
+    {
+      tri.RotAaC();
+    }
+    return tri;
   }
   if (limit > 1)
   {
