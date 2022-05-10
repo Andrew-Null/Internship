@@ -77,7 +77,7 @@ Tri.Triangle? TryAAS(int A1, {int limit = 3})
     return tri;
   }
 
-  if (limit > 0)
+  if (limit > 1)
   {
     var irt = TryAAS(Iterate(A1, TV.Contents.Angle), limit: limit - 1);
     if (irt is Tri.Triangle)
@@ -106,7 +106,7 @@ Tri.Triangle? TryASA(int A1, {int limit = 3})
     return tri;
   }
 
-  if (limit > 0)
+  if (limit > 1)
   {
     var irt = TryASA(Iterate(A1, TV.Contents.Angle), limit: limit - 1);
     if (irt is Tri.Triangle)
@@ -132,9 +132,12 @@ Tri.Triangle? TryASS(int A, {int limit = 3})
   {
     return Tri.Triangle.SSA(s2, s1, a);
   }
-  if (limit > 0)
+  if (limit > 1)
   {
-    return TryASS(Iterate(A, TV.Contents.Angle), limit: limit - 1);
+    var tri = TryASS(Iterate(A, TV.Contents.Angle), limit: limit - 1);
+    if (tri != null)
+    {tri.RotAaB();}
+    return tri;
   }
   return null;
 
@@ -155,7 +158,7 @@ Tri.Triangle? TrySAA(int S, {int limit = 3})
   {
     return Tri.Triangle.AAS(a2, a1, s);
   }
-  if (limit > 0)
+  if (limit > 1)
   {
     var tri = TrySAA(Iterate(S, TV.Contents.Side), limit: limit - 1);
     if (tri != null) 
@@ -186,13 +189,14 @@ Tri.Triangle? TrySSA(int S1, {int limit = 3})
     return tri;
   }
 
-  if (limit > 0)
+  if (limit > 1)
   {
-    var irt = TrySSA(Iterate(S1, TV.Contents.Side), limit: limit - 1);
-    if (irt is Tri.Triangle)
+    var tri = TrySSA(Iterate(S1, TV.Contents.Side), limit: limit - 1);
+    if (tri is Tri.Triangle)
     {
-      irt.RotAaB();
+      tri.RotAaB();
     }
+    return tri;
   }
   return null;
 }
@@ -204,7 +208,7 @@ Tri.Triangle? TrySAS(int S1, {int limit = 3})
 
   print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[A].text} : ${TV.TxtControllers[S2].text}");
 
-  if (TV.Values[S1] is Side.Side && TV.Values[A] is Ang.Angle && TV.Values[S2] is Side.Side)
+  if (TV.Values[S1] != null && TV.Values[A]!= null && TV.Values[S2] != null)
   {
     var tri = Tri.Triangle.SAS
     (
@@ -215,14 +219,14 @@ Tri.Triangle? TrySAS(int S1, {int limit = 3})
     return tri;
   }
 
-  if (limit > 0)
+  if (limit > 1)
   {
-    /*var irt =*/ TrySAS(Iterate(S1, TV.Contents.Side), limit: limit - 1);
-    /*if (irt is Tri.Triangle)
+    var irt = TrySAS(Iterate(S1, TV.Contents.Side), limit: limit - 1);
+    if (irt != null)
     {
       irt.RotAaB();
-    }*/
-
+    }
+    return irt;
   }
   return null;
 }
@@ -235,24 +239,32 @@ Tri.Triangle? TrySSS()
   }
 }
 
-Tri.Triangle? TryLDC({int S1 = 3, int S2 = 4, int A = 5, int limit = 3})
+Tri.Triangle? TryLDC({int S1 = 3, int S2 = 4, int A = 2, int limit = 3})
 {
   Side.Side? s1 = TV.Values[S1] as Side.Side?;
   Side.Side? s2 = TV.Values[S2] as Side.Side?;
-  Ang.Angle? a = TV.Values[A] as Ang.Angle;
+  Ang.Angle? a = TV.Values[A] as Ang.Angle?;
+
+  print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[S2].text} : ${TV.TxtControllers[A].text}");
 
   if (s1 != null && s2 != null && a != null)
   {
     return Tri.Triangle.LDC(s1, s2, a);
   } 
-  if (limit > 0)
+  if (limit > 1)
   {
-    return TryLDC
+    var tri = TryLDC
     (
       S1: Iterate(S1, TV.Contents.Side),
       S2: Iterate(S2, TV.Contents.Side),
-      A: Iterate(A, TV.Contents.Angle)
+      A: Iterate(A, TV.Contents.Angle),
+      limit: limit -1
     );
+    if (tri != null)
+    {
+      tri.RotAaC();
+    }
+    return tri;
   }
   return null;
 }
