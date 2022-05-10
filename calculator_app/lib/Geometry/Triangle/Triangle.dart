@@ -134,6 +134,12 @@ class Triangle extends Geo.Polygon
     Laws.LDC(c, b, a) as Ang.Radian);
   }
 
+  static Triangle LDC(Side.Side a, Side.Side b, Ang.Angle C)
+  {
+    Side.Side c = Laws.LDC(a, b, C) as Side.Side;
+    return SSS(a, b, c);
+  }
+
   void ConvertAngle(bool TR) //to radian
   {
     if (TR)

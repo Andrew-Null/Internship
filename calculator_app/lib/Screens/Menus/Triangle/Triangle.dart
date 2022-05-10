@@ -61,7 +61,6 @@ int Iterate(int val, TV.Contents mode)
 
 Tri.Triangle? TryAAS(int A1, {int limit = 3})
 {
-  print("Trying AAS $limit");
   int A2 = Iterate(A1, TV.Contents.Angle);
   int S = Iterate(A2, TV.Contents.Side);
 
@@ -91,9 +90,10 @@ Tri.Triangle? TryAAS(int A1, {int limit = 3})
 
 Tri.Triangle? TryASA(int A1, {int limit = 3})
 {
-  print("Trying ASA $limit");
   int S = Iterate(A1, TV.Contents.Side);
   int A2 = Iterate(S, TV.Contents.Angle);
+
+  print("${TV.TxtControllers[A1].text} : ${TV.TxtControllers[S].text} : ${TV.TxtControllers[A2].text}");
 
   if (TV.Values[A1] is Ang.Angle && TV.Values[A2] is Ang.Angle && TV.Values[S] is Side.Side)
   {
@@ -121,6 +121,8 @@ Tri.Triangle? TryASS(int A, {int limit = 3})
 {
   int S1 = Iterate(A, TV.Contents.Side);
   int S2 = Iterate(S1, TV.Contents.Side);
+  
+  print("${TV.TxtControllers[A].text} : ${TV.TxtControllers[S1].text} : ${TV.TxtControllers[S2].text}");
 
   Ang.Angle? a = TV.Values[A] as Ang.Angle?;
   Side.Side? s1 = TV.Values[S1] as Side.Side?;
@@ -143,6 +145,8 @@ Tri.Triangle? TrySAA(int S, {int limit = 3})
   int A1 = Iterate(S, TV.Contents.Angle);
   int A2 = Iterate(A1, TV.Contents.Angle);
 
+  print("${TV.TxtControllers[S].text} : ${TV.TxtControllers[A1].text} : ${TV.TxtControllers[A2].text}");
+
   Side.Side? s = TV.Values[S] as Side.Side?;
   Ang.Angle? a1 = TV.Values[A1] as Ang.Angle?;
   Ang.Angle? a2 = TV.Values[A2] as Ang.Angle?;
@@ -153,7 +157,12 @@ Tri.Triangle? TrySAA(int S, {int limit = 3})
   }
   if (limit > 0)
   {
-    return TrySAA(Iterate(S, TV.Contents.Side), limit: limit - 1);
+    var tri = TrySAA(Iterate(S, TV.Contents.Side), limit: limit - 1);
+    if (tri != null) 
+    {
+      tri.RotAaC();
+      return tri;
+    }
   }
   return null;
 
@@ -161,9 +170,10 @@ Tri.Triangle? TrySAA(int S, {int limit = 3})
 
 Tri.Triangle? TrySSA(int S1, {int limit = 3})
 {
-  //print("Trying SSA $limit");
   int S2 = Iterate(S1, TV.Contents.Side);
   int A = Iterate(S2, TV.Contents.Angle);
+
+  print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[S2].text} : ${TV.TxtControllers[A].text}");
 
   if (TV.Values[S1] is Side.Side && TV.Values[S2] is Side.Side && TV.Values[A] is Ang.Angle)
   {
@@ -189,9 +199,10 @@ Tri.Triangle? TrySSA(int S1, {int limit = 3})
 
 Tri.Triangle? TrySAS(int S1, {int limit = 3})
 {
-  //print("Trying SAS $limit");
   int A = Iterate(S1, TV.Contents.Angle);
   int S2 = Iterate(A, TV.Contents.Side);
+
+  print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[A].text} : ${TV.TxtControllers[S2].text}");
 
   if (TV.Values[S1] is Side.Side && TV.Values[A] is Ang.Angle && TV.Values[S2] is Side.Side)
   {
@@ -224,15 +235,53 @@ Tri.Triangle? TrySSS()
   }
 }
 
+Tri.Triangle? TryLDC({int S1 = 3, int S2 = 4, int A = 5, int limit = 3})
+{
+  Side.Side? s1 = TV.Values[S1] as Side.Side?;
+  Side.Side? s2 = TV.Values[S2] as Side.Side?;
+  Ang.Angle? a = TV.Values[A] as Ang.Angle;
+
+  if (s1 != null && s2 != null && a != null)
+  {
+    return Tri.Triangle.LDC(s1, s2, a);
+  } 
+  if (limit > 0)
+  {
+    return TryLDC
+    (
+      S1: Iterate(S1, TV.Contents.Side),
+      S2: Iterate(S2, TV.Contents.Side),
+      A: Iterate(A, TV.Contents.Angle)
+    );
+  }
+  return null;
+}
+
 void TrySolve()
 {
+  print("AAS");
   Tri.Triangle? tri = TryAAS(0); //001
+
+  print("ASA");
   tri ??= TryASA(0); //010
+
+  print("ASS");
   tri ??= TryASS(0); //011
+
+  print("SAA");
   tri ??= TrySAA(5); //100
+
+  print("SAS");
   tri ??= TrySAS(5); //101
+
+  print("SSA");
   tri ??= TrySSA(5); //110
+
+  print("SSS");
   tri ??= TrySSS();  //111
+
+  print("LDC");
+  tri ??= TryLDC();
 
   if (tri != null)
   {
