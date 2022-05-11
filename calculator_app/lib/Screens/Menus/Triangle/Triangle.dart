@@ -332,6 +332,7 @@ Scaffold TriSolver(BuildContext context)
         [
         const Text("Radians?"),
         TC.RSwitch(context),
+        TC.CButton(context),
 				MM.MMB()
         ]),
 			]

@@ -137,6 +137,22 @@ Column AngleTextBoxes(BuildContext context)
   );
 }
 
+TextButton CButton(BuildContext context)
+{
+  return TextButton(onPressed: ()
+  {
+    for (int fv = 0; fv < 6; fv++)
+    {
+      TV.Values[fv] = null;
+    }
+    for (int fv = 0; fv < 6; fv++)
+    {
+      TV.TxtControllers[fv].text = "";
+    }
+    main.app.Refresh;
+  }, child: Text("Clear"));
+}
+
 SizedBox TxtBoxGen(TV.SyAIE index, BuildContext context)
 {
   const double SWITCHSPACE = 32.5;
