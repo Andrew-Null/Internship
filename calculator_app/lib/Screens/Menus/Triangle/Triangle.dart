@@ -59,35 +59,6 @@ int Iterate(int val, TV.Contents mode)
   }
 }
 
-Tri.Triangle? TryAAS(int A1, {int limit = 3})
-{
-  int A2 = Iterate(A1, TV.Contents.Angle);
-  int S = Iterate(A2, TV.Contents.Side);
-
-  print("${TV.TxtControllers[A1].text} : ${TV.TxtControllers[A2].text} : ${TV.TxtControllers[S].text}");
-
-  if (TV.Values[A1] is Ang.Angle && TV.Values[A2] is Ang.Angle && TV.Values[S] is Side.Side)
-  {
-    var tri = Tri.Triangle.AAS
-    (
-      TV.Values[A1] as Ang.Angle,
-      TV.Values[A2] as Ang.Angle,
-      TV.Values[S] as Side.Side
-    );
-    return tri;
-  }
-
-  if (limit > 1)
-  {
-    var irt = TryAAS(Iterate(A1, TV.Contents.Angle), limit: limit - 1);
-    if (irt is Tri.Triangle)
-    {
-      irt.RotAaB();
-    }
-  }
-  return null;
-}
-
 Tri.Triangle? TryASA(int A1, {int limit = 3})
 {
   int S = Iterate(A1, TV.Contents.Side);
@@ -144,10 +115,25 @@ Tri.Triangle? TryASS(int A, {int limit = 3})
 
 }
 
-Tri.Triangle? TrySAA(int S, {int limit = 3})
+Tri.Triangle? TrySAA()
 {
-  int A1 = Iterate(S, TV.Contents.Angle);
-  int A2 = Iterate(A1, TV.Contents.Angle);
+  bool rot = true;
+  Tri.Triangle? tri = _TrySAA(5, 1, 2);
+  if (tri != null && rot) {tri.RotAaC(); rot = false;}
+  tri ??= _TrySAA(5, 0, 2);
+  if (tri != null && rot) {tri.Mirror(); tri.RotAaC(); rot = false;}
+  tri ??= _TrySAA(4, 0, 1);
+  if (tri != null && rot) {tri.RotAaB(); rot = false;}
+  tri ??= _TrySAA(4, 2, 1);
+  if (tri != null && rot) {tri.RotAaC(); rot = false;}
+  tri ??= _TrySAA(3, 1, 0);
+  if (tri != null && rot) {tri.Mirror(); rot = false;}
+  tri ??= _TrySAA(3, 2, 0);
+
+  return tri;
+}
+Tri.Triangle? _TrySAA(int S, int A1, int A2)
+{
 
   print("${TV.TxtControllers[S].text} : ${TV.TxtControllers[A1].text} : ${TV.TxtControllers[A2].text}");
 
@@ -163,15 +149,6 @@ Tri.Triangle? TrySAA(int S, {int limit = 3})
       tri.RotAaC();
     }
     return tri;
-  }
-  if (limit > 1)
-  {
-    var tri = TrySAA(Iterate(S, TV.Contents.Side), limit: limit - 1);
-    if (tri != null) 
-    {
-      tri.RotAaC();
-      return tri;
-    }
   }
   return null;
 
@@ -277,17 +254,17 @@ Tri.Triangle? TryLDC({int S1 = 3, int S2 = 4, int A = 2, int limit = 3})
 
 void TrySolve()
 {
-  print("AAS");
-  Tri.Triangle? tri = TryAAS(0); //001
+  //print("AAS");
+  //Tri.Triangle? tri = TryAAS(0); //001
 
   print("ASA");
-  tri ??= TryASA(0); //010
+  Tri.Triangle? tri = TryASA(0); //010
 
   print("ASS");
   tri ??= TryASS(0); //011
 
   print("SAA");
-  tri ??= TrySAA(5); //100
+  tri ??= TrySAA(); //100
 
   print("SAS");
   tri ??= TrySAS(5); //101
