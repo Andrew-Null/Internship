@@ -64,8 +64,6 @@ Tri.Triangle? TryASA(int A1, {int limit = 3})
   int S = Iterate(A1, TV.Contents.Side);
   int A2 = Iterate(S, TV.Contents.Angle);
 
-  print("${TV.TxtControllers[A1].text} : ${TV.TxtControllers[S].text} : ${TV.TxtControllers[A2].text}");
-
   if (TV.Values[A1] is Ang.Angle && TV.Values[A2] is Ang.Angle && TV.Values[S] is Side.Side)
   {
     var tri = Tri.Triangle.ASA
@@ -93,8 +91,6 @@ Tri.Triangle? TryASS(int A, {int limit = 3})
 {
   int S1 = Iterate(A, TV.Contents.Side);
   int S2 = Iterate(S1, TV.Contents.Side);
-  
-  print("${TV.TxtControllers[A].text} : ${TV.TxtControllers[S1].text} : ${TV.TxtControllers[S2].text}");
 
   Ang.Angle? a = TV.Values[A] as Ang.Angle?;
   Side.Side? s1 = TV.Values[S1] as Side.Side?;
@@ -134,9 +130,6 @@ Tri.Triangle? TrySAA()
 }
 Tri.Triangle? _TrySAA(int S, int A1, int A2)
 {
-
-  print("${TV.TxtControllers[S].text} : ${TV.TxtControllers[A1].text} : ${TV.TxtControllers[A2].text}");
-
   Side.Side? s = TV.Values[S] as Side.Side?;
   Ang.Angle? a1 = TV.Values[A1] as Ang.Angle?;
   Ang.Angle? a2 = TV.Values[A2] as Ang.Angle?;
@@ -158,8 +151,6 @@ Tri.Triangle? TrySSA(int S1, {int limit = 3})
 {
   int S2 = Iterate(S1, TV.Contents.Side);
   int A = Iterate(S2, TV.Contents.Angle);
-
-  print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[S2].text} : ${TV.TxtControllers[A].text}");
 
   if (TV.Values[S1] is Side.Side && TV.Values[S2] is Side.Side && TV.Values[A] is Ang.Angle)
   {
@@ -188,8 +179,6 @@ Tri.Triangle? TrySAS(int S1, {int limit = 3})
 {
   int A = Iterate(S1, TV.Contents.Angle);
   int S2 = Iterate(A, TV.Contents.Side);
-
-  print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[A].text} : ${TV.TxtControllers[S2].text}");
 
   if (TV.Values[S1] != null && TV.Values[A]!= null && TV.Values[S2] != null)
   {
@@ -228,7 +217,6 @@ Tri.Triangle? TryLDC({int S1 = 3, int S2 = 4, int A = 2, int limit = 3})
   Side.Side? s2 = TV.Values[S2] as Side.Side?;
   Ang.Angle? a = TV.Values[A] as Ang.Angle?;
 
-  print("${TV.TxtControllers[S1].text} : ${TV.TxtControllers[S2].text} : ${TV.TxtControllers[A].text}");
 
   if (s1 != null && s2 != null && a != null)
   {
@@ -256,26 +244,12 @@ void TrySolve()
 {
   //print("AAS");
   //Tri.Triangle? tri = TryAAS(0); //001
-
-  print("ASA");
   Tri.Triangle? tri = TryASA(0); //010
-
-  print("ASS");
   tri ??= TryASS(0); //011
-
-  print("SAA");
   tri ??= TrySAA(); //100
-
-  print("SAS");
   tri ??= TrySAS(5); //101
-
-  print("SSA");
   tri ??= TrySSA(5); //110
-
-  print("SSS");
   tri ??= TrySSS();  //111
-
-  print("LDC");
   tri ??= TryLDC();
 
   if (tri != null)
@@ -333,7 +307,6 @@ Scaffold TriSolver(BuildContext context)
     String txt =  TV.TxtControllers[fv].text;
     (TV.TxtControllers[fv].text.isEmpty) ? null : ToPrimitive2D(fv);
   }
-  print(TV.Values);
   TrySolve();
   int fv = 0;
 	return Scaffold(body: 
