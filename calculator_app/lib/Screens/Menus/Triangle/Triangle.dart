@@ -242,8 +242,6 @@ Tri.Triangle? TryLDC({int S1 = 3, int S2 = 4, int A = 2, int limit = 3})
 
 void TrySolve()
 {
-  //print("AAS");
-  //Tri.Triangle? tri = TryAAS(0); //001
   Tri.Triangle? tri = TryASA(0); //010
   tri ??= TryASS(0); //011
   tri ??= TrySAA(); //100
